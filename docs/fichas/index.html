@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fichas del taller</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .list a {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: center;
+    padding: 12px 16px; border-radius: 12px; background: var(--bg); color: var(--ink); text-decoration: none;
+    border: 2px solid transparent;
+  }
+  .list a:hover { border-color: var(--c); }
+  .list strong { font-size: 1.1rem; }
+  .list .use { color: var(--muted); font-size: 0.9rem; text-align: right; }
+  @media (max-width: 560px) { .list a { grid-template-columns: minmax(0, 1fr); } .list .use { text-align: left; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar"><a href="../">← Programa</a></div>
+  <header>
+    <div class="eyebrow">Taller de informática</div>
+    <h1>Fichas<span class="fr">Fiches</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>Sesión 1 – El ordenador y yo</h2>
+    <ul class="list">
+      <li><a href="s01-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s01-normas.html"><strong>Normas del aula</strong><span class="use">Imprimir en A3, para la pared</span></a></li>
+      <li><a href="s01-partes.html"><strong>Partes del ordenador</strong><span class="use">Tarjetas para recortar, 1 juego por pareja</span></a></li>
+      <li><a href="raton.html"><strong>Juego del ratón</strong><span class="use">Abrir en cada ordenador</span></a></li>
+      <li><a href="s01-teclado.html"><strong>El teclado</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s01-records.html"><strong>Hoja de récords de mecanografía</strong><span class="use">Imprimir 1, sirve para todo el trimestre</span></a></li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

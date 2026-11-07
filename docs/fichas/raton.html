@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Juego del ratón</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .page { max-width: 1100px; gap: 14px; }
+  .levels { display: flex; flex-wrap: wrap; gap: 8px; }
+  .levels button { background: transparent; color: var(--c); }
+  .levels button[aria-pressed="true"] { background: var(--c); color: var(--card); }
+  .levels button.done::after { content: " ✓"; }
+  .bar {
+    display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between;
+  }
+  .instr { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.1; }
+  .instr .fr { display: block; font-family: var(--body); font-size: 0.6em; }
+  .count { font-family: var(--display); font-weight: 800; font-size: 1.6rem; font-variant-numeric: tabular-nums; color: var(--c); }
+  .stage {
+    position: relative;
+    height: max(360px, 62vh);
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    user-select: none; -webkit-user-select: none;
+    touch-action: none;
+  }
+  .target {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, var(--card) 0 18%, var(--c) 19% 38%, var(--card) 39% 56%, var(--c) 57%);
+    cursor: pointer; border: 0; padding: 0;
+    transition: transform 0.12s;
+  }
+  .target:hover { transform: scale(1.06); }
+  .thing {
+    position: absolute; font-size: 72px; line-height: 1; cursor: pointer;
+    background: none; border: 0; padding: 0;
+  }
+  .drag { cursor: grab; touch-action: none; }
+  .drag.dragging { cursor: grabbing; transform: scale(1.15); z-index: 5; }
+  .basket {
+    position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    width: 200px; height: 200px; border-radius: 24px;
+    border: 4px dashed var(--ok); background: var(--soft);
+    display: grid; place-items: center; font-size: 96px;
+  }
+  .basket.over { border-style: solid; }
+  .hint {
+    position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+    background: var(--ink); color: var(--card); padding: 8px 18px; border-radius: 999px;
+    font-weight: 700; white-space: nowrap; pointer-events: none;
+  }
+  .win {
+    position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px;
+    background: var(--card); text-align: center; padding: 16px;
+  }
+  .win .big { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 6vw, 3.6rem); color: var(--ok); line-height: 1; }
+  .win .time { font-size: 1.2rem; }
+  @media (prefers-reduced-motion: reduce) { .target, .drag { transition: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <span class="fr">Sesión 1 · Séance 1</span>
+  </div>
+
+  <h1>Juego del ratón<span class="fr">Le jeu de la souris</span></h1>
+
+  <nav class="levels" aria-label="Niveles">
+    <button type="button" id="lv0" data-level="0">1 · Clic</button>
+    <button type="button" id="lv1" data-level="1">2 · Doble clic</button>
+    <button type="button" id="lv2" data-level="2">3 · Clic derecho</button>
+    <button type="button" id="lv3" data-level="3">4 · Arrastrar</button>
+  </nav>
+
+  <div class="bar">
+    <div class="instr" id="instr"></div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+(function () {
+  var LEVELS = [
+    { es: 'Haz clic en la diana', fr: 'Clique sur la cible', total: 10 },
+    { es: 'Haz doble clic en la carpeta', fr: 'Double-clique sur le dossier', total: 6 },
+    { es: 'Haz clic derecho en la estrella', fr: 'Clic droit sur l\'étoile', total: 6 },
+    { es: 'Arrastra la fruta a la cesta', fr: 'Fais glisser le fruit dans le panier', total: 5 }
+  ];
+  var FRUITS = ['🍎', '🍌', '🍊', '🍇', '🍐'];
+
+  var stage = document.getElementById('stage');
+  var instr = document.getElementById('instr');
+  var count = document.getElementById('count');
+  var level = 0, done = 0, start = 0, hintTimer = null;
+  var finished = [false, false, false, false];
+
+  function rand(min, max) { return min + Math.random() * (max - min); }
+
+  function place(el, size, maxX) {
+    var w = (maxX || stage.clientWidth) - size - 16;
+    var h = stage.clientHeight - size - 16;
+    el.style.left = Math.round(rand(16, Math.max(16, w))) + 'px';
+    el.style.top = Math.round(rand(16, Math.max(16, h))) + 'px';
+  }
+
+  function hint(text) {
+    var old = stage.querySelector('.hint');
+    if (old) old.remove();
+    var h = document.createElement('div');
+    h.className = 'hint';
+    h.textContent = text;
+    stage.appendChild(h);
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(function () { h.remove(); }, 1800);
+  }
+
+  function updateCount() {
+    count.textContent = done + ' / ' + LEVELS[level].total;
+  }
+
+  function hit() {
+    done++;
+    updateCount();
+    if (done >= LEVELS[level].total) win(); else next();
+  }
+
+  function win() {
+    finished[level] = true;
+    document.getElementById('lv' + level).classList.add('done');
+    var secs = Math.round((Date.now() - start) / 1000);
+    stage.innerHTML = '';
+    var w = document.createElement('div');
+    w.className = 'win';
+    w.innerHTML = '<div class="big">¡Muy bien!<br><span class="fr">Bravo !</span></div>' +
+      '<div class="time">' + secs + ' segundos · ' + secs + ' secondes</div>';
+    var again = document.createElement('button');
+    again.type = 'button';
+    again.className = 'ghost';
+    again.textContent = 'Otra vez · Encore';
+    again.onclick = function () { setLevel(level); };
+    w.appendChild(again);
+    if (level < LEVELS.length - 1) {
+      var nx = document.createElement('button');
+      nx.type = 'button';
+      nx.textContent = 'Siguiente nivel · Niveau suivant →';
+      nx.onclick = function () { setLevel(level + 1); };
+      w.appendChild(nx);
+      nx.focus();
+    }
+    stage.appendChild(w);
+  }
+
+  function next() {
+    stage.innerHTML = '';
+    if (level === 0) {
+      var size = Math.round(120 - done * 7);   // la diana se hace más pequeña
+      var t = document.createElement('button');
+      t.type = 'button';
+      t.className = 'target';
+      t.setAttribute('aria-label', 'Diana');
+      t.style.width = t.style.height = size + 'px';
+      place(t, size);
+      t.addEventListener('click', hit);
+      stage.appendChild(t);
+    } else if (level === 1) {
+      var f = document.createElement('button');
+      f.type = 'button';
+      f.className = 'thing';
+      f.textContent = '📁';
+      f.setAttribute('aria-label', 'Carpeta');
+      place(f, 80);
+      var pending = null;   // el primer clic de un doble clic no debe mostrar la pista
+      f.addEventListener('click', function (e) {
+        if (e.detail === 1) pending = setTimeout(function () { hint('¡Dos veces, rápido! · Deux fois, vite !'); }, 450);
+      });
+      f.addEventListener('dblclick', function () {
+        clearTimeout(pending);
+        f.textContent = '📂';
+        f.disabled = true;
+        setTimeout(hit, 350);
+      });
+      stage.appendChild(f);
+    } else if (level === 2) {
+      var s = document.createElement('button');
+      s.type = 'button';
+      s.className = 'thing';
+      s.textContent = '⭐';
+      s.setAttribute('aria-label', 'Estrella');
+      place(s, 80);
+      s.addEventListener('click', function () { hint('Botón derecho · Bouton droit'); });
+      s.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        s.textContent = '🌟';
+        s.disabled = true;
+        setTimeout(hit, 350);
+      });
+      stage.appendChild(s);
+    } else {
+      dragRound();
+    }
+  }
+
+  function dragRound() {
+    var basket = document.createElement('div');
+    basket.className = 'basket';
+    basket.textContent = '🧺';
+    stage.appendChild(basket);
+    var fruit = document.createElement('div');
+    fruit.className = 'thing drag';
+    fruit.textContent = FRUITS[done % FRUITS.length];
+    fruit.setAttribute('role', 'img');
+    fruit.setAttribute('aria-label', 'Fruta');
+    place(fruit, 80, stage.clientWidth * 0.5);
+    stage.appendChild(fruit);
+
+    var dx = 0, dy = 0, dragging = false;
+    function overBasket() {
+      var a = fruit.getBoundingClientRect(), b = basket.getBoundingClientRect();
+      var cx = a.left + a.width / 2, cy = a.top + a.height / 2;
+      return cx > b.left && cx < b.right && cy > b.top && cy < b.bottom;
+    }
+    fruit.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      fruit.setPointerCapture(e.pointerId);
+      fruit.classList.add('dragging');
+      dx = e.clientX - fruit.offsetLeft;
+      dy = e.clientY - fruit.offsetTop;
+    });
+    fruit.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      fruit.style.left = (e.clientX - dx) + 'px';
+      fruit.style.top = (e.clientY - dy) + 'px';
+      basket.classList.toggle('over', overBasket());
+    });
+    fruit.addEventListener('pointerup', function () {
+      if (!dragging) return;
+      dragging = false;
+      fruit.classList.remove('dragging');
+      if (overBasket()) { fruit.remove(); setTimeout(hit, 200); }
+      else hint('No sueltes el botón · Ne lâche pas le bouton');
+    });
+  }
+
+  function setLevel(n) {
+    level = n; done = 0; start = Date.now();
+    for (var i = 0; i < LEVELS.length; i++) {
+      document.getElementById('lv' + i).setAttribute('aria-pressed', i === n ? 'true' : 'false');
+    }
+    instr.innerHTML = LEVELS[n].es + '<span class="fr">' + LEVELS[n].fr + '</span>';
+    updateCount();
+    next();
+  }
+
+  document.querySelectorAll('.levels button').forEach(function (b) {
+    b.addEventListener('click', function () { setLevel(Number(b.dataset.level)); });
+  });
+  setLevel(0);
+})();
+</script>
+</body>
+</html>

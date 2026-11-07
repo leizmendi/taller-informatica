@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Normas del aula</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .rules { grid-template-columns: minmax(0, 1fr); } }
+  .rule {
+    display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 16px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 16px;
+  }
+  .rule svg { width: 72px; height: 72px; color: var(--c); background: var(--soft); border-radius: 14px; padding: 10px; }
+  .rule .es { display: block; font-family: var(--display); font-weight: 800; font-size: 1.45rem; line-height: 1.15; }
+  .rule .fr { display: block; font-size: 1.05rem; margin-top: 2px; }
+  @media print { body { font-size: 16pt; } .rule .es { font-size: 20pt; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Taller de informática · Atelier d'informatique</div>
+    <h1>Normas del aula<span class="fr">Les règles de la classe</span></h1>
+  </header>
+
+  <section class="rules">
+    <div class="rule">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="14" r="6"/><circle cx="32" cy="14" r="6"/><path d="M5 40c0-7 5-12 11-12s11 5 11 12M21 40c0-7 5-12 11-12s11 5 11 12"/></svg>
+      <div><span class="es">Nos ayudamos. Nadie se ríe de nadie.</span><span class="fr">On s'entraide. Personne ne se moque.</span></div>
+    </div>
+    <div class="rule">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 28V8a3 3 0 0 1 6 0v14M24 20v-4a3 3 0 0 1 6 0v6M30 20a3 3 0 0 1 6 0v8c0 8-5 14-12 14s-10-4-13-10l-3-6a3 3 0 0 1 5-3l3 4"/></svg>
+      <div><span class="es">Si no sabes, pregunta.</span><span class="fr">Si tu ne sais pas, demande.</span></div>
+    </div>
+    <div class="rule">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6a12 12 0 0 0-7 22v5h14v-5a12 12 0 0 0-7-22zM18 39h12M20 44h8"/></svg>
+      <div><span class="es">Equivocarse es aprender.</span><span class="fr">Se tromper, c'est apprendre.</span></div>
+    </div>
+    <div class="rule">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="5" width="20" height="38" rx="4"/><path d="M21 37h6"/><path d="M6 6l36 36"/></svg>
+      <div><span class="es">El móvil, en la mochila (salvo cuando lo usamos en clase).</span><span class="fr">Le téléphone dans le sac (sauf quand on l'utilise en classe).</span></div>
+    </div>
+    <div class="rule">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 10h20l-3 32H17zM12 10h24"/><path d="M6 6l36 36"/></svg>
+      <div><span class="es">No comemos ni bebemos junto al ordenador.</span><span class="fr">On ne mange pas et on ne boit pas près de l'ordinateur.</span></div>
+    </div>
+    <div class="rule">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6v16"/><path d="M14 12a15 15 0 1 0 20 0"/></svg>
+      <div><span class="es">Al terminar, cierro mi sesión y apago bien.</span><span class="fr">À la fin, je ferme ma session et j'éteins bien.</span></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hoja de récords</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .page { max-width: 1100px; }
+  .table-wrap { overflow-x: auto; background: var(--card); border: 2px solid var(--line); border-radius: 16px; }
+  table { border-collapse: collapse; width: 100%; min-width: 760px; font-variant-numeric: tabular-nums; }
+  th, td { border: 1px solid var(--line); height: 2.4em; text-align: center; }
+  th { font-family: var(--display); font-weight: 800; font-size: 1.1rem; color: var(--c); background: var(--soft); padding: 4px; }
+  th:first-child, td:first-child { text-align: left; padding-left: 10px; width: 22%; }
+  th small { display: block; font-family: var(--body); font-weight: 400; font-size: 0.7rem; color: var(--muted); }
+  @page records { size: A4 landscape; margin: 10mm; }
+  @media print { .page { page: records; } table { min-width: 0; } .table-wrap { border-radius: 0; border: 0; } th, td { height: 9.5mm; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Mecanografía · Dactylographie</div>
+    <h1>Hoja de récords<span class="fr">Mes records · palabras por minuto / mots par minute</span></h1>
+  </header>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Apodo<small>Surnom</small></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+          <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <p class="fr no-print">Cada columna es una sesión. Se apunta el mejor resultado del día. · Chaque colonne est une séance.</p>
+</div>
+<script>
+  // 14 filas vacías para escribir a mano
+  var tbody = document.getElementById('rows');
+  for (var i = 0; i < 14; i++) {
+    var tr = document.createElement('tr');
+    for (var j = 0; j < 13; j++) tr.appendChild(document.createElement('td'));
+    tbody.appendChild(tr);
+  }
+</script>
+</body>
+</html>

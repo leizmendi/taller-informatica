@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Partes del ordenador</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 700px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .tcard {
+    background: var(--card);
+    border: 2px dashed var(--key-edge);
+    border-radius: 14px;
+    padding: 14px 10px;
+    display: grid; justify-items: center; align-content: center; gap: 8px;
+    text-align: center;
+    min-height: 200px;
+  }
+  .tcard svg { width: 96px; height: 96px; color: var(--c); }
+  .tcard .es { font-family: var(--display); font-weight: 800; font-size: 1.4rem; line-height: 1.1; }
+  .tcard .fr { font-size: 1.05rem; line-height: 1.2; }
+  @media print {
+    .cards { grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .tcard { border-radius: 0; min-height: 62mm; break-inside: avoid; margin: -1px 0 0 -1px; }
+    .tcard .es { font-size: 18pt; }
+    header { margin-bottom: 4mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 1 · Tarjetas para recortar</div>
+    <h1>Partes del ordenador<span class="fr">Les parties de l'ordinateur</span></h1>
+  </header>
+
+  <section class="cards">
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="40" height="26" rx="2"/><path d="M18 41h12M24 33v8"/></svg>
+      <span class="es">la pantalla</span><span class="fr">l'écran</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="14" width="42" height="20" rx="3"/><path d="M9 20h2M15 20h2M21 20h2M27 20h2M33 20h2M39 20h0M9 25h2M15 25h2M21 25h2M27 25h2M33 25h4M14 29h20"/></svg>
+      <span class="es">el teclado</span><span class="fr">le clavier</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="10" width="20" height="32" rx="10"/><path d="M24 10v10M14 20h20"/><path d="M24 10c0-4 4-6 8-6"/></svg>
+      <span class="es">el ratón</span><span class="fr">la souris</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="4" width="20" height="40" rx="2"/><path d="M19 10h10M19 15h10"/><circle cx="24" cy="34" r="3"/></svg>
+      <span class="es">la torre</span><span class="fr">l'unité centrale</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 8v16"/><path d="M14 14a14 14 0 1 0 20 0"/></svg>
+      <span class="es">el botón de encendido</span><span class="fr">le bouton marche</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="30" height="21" rx="2"/><path d="M3 36h42l-3 4H6z"/></svg>
+      <span class="es">el portátil</span><span class="fr">l'ordinateur portable</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 18h7l10-8v28l-10-8H8z"/><path d="M31 18a8 8 0 0 1 0 12M36 13a15 15 0 0 1 0 22"/></svg>
+      <span class="es">los altavoces</span><span class="fr">les haut-parleurs</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 30v-6a16 16 0 0 1 32 0v6"/><rect x="5" y="28" width="9" height="13" rx="3"/><rect x="34" y="28" width="9" height="13" rx="3"/></svg>
+      <span class="es">los auriculares</span><span class="fr">le casque</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 44V8M24 8l-5 6M24 8l5 6M24 30l-9-6v-6M24 26l9-6v-4"/><circle cx="15" cy="16" r="2"/><rect x="31" y="12" width="4" height="4"/><circle cx="24" cy="40" r="4"/></svg>
+      <span class="es">el puerto USB</span><span class="fr">le port USB</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="20" r="13"/><circle cx="24" cy="20" r="5"/><path d="M16 42h16M24 33v9"/></svg>
+      <span class="es">la cámara web</span><span class="fr">la webcam</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 16V5h20v11"/><rect x="5" y="16" width="38" height="18" rx="3"/><path d="M14 28h20v15H14z"/><path d="M36 22h2"/></svg>
+      <span class="es">la impresora</span><span class="fr">l'imprimante</span>
+    </div>
+    <div class="tcard">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="16" height="28" rx="3"/><path d="M19 16V5h10v11"/><path d="M22 9h1M25 9h1"/></svg>
+      <span class="es">el pendrive</span><span class="fr">la clé USB</span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

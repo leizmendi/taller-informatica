@@ -1,0 +1,118 @@
+/* Estilos comunes de las fichas del taller.
+   En pantalla siguen el tema del sistema; al imprimir, siempre claro y en A4. */
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --ink: #1a2140;
+  --muted: #59607a;
+  --line: #dde2ee;
+  --c: #2e6bd1;          /* color del bloque 1 */
+  --soft: #e6eefb;
+  --ok: #13906a;
+  --key: #f7f8fc;
+  --key-edge: #b9c0d4;
+  --display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11152a; --card: #1a1f38; --ink: #eef1fb; --muted: #a9b0cc; --line: #2c3354;
+    --c: #7aa6f5; --soft: #1f2b4d; --ok: #4fd0a4; --key: #262c4a; --key-edge: #49517a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11152a; --card: #1a1f38; --ink: #eef1fb; --muted: #a9b0cc; --line: #2c3354;
+  --c: #7aa6f5; --soft: #1f2b4d; --ok: #4fd0a4; --key: #262c4a; --key-edge: #49517a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.45;
+}
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-block: 24px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 20px;
+}
+
+.toolbar {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+  font-size: 0.95rem;
+}
+.toolbar a { color: var(--c); font-weight: 700; }
+button, .btn {
+  font: inherit; font-weight: 700;
+  padding: 8px 16px; border-radius: 999px;
+  border: 2px solid var(--c); background: var(--c); color: var(--card);
+  cursor: pointer;
+}
+button.ghost { background: transparent; color: var(--c); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--c); outline-offset: 3px; }
+
+.eyebrow {
+  font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--c);
+}
+h1 {
+  margin: 0; font-family: var(--display); font-weight: 800;
+  font-size: clamp(2rem, 4.5vw, 2.8rem); line-height: 1.05; text-wrap: balance;
+}
+h1 .fr, h2 .fr, .fr { color: var(--muted); font-style: italic; font-weight: 400; }
+h1 .fr { display: block; font-size: 0.55em; font-style: normal; font-weight: 600; font-family: var(--display); }
+h2 {
+  margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.5rem; line-height: 1.15;
+}
+h2 .fr { font-family: var(--body); font-size: 0.75em; }
+p { margin: 0; }
+
+.card {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: grid; gap: 12px;
+  min-width: 0;
+}
+
+kbd {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 2.2em; height: 2.2em; padding: 0 0.5em;
+  border: 2px solid var(--key-edge); border-bottom-width: 4px; border-radius: 8px;
+  background: var(--key); color: var(--ink);
+  font-family: var(--body); font-weight: 700; font-size: 1em; line-height: 1;
+  vertical-align: middle;
+}
+.plus { font-weight: 700; color: var(--muted); padding: 0 0.3em; }
+
+.line {
+  border-bottom: 2px dotted var(--key-edge);
+  display: inline-block; min-width: 12em; height: 1.4em;
+}
+
+.print-only { display: none; }
+
+@page { size: A4; margin: 12mm; }
+@media print {
+  :root, :root[data-theme="dark"] {
+    --bg: #ffffff; --card: #ffffff; --ink: #000000; --muted: #444a5c; --line: #c9cfdd;
+    --c: #2e6bd1; --soft: #e6eefb; --ok: #13906a; --key: #ffffff; --key-edge: #8a91a6;
+    color-scheme: light;
+  }
+  body { font-size: 14pt; }
+  .toolbar, .no-print { display: none !important; }
+  .print-only { display: block; }
+  .page { max-width: none; padding: 0; }
+  .card { break-inside: avoid; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

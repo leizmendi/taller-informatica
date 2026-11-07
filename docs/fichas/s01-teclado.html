@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El teclado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .keys { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 700px) { .keys { grid-template-columns: minmax(0, 1fr); } }
+  .k {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .k .what { display: grid; }
+  .k .what strong { font-size: 1.15rem; }
+  .k .combo { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; justify-content: flex-end; }
+  .k .result {
+    min-width: 2.4em; text-align: center; font-family: var(--display); font-weight: 800; font-size: 1.6rem;
+    color: var(--ok); margin-left: 8px;
+  }
+  .arrow { color: var(--muted); font-weight: 700; padding: 0 4px; }
+  .write { display: grid; gap: 14px; }
+  .write .row { display: grid; gap: 2px; }
+  .write .model { font-size: 1.2rem; }
+  .write .model b { color: var(--c); }
+  .tick { display: inline-block; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; vertical-align: -0.15em; margin-right: 8px; }
+  @media print { .keys { grid-template-columns: 1fr 1fr; gap: 6px; } .k { padding: 6px 10px; } .card { padding: 10px 14px; } body { font-size: 13pt; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 1 · Ficha</div>
+    <h1>El teclado<span class="fr">Le clavier</span></h1>
+  </header>
+
+  <section class="keys" aria-label="Teclas">
+    <div class="k">
+      <span class="what"><strong>Mayúscula</strong><span class="fr">Majuscule</span></span>
+      <span class="combo"><kbd>⇧</kbd><span class="plus">+</span><kbd>a</kbd><span class="arrow">→</span><span class="result">A</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Todo en mayúsculas</strong><span class="fr">Tout en majuscules</span></span>
+      <span class="combo"><kbd>Bloq Mayús</kbd><span class="arrow">→</span><span class="result">ABC</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Acento</strong><span class="fr">Accent</span></span>
+      <span class="combo"><kbd>´</kbd><span class="plus">luego</span><kbd>a</kbd><span class="arrow">→</span><span class="result">á</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>La eñe</strong><span class="fr">Le « ñ »</span></span>
+      <span class="combo"><kbd>ñ</kbd><span class="arrow">→</span><span class="result">ñ</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Arroba</strong><span class="fr">Arobase</span></span>
+      <span class="combo"><kbd>AltGr</kbd><span class="plus">+</span><kbd>2</kbd><span class="arrow">→</span><span class="result">@</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Euro</strong><span class="fr">Euro</span></span>
+      <span class="combo"><kbd>AltGr</kbd><span class="plus">+</span><kbd>e</kbd><span class="arrow">→</span><span class="result">€</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Exclamación</strong><span class="fr">Point d'exclamation (au début)</span></span>
+      <span class="combo"><kbd>¡</kbd><span class="arrow">→</span><span class="result">¡</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Interrogación</strong><span class="fr">Point d'interrogation (au début)</span></span>
+      <span class="combo"><kbd>⇧</kbd><span class="plus">+</span><kbd>¡</kbd><span class="arrow">→</span><span class="result">¿</span></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Espacio</strong><span class="fr">Espace</span></span>
+      <span class="combo"><kbd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</kbd></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Borrar</strong><span class="fr">Effacer</span></span>
+      <span class="combo"><kbd>⌫</kbd></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Nueva línea</strong><span class="fr">Nouvelle ligne</span></span>
+      <span class="combo"><kbd>Intro ↵</kbd></span>
+    </div>
+    <div class="k">
+      <span class="what"><strong>Acento con mayúscula</strong><span class="fr">Accent + majuscule</span></span>
+      <span class="combo"><kbd>´</kbd><span class="plus">luego</span><kbd>⇧</kbd><span class="plus">+</span><kbd>a</kbd><span class="arrow">→</span><span class="result">Á</span></span>
+    </div>
+  </section>
+
+  <section class="card write">
+    <h2>Escribe en el Bloc de notas<span class="fr"> · Écris dans le Bloc-notes</span></h2>
+    <p class="fr">Copia las frases y cambia las palabras en azul. · Copie les phrases et change les mots en bleu.</p>
+    <div class="row"><span class="model"><span class="tick"></span>Me llamo <b>Moussa</b>.</span><span class="fr">Je m'appelle…</span></div>
+    <div class="row"><span class="model"><span class="tick"></span>Soy de <b>Malí</b>.</span><span class="fr">Je viens de…</span></div>
+    <div class="row"><span class="model"><span class="tick"></span>Hablo <b>bambara</b>, <b>francés</b> y <b>castellano</b>.</span><span class="fr">Je parle…</span></div>
+    <div class="row"><span class="model"><span class="tick"></span>Me gusta <b>el fútbol</b>.</span><span class="fr">J'aime…</span></div>
+  </section>
+
+  <section class="card write">
+    <h2>Extra<span class="fr"> · Bonus</span></h2>
+    <div class="row"><span class="model"><span class="tick"></span>¿Cómo estás? ¡Muy bien!</span></div>
+    <div class="row"><span class="model"><span class="tick"></span>Mi correo: taller@ejemplo.com · Un bocadillo cuesta 3 €.</span></div>
+  </section>
+</div>
+</body>
+</html>

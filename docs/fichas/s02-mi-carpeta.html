@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi carpeta</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .ui {
+    display: inline-flex; flex-direction: column; margin-top: 6px;
+    background: var(--card); border: 1px solid var(--key-edge); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    font-size: 0.95rem; min-width: 12em; overflow: hidden;
+  }
+  .ui span { padding: 4px 12px; }
+  .ui .on { background: var(--soft); color: var(--c); font-weight: 700; }
+  .name {
+    display: inline-block; margin-top: 6px; padding: 4px 10px; border: 2px solid var(--c); border-radius: 6px;
+    font-weight: 700; background: var(--card);
+  }
+  h2 { margin-top: 6px; }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 13pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 2 · Ficha</div>
+    <h1>Mi carpeta<span class="fr">Mon dossier</span></h1>
+  </header>
+
+  <h2>Crear la carpeta<span class="fr"> · Créer le dossier</span></h2>
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">Clic derecho en el escritorio, en un sitio vacío.</span>
+        <span class="fr">Clic droit sur le bureau, dans un endroit vide.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Nuevo → Carpeta</span>
+        <span class="fr">Nouveau → Dossier</span>
+        <span class="ui" aria-hidden="true"><span>Ver</span><span>Ordenar por</span><span class="on">Nuevo ▸</span></span>
+        <span class="ui" aria-hidden="true"><span class="on">Carpeta</span><span>Acceso directo</span><span>Documento de texto</span></span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Escribe el nombre y pulsa <kbd>Intro ↵</kbd></span>
+        <span class="fr">Écris le nom et appuie sur Entrée.</span>
+        <span class="name">Taller – tu apodo</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Doble clic para abrir tu carpeta. Dentro, crea 3 carpetas más:</span>
+        <span class="fr">Double-clic pour ouvrir ton dossier. Dedans, crée 3 autres dossiers :</span>
+        <span class="name">Textos</span> <span class="name">Fotos</span> <span class="name">Web</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+
+  <h2>Mover un archivo<span class="fr"> · Déplacer un fichier</span></h2>
+  <ol class="steps" style="counter-reset: s 4">
+    <li>
+      <div>
+        <span class="es">Arrastra tu archivo de la sesión 1 (<em>tu-apodo.txt</em>) hasta la carpeta <strong>Textos</strong>.</span>
+        <span class="fr">Fais glisser ton fichier de la séance 1 dans le dossier Textos.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+
+  <h2>Guardar un archivo nuevo<span class="fr"> · Enregistrer un nouveau fichier</span></h2>
+  <ol class="steps" style="counter-reset: s 5">
+    <li>
+      <div>
+        <span class="es">Abre el Bloc de notas y escribe: <em>Hoy es martes. Estoy en el taller.</em></span>
+        <span class="fr">Ouvre le Bloc-notes et écris deux phrases.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Archivo → Guardar como</span>
+        <span class="fr">Fichier → Enregistrer sous</span>
+        <span class="ui" aria-hidden="true"><span>Nuevo</span><span>Abrir</span><span>Guardar</span><span class="on">Guardar como</span></span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Busca tu carpeta: Escritorio → Taller → <strong>Textos</strong>. ¡Mira bien dónde estás!</span>
+        <span class="fr">Cherche ton dossier : Bureau → Taller → Textos. Regarde bien où tu es !</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Escribe el nombre y pulsa Guardar.</span>
+        <span class="fr">Écris le nom et clique sur Enregistrer.</span>
+        <span class="name">martes</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Cierra el Bloc de notas. Abre tu carpeta y busca <em>martes.txt</em>. ¿Está?</span>
+        <span class="fr">Ferme le Bloc-notes. Ouvre ton dossier et cherche martes.txt. Il est là ?</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+</div>
+</body>
+</html>

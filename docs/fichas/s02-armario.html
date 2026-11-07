@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El armario y el ordenador</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .compare {
+    display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr); gap: 14px 10px; align-items: center;
+  }
+  .colhead { font-family: var(--display); font-weight: 800; font-size: 1.4rem; text-align: center; }
+  .colhead .fr { display: block; font-family: var(--body); font-size: 0.75em; }
+  .item {
+    background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 14px;
+    display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: center;
+  }
+  .item svg { width: 72px; height: 72px; color: var(--c); }
+  .item .es { display: block; font-family: var(--display); font-weight: 800; font-size: 1.5rem; line-height: 1.1; }
+  .item .fr { display: block; }
+  .eq { text-align: center; font-family: var(--display); font-weight: 800; font-size: 2rem; color: var(--muted); }
+  .tree {
+    font-size: 1.25rem; display: grid; gap: 6px; padding: 4px 0;
+  }
+  .tree div { display: flex; align-items: center; gap: 10px; }
+  .tree .l1 { padding-left: 36px; }
+  .tree .l2 { padding-left: 72px; }
+  .tree svg { width: 30px; height: 30px; flex: none; color: var(--c); }
+  .tree .file svg { color: var(--ok); }
+  .note { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .note svg { width: 56px; height: 56px; color: var(--c); }
+  .note .es { font-weight: 700; font-size: 1.15rem; display: block; }
+  @media (max-width: 640px) {
+    .compare { grid-template-columns: minmax(0, 1fr); }
+    .eq { transform: rotate(90deg); }
+    .colhead.right { display: none; }
+    .item svg { width: 56px; height: 56px; }
+    .item { grid-template-columns: 56px minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 2 · Para proyectar</div>
+    <h1>El armario y el ordenador<span class="fr">L'armoire et l'ordinateur</span></h1>
+  </header>
+
+  <section class="compare">
+    <div class="colhead">En casa<span class="fr">À la maison</span></div>
+    <div></div>
+    <div class="colhead right">En el ordenador<span class="fr">Dans l'ordinateur</span></div>
+
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 18h32M8 31h32M21 11h6M21 24h6M21 37h6"/></svg>
+      <span><span class="es">el armario</span><span class="fr">l'armoire</span></span>
+    </div>
+    <div class="eq" aria-hidden="true">=</div>
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="40" height="26" rx="2"/><path d="M18 41h12M24 33v8"/></svg>
+      <span><span class="es">el ordenador</span><span class="fr">l'ordinateur</span></span>
+    </div>
+
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z"/></svg>
+      <span><span class="es">la carpeta</span><span class="fr">la chemise / le classeur</span></span>
+    </div>
+    <div class="eq" aria-hidden="true">=</div>
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z" fill="currentColor" fill-opacity="0.15"/></svg>
+      <span><span class="es">la carpeta</span><span class="fr">le dossier</span></span>
+    </div>
+
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="4" width="28" height="40" rx="1"/><path d="M16 14h16M16 21h16M16 28h10"/></svg>
+      <span><span class="es">la hoja</span><span class="fr">la feuille</span></span>
+    </div>
+    <div class="eq" aria-hidden="true">=</div>
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4h17l9 9v31H12z"/><path d="M29 4v9h9M18 24h14M18 31h14"/></svg>
+      <span><span class="es">el archivo</span><span class="fr">le fichier</span></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Mi carpeta del taller<span class="fr"> · Mon dossier de l'atelier</span></h2>
+    <div class="tree">
+      <div><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z"/></svg><strong>Taller – Moussa</strong></div>
+      <div class="l1"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z"/></svg>Textos</div>
+      <div class="l2 file"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M12 4h17l9 9v31H12z"/><path d="M29 4v9h9"/></svg>moussa.txt</div>
+      <div class="l1"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z"/></svg>Fotos</div>
+      <div class="l1"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z"/></svg>Web</div>
+    </div>
+  </section>
+
+  <section class="card note">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M24 15v11M24 32v1"/></svg>
+    <div>
+      <span class="es">Esta carpeta está solo en este ordenador. En la sesión 4 la guardamos en internet (Google Drive).</span>
+      <span class="fr">Ce dossier est seulement dans cet ordinateur. À la séance 4, on le met sur internet (Google Drive).</span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Dónde está?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .how { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .how { grid-template-columns: minmax(0, 1fr); } }
+  .how ol { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+  .how li .fr { display: block; }
+  .searchbox {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 4px;
+    border: 2px solid var(--key-edge); border-radius: 8px; padding: 4px 12px; background: var(--card); color: var(--muted);
+  }
+  .searchbox svg { width: 18px; height: 18px; }
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 700px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+  .tcard {
+    border: 2px dashed var(--key-edge); border-radius: 14px; background: var(--card);
+    padding: 14px; display: grid; gap: 8px; justify-items: center; text-align: center;
+  }
+  .tcard .lvl { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .tcard .busca { font-size: 1rem; }
+  .tcard .file {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--display); font-weight: 800; font-size: 1.6rem; color: var(--c);
+  }
+  .tcard .file svg { width: 34px; height: 34px; }
+  .tcard .pista { font-size: 0.95rem; color: var(--muted); border-top: 1px dotted var(--key-edge); padding-top: 6px; width: 100%; }
+  @media print {
+    .cards { grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .tcard { border-radius: 0; margin: -1px 0 0 -1px; min-height: 48mm; align-content: center; }
+    body { font-size: 13pt; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 2 · Juego</div>
+    <h1>¿Dónde está?<span class="fr">Où est-il ?</span></h1>
+  </header>
+
+  <section class="how">
+    <div class="card">
+      <h2>1. Busca a mano<span class="fr"> · Cherche à la main</span></h2>
+      <ol>
+        <li>Abre el Explorador: <kbd>⊞</kbd><span class="plus">+</span><kbd>E</kbd><span class="fr">Ouvre l'Explorateur.</span></li>
+        <li>Abre las carpetas con doble clic: Documentos, Imágenes…<span class="fr">Ouvre les dossiers avec un double-clic.</span></li>
+        <li>Para volver atrás: <kbd>←</kbd> arriba a la izquierda.<span class="fr">Pour revenir : la flèche en haut à gauche.</span></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2>2. Usa el buscador<span class="fr"> · Utilise la recherche</span></h2>
+      <ol>
+        <li>En el Explorador, haz clic en <strong>Este equipo</strong>.<span class="fr">Clique sur « Ce PC ».</span></li>
+        <li>Escribe el nombre en la caja de arriba a la derecha:
+          <span class="searchbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/></svg>Buscar en Este equipo</span>
+          <span class="fr">Écris le nom dans la case en haut à droite.</span></li>
+        <li>Espera un poco y haz doble clic en el archivo.<span class="fr">Attends un peu et double-clique sur le fichier.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <p class="fr no-print">Tarjetas para recortar · Cartes à découper</p>
+  <section class="cards" id="cards"></section>
+</div>
+<script>
+  // 4 juegos de 3 tarjetas: 12 tarjetas por hoja
+  var CARDS = [
+    { lvl: 'Fácil · Facile', file: 'tesoro', pista: 'Pista: está en Documentos · Indice : dans Documents' },
+    { lvl: 'Medio · Moyen', file: 'leon', pista: 'Pista: busca los animales · Indice : cherche les animaux' },
+    { lvl: 'Difícil · Difficile', file: 'gol', pista: 'Pista: le gusta el deporte · Indice : il aime le sport' }
+  ];
+  var ICON = '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4h17l9 9v31H12z"/><path d="M29 4v9h9"/></svg>';
+  var box = document.getElementById('cards');
+  for (var n = 0; n < 4; n++) {
+    CARDS.forEach(function (c) {
+      var d = document.createElement('div');
+      d.className = 'tcard';
+      d.innerHTML = '<span class="lvl">' + c.lvl + '</span>' +
+        '<span class="busca">Busca este archivo · Cherche ce fichier</span>' +
+        '<span class="file">' + ICON + c.file + '.txt</span>' +
+        '<span class="pista">' + c.pista + '</span>';
+      box.appendChild(d);
+    });
+  }
+</script>
+</body>
+</html>

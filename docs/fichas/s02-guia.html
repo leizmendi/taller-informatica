@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 2 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 2 · Guía del monitor</div>
+    <h1>Archivos y carpetas</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+    <ul class="tips">
+      <li>Entender qué es un archivo y qué es una carpeta.</li>
+      <li>Crear su carpeta personal, guardar un archivo dentro y volver a encontrarlo.</li>
+      <li>Renombrar, copiar y borrar archivos, y recuperar uno de la papelera.</li>
+      <li>Saber que esa carpeta está solo en este ordenador (en la sesión 4 pasará a Google Drive).</li>
+    </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li>Comprobar que siguen en el escritorio los archivos de la sesión 1 (<em>apodo.txt</em>). Si se han borrado, que los vuelvan a escribir en 5 minutos.</li>
+        <li>Activar en cada ordenador las <strong>extensiones de archivo</strong>: Explorador → Vista → Mostrar → Extensiones de nombre de archivo (en Windows 10: Vista → casilla "Extensiones de nombre de archivo"). Así ven <code>.txt</code> o <code>.jpg</code>, como en el juego.</li>
+        <li>Esconder en cada ordenador los 3 archivos del juego "¿Dónde está?" (ver abajo).</li>
+        <li>Llevar 2 o 3 carpetas de papel con hojas dentro para la metáfora del armario.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s02-armario.html">El armario y el ordenador</a>: para proyectar (no hace falta imprimir).</li>
+        <li><a href="s02-mi-carpeta.html">Mi carpeta</a>: 1 por chaval.</li>
+        <li><a href="s02-buscar.html">¿Dónde está?</a>: 1 hoja de tarjetas por cada 4 chavales, recortada.</li>
+        <li><a href="s02-trucos.html">Trucos de archivos</a>: 1 por chaval (les sirve todo el trimestre).</li>
+        <li>La <a href="s01-records.html">hoja de récords</a> de la sesión 1.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Esconder los archivos de "¿Dónde está?"</h2>
+    <p>En cada ordenador, crea con el Bloc de notas estos 3 archivos (pueden estar vacíos) y guárdalos en carpetas distintas:</p>
+    <ul class="tips">
+      <li><code>tesoro.txt</code> en <em>Documentos</em></li>
+      <li><code>leon.txt</code> dentro de una carpeta <em>Documentos → Animales</em></li>
+      <li><code>gol.txt</code> dentro de <em>Imágenes → Deporte → Fútbol</em></li>
+    </ul>
+    <p>Las tarjetas dicen qué archivo buscar. Primero lo buscan a mano, abriendo carpetas, y luego con el buscador.</p>
+  </section>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–10'</td><td><strong>Calentamiento.</strong> Mecanografía en la web de siempre. Apuntar el mejor resultado en la hoja de récords.</td></tr>
+          <tr><td>10–15'</td><td><strong>El armario.</strong> Con las carpetas de papel en la mano: el armario es el ordenador, la carpeta es una carpeta y la hoja es un archivo. Proyectar <a href="s02-armario.html">la ficha</a>. Palabras nuevas: <em>archivo, carpeta, escritorio</em>.</td></tr>
+          <tr><td>15–30'</td><td><strong>Mi carpeta.</strong> Con la <a href="s02-mi-carpeta.html">ficha</a>: crear en el escritorio "Taller – apodo" y dentro las subcarpetas Textos, Fotos y Web. Después, arrastrar <em>apodo.txt</em> a Textos.
+            <ul><li>El monitor lo hace primero en el proyector, paso a paso. Luego ellos.</li></ul></td></tr>
+          <tr><td>30–45'</td><td><strong>Guardar como.</strong> Abrir el Bloc de notas, escribir 2 frases ("Hoy es martes. Estoy en el taller.") y guardarlo con <em>Archivo → Guardar como</em> dentro de <em>Textos</em>, con el nombre <em>martes</em>. Cerrar el Bloc de notas y volver a abrir el archivo desde la carpeta.</td></tr>
+          <tr><td>45–65'</td><td><strong>¿Dónde está?</strong> Por parejas, cada una con una tarjeta. Primero buscan abriendo carpetas; después con el buscador del Explorador. Cuando lo encuentran, cambian de tarjeta.
+            <ul><li><strong>Extra:</strong> la <a href="s02-trucos.html">ficha de trucos</a>: renombrar <em>martes.txt</em>, copiarlo, borrar la copia y recuperarla de la papelera.</li></ul></td></tr>
+          <tr><td>65–85'</td><td><strong>Proyecto personal.</strong> Juego <a href="carpetas.html">"Ordena los archivos"</a> y, los que terminen, escribir en el Bloc de notas "Lo que más me gusta" y guardarlo en Textos.</td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> "Hoy he aprendido…". Palabras para el mural: <em>archivo, carpeta, guardar</em>. Recordar que la carpeta está <strong>solo en este ordenador</strong>: en la sesión 4 la subiremos a internet. Cerrar sesión y apagar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+    <ul class="tips">
+      <li><strong>Guardar y Guardar como:</strong> la primera vez siempre se usa "Guardar como", para elegir dónde y con qué nombre. Después basta con "Guardar" (<kbd>Ctrl</kbd> + <kbd>G</kbd> o <kbd>Ctrl</kbd> + <kbd>S</kbd>, según el programa: compruébalo antes en el Bloc de notas del aula).</li>
+      <li><strong>El error más común:</strong> guardar sin mirar dónde. Insiste en que lean la carpeta de arriba antes de pulsar Guardar.</li>
+      <li><strong>Nombres de archivo:</strong> mejor sin tildes ni símbolos, y con nombres que se entiendan (<em>martes</em>, no <em>asdf</em>).</li>
+      <li><strong>Ordenador compartido:</strong> si varios chavales usan el mismo equipo, cada uno tiene su carpeta con su apodo en el mismo escritorio. Se explica que no se abren las carpetas de los demás.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

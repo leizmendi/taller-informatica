@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ordena los archivos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .page { max-width: 1100px; gap: 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; }
+  .instr { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.1; }
+  .instr .fr { display: block; font-family: var(--body); font-size: 0.6em; }
+  .count { font-family: var(--display); font-weight: 800; font-size: 1.6rem; font-variant-numeric: tabular-nums; color: var(--c); }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.95rem; color: var(--muted); }
+  .legend b { color: var(--ink); }
+  .stage {
+    position: relative; height: max(420px, 62vh);
+    background: var(--card); border: 2px solid var(--line); border-radius: 18px;
+    overflow: hidden; user-select: none; -webkit-user-select: none; touch-action: none;
+  }
+  .folders {
+    position: absolute; left: 16px; right: 16px; bottom: 16px;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  }
+  .folder {
+    height: 150px; border-radius: 18px; border: 4px dashed var(--key-edge); background: var(--bg);
+    display: grid; place-content: center; justify-items: center; gap: 4px; text-align: center;
+  }
+  .folder svg { width: 64px; height: 64px; color: var(--c); }
+  .folder strong { font-family: var(--display); font-size: 1.5rem; line-height: 1; }
+  .folder.over { border-style: solid; border-color: var(--c); background: var(--soft); }
+  .folder.bad { border-color: #d64545; }
+  .file {
+    position: absolute; display: grid; justify-items: center; gap: 4px;
+    cursor: grab; touch-action: none; padding: 8px; border-radius: 12px;
+  }
+  .file.dragging { cursor: grabbing; transform: scale(1.1); z-index: 5; background: var(--soft); }
+  .file .ico { font-size: 64px; line-height: 1; }
+  .file .nm { font-weight: 700; font-size: 1.15rem; background: var(--card); padding: 0 8px; border-radius: 6px; }
+  .hint {
+    position: absolute; left: 50%; top: 16px; transform: translateX(-50%);
+    background: var(--ink); color: var(--card); padding: 8px 18px; border-radius: 999px;
+    font-weight: 700; pointer-events: none; text-align: center; max-width: calc(100% - 32px);
+  }
+  .win {
+    position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px;
+    background: var(--card); text-align: center; padding: 16px;
+  }
+  .win .big { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 6vw, 3.6rem); color: var(--ok); line-height: 1; }
+  @media (max-width: 560px) { .folder { height: 120px; } .folder svg { width: 44px; height: 44px; } .folder strong { font-size: 1.15rem; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <span class="fr">Sesión 2 · Séance 2</span>
+  </div>
+
+  <h1>Ordena los archivos<span class="fr">Range les fichiers</span></h1>
+
+  <div class="bar">
+    <div class="instr">Arrastra cada archivo a su carpeta<span class="fr">Fais glisser chaque fichier dans son dossier</span></div>
+    <div class="count" id="count"></div>
+  </div>
+  <div class="legend">
+    <span><b>.txt .docx</b> = texto · texte</span>
+    <span><b>.jpg .png</b> = foto · photo</span>
+    <span><b>.html .css</b> = web</span>
+  </div>
+
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+(function () {
+  var FILES = [
+    { n: 'moussa.txt', i: '📄', f: 'Textos' },
+    { n: 'playa.jpg', i: '🖼️', f: 'Fotos' },
+    { n: 'index.html', i: '🌐', f: 'Web' },
+    { n: 'cv.docx', i: '📝', f: 'Textos' },
+    { n: 'amigos.png', i: '🖼️', f: 'Fotos' },
+    { n: 'estilo.css', i: '🎨', f: 'Web' },
+    { n: 'martes.txt', i: '📄', f: 'Textos' },
+    { n: 'futbol.jpg', i: '🖼️', f: 'Fotos' },
+    { n: 'mi-web.html', i: '🌐', f: 'Web' }
+  ];
+  var FOLDERS = ['Textos', 'Fotos', 'Web'];
+  var HINTS = {
+    Textos: 'Termina en .txt o .docx: es un texto · C\'est un texte',
+    Fotos: 'Termina en .jpg o .png: es una foto · C\'est une photo',
+    Web: 'Termina en .html o .css: es de la web · C\'est pour le web'
+  };
+  var FOLDER_SVG = '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z"/></svg>';
+
+  var stage = document.getElementById('stage');
+  var count = document.getElementById('count');
+  var order, idx, start, hintTimer;
+
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  function hint(text) {
+    var old = stage.querySelector('.hint');
+    if (old) old.remove();
+    var h = document.createElement('div');
+    h.className = 'hint';
+    h.textContent = text;
+    stage.appendChild(h);
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(function () { h.remove(); }, 2500);
+  }
+
+  function begin() {
+    order = shuffle(FILES); idx = 0; start = Date.now();
+    round();
+  }
+
+  function round() {
+    count.textContent = idx + ' / ' + order.length;
+    stage.innerHTML = '';
+    if (idx >= order.length) return win();
+
+    var wrap = document.createElement('div');
+    wrap.className = 'folders';
+    var zones = FOLDERS.map(function (name) {
+      var z = document.createElement('div');
+      z.className = 'folder';
+      z.dataset.name = name;
+      z.innerHTML = FOLDER_SVG + '<strong>' + name + '</strong>';
+      wrap.appendChild(z);
+      return z;
+    });
+    stage.appendChild(wrap);
+
+    var data = order[idx];
+    var el = document.createElement('div');
+    el.className = 'file';
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', data.n);
+    el.innerHTML = '<span class="ico">' + data.i + '</span><span class="nm">' + data.n + '</span>';
+    stage.appendChild(el);
+    var home = { x: Math.max(16, stage.clientWidth / 2 - 70), y: 56 };
+    el.style.left = home.x + 'px';
+    el.style.top = home.y + 'px';
+
+    var dx = 0, dy = 0, dragging = false;
+    function zoneUnder() {
+      var a = el.getBoundingClientRect();
+      var cx = a.left + a.width / 2, cy = a.top + a.height / 2;
+      for (var i = 0; i < zones.length; i++) {
+        var b = zones[i].getBoundingClientRect();
+        if (cx > b.left && cx < b.right && cy > b.top && cy < b.bottom) return zones[i];
+      }
+      return null;
+    }
+    el.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      el.setPointerCapture(e.pointerId);
+      el.classList.add('dragging');
+      dx = e.clientX - el.offsetLeft;
+      dy = e.clientY - el.offsetTop;
+    });
+    el.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      el.style.left = (e.clientX - dx) + 'px';
+      el.style.top = (e.clientY - dy) + 'px';
+      var z = zoneUnder();
+      zones.forEach(function (q) { q.classList.toggle('over', q === z); });
+    });
+    el.addEventListener('pointerup', function () {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove('dragging');
+      var z = zoneUnder();
+      zones.forEach(function (q) { q.classList.remove('over'); });
+      if (!z) return;
+      if (z.dataset.name === data.f) {
+        el.remove();
+        idx++;
+        setTimeout(round, 250);
+      } else {
+        z.classList.add('bad');
+        setTimeout(function () { z.classList.remove('bad'); }, 600);
+        hint(HINTS[data.f]);
+        el.style.left = home.x + 'px';
+        el.style.top = home.y + 'px';
+      }
+    });
+  }
+
+  function win() {
+    var secs = Math.round((Date.now() - start) / 1000);
+    var w = document.createElement('div');
+    w.className = 'win';
+    w.innerHTML = '<div class="big">¡Todo ordenado!<br><span class="fr">Tout est rangé !</span></div>' +
+      '<div>' + secs + ' segundos · ' + secs + ' secondes</div>';
+    var again = document.createElement('button');
+    again.type = 'button';
+    again.textContent = 'Otra vez · Encore';
+    again.onclick = begin;
+    w.appendChild(again);
+    stage.appendChild(w);
+    again.focus();
+  }
+
+  begin();
+})();
+</script>
+</body>
+</html>

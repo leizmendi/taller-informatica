@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taller de informática</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+  /* Layout: cartel para proyectar. Cabecera grande, 4 bloques en rejilla 2x2 (1 columna en móvil), cada bloque con su color. */
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --ink: #1a2140;
+    --muted: #59607a;
+    --line: #dde2ee;
+    --b1: #2e6bd1;
+    --b2: #13906a;
+    --b3: #d9661c;
+    --b4: #8247cc;
+    --b1-soft: #e6eefb;
+    --b2-soft: #e2f4ee;
+    --b3-soft: #fcebdf;
+    --b4-soft: #efe6fa;
+    --display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+    --body: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11152a; --card: #1a1f38; --ink: #eef1fb; --muted: #a9b0cc; --line: #2c3354;
+      --b1: #7aa6f5; --b2: #4fd0a4; --b3: #f59a5c; --b4: #b88cf2;
+      --b1-soft: #1f2b4d; --b2-soft: #17352f; --b3-soft: #3a2a20; --b4-soft: #2e2448;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #11152a; --card: #1a1f38; --ink: #eef1fb; --muted: #a9b0cc; --line: #2c3354;
+    --b1: #7aa6f5; --b2: #4fd0a4; --b3: #f59a5c; --b4: #b88cf2;
+    --b1-soft: #1f2b4d; --b2-soft: #17352f; --b3-soft: #3a2a20; --b4-soft: #2e2448;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.4;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-block: 32px 40px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid;
+    gap: 24px;
+  }
+
+  header { display: grid; gap: 6px; }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  h1 .fr { display: block; color: var(--muted); font-size: 0.6em; font-weight: 600; }
+  .when {
+    display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+    margin-top: 8px; font-size: 1.15rem;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: var(--card); border: 2px solid var(--line);
+    font-weight: 700;
+  }
+  .pill svg { width: 22px; height: 22px; flex: none; }
+
+  .blocks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  @media (max-width: 760px) { .blocks { grid-template-columns: minmax(0, 1fr); } }
+
+  .block {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-width: 0;
+  }
+  .block-head {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: var(--soft);
+    color: var(--c);
+  }
+  .block-head svg { width: 44px; height: 44px; flex: none; }
+  .block-head h2 {
+    margin: 0; font-family: var(--display); font-weight: 800;
+    font-size: 1.55rem; line-height: 1.1;
+  }
+  .block-head h2 small {
+    display: block; font-family: var(--body); font-weight: 400; font-style: italic;
+    font-size: 1rem; color: var(--muted);
+  }
+  .b1 { --c: var(--b1); --soft: var(--b1-soft); }
+  .b2 { --c: var(--b2); --soft: var(--b2-soft); }
+  .b3 { --c: var(--b3); --soft: var(--b3-soft); }
+  .b4 { --c: var(--b4); --soft: var(--b4-soft); }
+
+  ol { list-style: none; margin: 0; padding: 10px 18px 16px; display: grid; gap: 4px; }
+  li {
+    display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 12px;
+    align-items: start; padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  li:last-child { border-bottom: 0; }
+  .n {
+    width: 2.4rem; height: 2.4rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--c); color: var(--card);
+    font-family: var(--display); font-weight: 800; font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .es { font-weight: 700; font-size: 1.12rem; display: block; }
+  .fr-t { font-style: italic; color: var(--muted); display: block; }
+
+  .take {
+    background: var(--card);
+    border: 2px dashed var(--line);
+    border-radius: 18px;
+    padding: 16px 20px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;
+  }
+  .take strong { font-family: var(--display); font-size: 1.35rem; font-weight: 800; }
+  .take .fr-t { font-size: 1rem; }
+  .take ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .take li { display: block; border: 0; padding: 6px 14px; border-radius: 999px; background: var(--bg); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Taller de informática<span class="fr">Atelier d'informatique</span></h1>
+    <div class="when">
+      <span class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Martes · Mardi
+      </span>
+      <span class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        18:30 – 20:00
+      </span>
+      <span class="pill">12 clases · 12 séances</span>
+    </div>
+  </header>
+
+  <section class="blocks">
+    <article class="block b1">
+      <div class="block-head">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="38" height="25" rx="3"/><path d="M18 41h12M24 33v8"/></svg>
+        <h2>Lo básico<small>Les bases</small></h2>
+      </div>
+      <ol>
+        <li><span class="n">1</span><span><span class="es">El ordenador y yo</span><span class="fr-t">L'ordinateur et moi</span></span></li>
+        <li><span class="n">2</span><span><span class="es">Archivos y carpetas</span><span class="fr-t">Fichiers et dossiers</span></span></li>
+        <li><span class="n">3</span><span><span class="es">Internet: buscar y traducir</span><span class="fr-t">Internet : chercher et traduire</span></span></li>
+      </ol>
+    </article>
+
+    <article class="block b2">
+      <div class="block-head">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 5l15 6v11c0 10-6.5 17-15 21-8.5-4-15-11-15-21V11z"/><path d="M17 24l5 5 9-10"/></svg>
+        <h2>Comunicarse y protegerse<small>Communiquer et se protéger</small></h2>
+      </div>
+      <ol>
+        <li><span class="n">4</span><span><span class="es">Correo y Google Drive</span><span class="fr-t">E-mail et Google Drive</span></span></li>
+        <li><span class="n">5</span><span><span class="es">Seguridad: contraseñas, estafas y vídeos falsos</span><span class="fr-t">Sécurité : mots de passe, arnaques et fausses vidéos</span></span></li>
+        <li><span class="n">6</span><span><span class="es">La IA para aprender castellano</span><span class="fr-t">L'IA pour apprendre l'espagnol</span></span></li>
+      </ol>
+    </article>
+
+    <article class="block b3">
+      <div class="block-head">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5h17l9 9v29H12z"/><path d="M29 5v9h9M18 24h14M18 31h14M18 38h8"/></svg>
+        <h2>Cosas útiles para la vida<small>Utile pour la vie</small></h2>
+      </div>
+      <ol>
+        <li><span class="n">7</span><span><span class="es">Escribir en el ordenador</span><span class="fr-t">Écrire à l'ordinateur</span></span></li>
+        <li><span class="n">8</span><span><span class="es">Mi currículum</span><span class="fr-t">Mon CV</span></span></li>
+        <li><span class="n">9</span><span><span class="es">Buscar trabajo y practicar una entrevista</span><span class="fr-t">Chercher du travail et s'entraîner à un entretien</span></span></li>
+        <li><span class="n">10</span><span><span class="es">Trámites por internet: cita previa, formularios</span><span class="fr-t">Démarches en ligne : rendez-vous, formulaires</span></span></li>
+      </ol>
+    </article>
+
+    <article class="block b4">
+      <div class="block-head">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 14L6 24l10 10M32 14l10 10-10 10M27 9l-6 30"/></svg>
+        <h2>Crear<small>Créer</small></h2>
+      </div>
+      <ol>
+        <li><span class="n">11</span><span><span class="es">Mi primera página web</span><span class="fr-t">Ma première page web</span></span></li>
+        <li><span class="n">12</span><span><span class="es">Termino mi web y la enseño</span><span class="fr-t">Je finis ma page web et je la montre</span></span></li>
+      </ol>
+    </article>
+  </section>
+
+  <section class="take">
+    <div>
+      <strong>Al final te llevas…</strong>
+      <span class="fr-t">À la fin, tu emportes…</span>
+    </div>
+    <ul>
+      <li>Tu currículum · Ton CV</li>
+      <li>Tu página web · Ta page web</li>
+      <li>Tus trabajos en tu Drive · Tes travaux sur ton Drive</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

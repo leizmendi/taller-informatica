@@ -1,0 +1,12 @@
+# El PDF de la encuesta se genera desde el formulario
+*.pdf
+
+# Nunca subir respuestas ni datos de los chavales
+respuestas/
+*.csv
+*.xlsx
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store

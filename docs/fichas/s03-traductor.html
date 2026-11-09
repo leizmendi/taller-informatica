@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El traductor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  h2 { margin-top: 6px; }
+  .phrases { width: 100%; border-collapse: collapse; }
+  .phrases th, .phrases td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .phrases th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .phrases td:first-child { width: 45%; }
+  .phrases .line { min-width: 0; width: 100%; }
+  .phrases .fr { font-style: normal; color: var(--ink); font-weight: 700; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 3 · Ficha</div>
+    <h1>El traductor<span class="fr">Le traducteur</span></h1>
+  </header>
+
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">Abre el navegador y escribe arriba:</span>
+        <span class="fr">Ouvre le navigateur et écris en haut :</span>
+        <span class="pill">translate.google.com</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Elige los idiomas: Francés → Español.</span>
+        <span class="fr">Choisis les langues : français → espagnol.</span>
+        <span class="pill">Francés <span class="ic" aria-hidden="true">⇄</span> Español</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Escribe en francés: <em>Je m'appelle … et j'ai … ans.</em></span>
+        <span class="fr">Écris en français ta phrase. Lis la traduction.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Escucha: pulsa el altavoz debajo del español. Repítelo en voz alta.</span>
+        <span class="fr">Écoute : clique sur le haut-parleur. Répète à voix haute.</span>
+        <span class="pill"><span class="ic" aria-hidden="true">🔊</span> Escuchar</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Habla: pulsa el micrófono y di una frase en francés.</span>
+        <span class="fr">Parle : clique sur le micro et dis une phrase en français.</span>
+        <span class="pill"><span class="ic" aria-hidden="true">🎤</span> Micrófono</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Cámara: en el móvil, abre la aplicación Google Traductor → Cámara y apunta a un cartel.</span>
+        <span class="fr">Caméra : sur le téléphone, ouvre l'application Google Traduction → Caméra et vise une affiche.</span>
+        <span class="pill"><span class="ic" aria-hidden="true">📷</span> Cámara</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+
+  <section class="card">
+    <h2>Frases útiles<span class="fr"> · Phrases utiles</span></h2>
+    <p class="fr">Traduis en espagnol et écris la phrase. Écoute et répète.</p>
+    <table class="phrases">
+      <thead><tr><th>Français</th><th>Español</th></tr></thead>
+      <tbody>
+        <tr><td><span class="fr">Où est l'arrêt de bus ?</span></td><td><span class="line"></span></td></tr>
+        <tr><td><span class="fr">Je ne comprends pas. Vous pouvez répéter ?</span></td><td><span class="line"></span></td></tr>
+        <tr><td><span class="fr">J'ai rendez-vous chez le médecin.</span></td><td><span class="line"></span></td></tr>
+        <tr><td><span class="fr">Une phrase à toi :</span> <span class="line" style="min-width:8em"></span></td><td><span class="line"></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Extra</h2>
+    <ul style="margin:0; padding-left:1.2em; display:grid; gap:8px">
+      <li>Pulsa <strong>⇄</strong> y traduce tu frase en español otra vez al francés. ¿Sale igual?<span class="fr" style="display:block">Clique sur ⇄ et retraduis en français. C'est pareil ?</span></li>
+      <li>¿Está tu idioma? Prueba con bambara, wolof, fula…<span class="fr" style="display:block">Ta langue est là ? Essaie bambara, wolof, peul…</span></li>
+    </ul>
+  </section>
+
+  <section class="card warn">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M24 15v11M24 32v1"/></svg>
+    <div>
+      <span class="es">El traductor a veces se equivoca. Usa frases cortas y sencillas. No escribas tu dirección ni tus documentos.</span>
+      <span class="fr">Le traducteur se trompe parfois. Utilise des phrases courtes. N'écris pas ton adresse ni tes papiers.</span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

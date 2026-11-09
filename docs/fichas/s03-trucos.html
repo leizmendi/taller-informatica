@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trucos del navegador</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .tricks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 700px) { .tricks { grid-template-columns: minmax(0, 1fr); } }
+  .t {
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px;
+    display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 6px 14px; align-items: start;
+  }
+  .t svg { width: 52px; height: 52px; color: var(--c); grid-row: span 3; }
+  .t h2 { font-size: 1.3rem; }
+  .t .combo { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+  .t p { font-size: 0.98rem; }
+  .practice { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+  .practice .fr { display: block; }
+  .extra { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 700px) { .extra { grid-template-columns: minmax(0, 1fr); } }
+  .extra .card { border-style: dashed; }
+  .extra .fr.blk { display: block; }
+  @media print { .tricks { gap: 6px; } .t { padding: 8px 12px; } body { font-size: 12pt; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 3 · Para todo el trimestre</div>
+    <h1>Trucos del navegador<span class="fr">Astuces du navigateur</span></h1>
+  </header>
+
+  <section class="tricks">
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 40V14h14l3 6h23v20z"/><path d="M31 26v10M26 31h10"/></svg>
+      <h2>Pestaña nueva<span class="fr"> · Nouvel onglet</span></h2>
+      <div class="combo"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>T</kbd></div>
+      <p class="fr">Ou clic sur le + en haut.</p>
+    </div>
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 40V14h14l3 6h23v20z"/><path d="M27 26l8 8M35 26l-8 8"/></svg>
+      <h2>Cerrar pestaña<span class="fr"> · Fermer l'onglet</span></h2>
+      <div class="combo"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>W</kbd></div>
+      <p class="fr">Ou clic sur la croix ×.</p>
+    </div>
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18H6V10"/><path d="M7 18a18 18 0 1 1 3 16"/></svg>
+      <h2>Abrir la pestaña cerrada<span class="fr"> · Rouvrir l'onglet</span></h2>
+      <div class="combo"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>⇧ Mayús</kbd><span class="plus">+</span><kbd>T</kbd></div>
+      <p class="fr">Si tu l'as fermé par erreur.</p>
+    </div>
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="16" width="40" height="16" rx="8"/><path d="M12 24h18"/></svg>
+      <h2>Ir a la barra de direcciones<span class="fr"> · Aller à la barre d'adresse</span></h2>
+      <div class="combo"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>L</kbd></div>
+      <p class="fr">Pour écrire une adresse ou copier le lien.</p>
+    </div>
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M40 24H8M20 12L8 24l12 12"/></svg>
+      <h2>Atrás<span class="fr"> · Retour</span></h2>
+      <div class="combo"><kbd>Alt</kbd><span class="plus">+</span><kbd>←</kbd></div>
+      <p class="fr">Revenir à la page d'avant.</p>
+    </div>
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M38 14A16 16 0 1 0 40 26"/><path d="M40 6v9h-9"/></svg>
+      <h2>Recargar<span class="fr"> · Actualiser</span></h2>
+      <div class="combo"><kbd>F5</kbd></div>
+      <p class="fr">Si la page ne marche pas bien.</p>
+    </div>
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="20" r="13"/><path d="M30 30l13 13"/></svg>
+      <h2>Buscar en la página<span class="fr"> · Chercher dans la page</span></h2>
+      <div class="combo"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>F</kbd></div>
+      <p class="fr">Pour trouver un mot dans une page longue.</p>
+    </div>
+    <div class="t">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="20" r="13"/><path d="M30 30l13 13M14 20h12M20 14v12"/></svg>
+      <h2>Más grande / más pequeño<span class="fr"> · Plus grand / plus petit</span></h2>
+      <div class="combo"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>+</kbd><span class="plus">/</span><kbd>Ctrl</kbd><span class="plus">+</span><kbd>−</kbd></div>
+      <p class="fr">Pour lire mieux.</p>
+    </div>
+  </section>
+
+  <section class="extra">
+    <div class="card">
+      <h2>Extra: marcadores<span class="fr"> · Favoris</span></h2>
+      <div class="combo" style="display:flex; flex-wrap:wrap; align-items:center; gap:4px"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>D</kbd> <span>o la estrella ☆</span></div>
+      <p>Guarda una página para volver otro día.<span class="fr blk">Garde une page pour revenir un autre jour.</span></p>
+    </div>
+    <div class="card">
+      <h2>Extra: incógnito<span class="fr"> · Navigation privée</span></h2>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:4px"><kbd>Ctrl</kbd><span class="plus">+</span><kbd>⇧ Mayús</kbd><span class="plus">+</span><kbd>N</kbd></div>
+      <p>El ordenador no guarda lo que miras. <strong>No te hace invisible.</strong><span class="fr blk">L'ordinateur ne garde pas ce que tu regardes. Ça ne te rend pas invisible.</span></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Practica<span class="fr"> · Entraîne-toi</span></h2>
+    <ol class="practice">
+      <li>Abre 3 pestañas: Google, Wikipedia y YouTube.<span class="fr">Ouvre 3 onglets.</span></li>
+      <li>Cierra una con <kbd>Ctrl</kbd> + <kbd>W</kbd> y ábrela otra vez.<span class="fr">Ferme-en un et rouvre-le.</span></li>
+      <li>En Wikipedia, busca la palabra <em>Bamako</em> con <kbd>Ctrl</kbd> + <kbd>F</kbd>.<span class="fr">Sur Wikipédia, cherche le mot « Bamako ».</span></li>
+      <li>Haz la página más grande y vuelve a dejarla como estaba.<span class="fr">Agrandis la page puis remets-la normale.</span></li>
+    </ol>
+  </section>
+</div>
+</body>
+</html>

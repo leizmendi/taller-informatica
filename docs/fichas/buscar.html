@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Busca con cabeza</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .page { max-width: 900px; gap: 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; }
+  .count { font-family: var(--display); font-weight: 800; font-size: 1.6rem; font-variant-numeric: tabular-nums; color: var(--c); }
+  .progress { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; }
+  .progress div { height: 100%; background: var(--c); transition: width 0.3s; }
+  .stage {
+    background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 20px;
+    display: grid; gap: 16px; min-height: 420px; align-content: start; position: relative;
+  }
+  .kind { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .q { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 3.2vw, 2rem); line-height: 1.15; }
+  .q .fr { display: block; font-family: var(--body); font-size: 0.6em; }
+  .big { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 7vw, 3.4rem); text-align: center; color: var(--c); padding: 8px 0; }
+  .opts { display: grid; gap: 12px; }
+  .opts.row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 640px) { .opts.row { grid-template-columns: minmax(0, 1fr); } }
+  .opt {
+    font: inherit; text-align: left; color: var(--ink); background: var(--bg);
+    border: 3px solid var(--line); border-radius: 14px; padding: 14px 16px; cursor: pointer;
+    display: grid; gap: 4px;
+  }
+  .opt:hover { border-color: var(--c); }
+  .opt.center { text-align: center; font-family: var(--display); font-weight: 800; font-size: 1.3rem; }
+  .opt.center .fr { font-family: var(--body); font-size: 0.75em; font-weight: 400; }
+  .opt.typed { font-size: 1.15rem; }
+  .opt.typed::before { content: "🔍 "; }
+  .opt.ok { border-color: var(--ok); background: var(--soft); }
+  .opt.no { border-color: #d64545; animation: shake 0.35s; }
+  .opt[disabled] { cursor: default; }
+  @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+  @media (prefers-reduced-motion: reduce) { .opt.no { animation: none; } }
+  .searchbar {
+    display: flex; align-items: center; gap: 8px; border: 2px solid var(--key-edge); border-radius: 999px;
+    padding: 6px 16px; font-weight: 700; background: var(--card);
+  }
+  .res .url { font-size: 0.9rem; color: var(--muted); overflow-wrap: anywhere; }
+  .res .ad { font-weight: 800; color: var(--ink); margin-right: 6px; }
+  .res .ti { font-weight: 700; font-size: 1.15rem; color: var(--c); }
+  .res .sn { font-size: 0.98rem; }
+  .fb { min-height: 2.8em; font-weight: 700; font-size: 1.1rem; }
+  .fb .fr { display: block; font-weight: 400; }
+  .fb.good { color: var(--ok); }
+  .fb.bad { color: #d64545; }
+  .win { display: grid; justify-items: center; gap: 12px; text-align: center; padding: 30px 0; }
+  .win .big { color: var(--ok); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <span class="fr">Sesión 3 · Séance 3</span>
+  </div>
+
+  <h1>Busca con cabeza<span class="fr">Cherche intelligemment</span></h1>
+
+  <div class="bar">
+    <div class="progress" style="flex:1; min-width:120px"><div id="prog" style="width:0"></div></div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="stage" id="stage" aria-live="polite"></div>
+</div>
+
+<script>
+(function () {
+  var NAV = { es: 'Navegador', fr: 'Navigateur' };
+  var BUS = { es: 'Buscador', fr: 'Moteur de recherche' };
+  var WEB = { es: 'Página web', fr: 'Site web' };
+  var WHY = {
+    Navegador: ['El navegador es el programa para entrar en internet.', 'Le navigateur est le programme pour aller sur internet.'],
+    Buscador: ['El buscador busca otras páginas por ti.', 'Le moteur de recherche cherche les autres sites pour toi.'],
+    'Página web': ['Es un sitio que visitas para ver, leer o escuchar.', "C'est un site que tu visites pour voir, lire ou écouter."]
+  };
+  var LONG = ['Demasiadas palabras. Escribe solo las importantes.', 'Trop de mots. Écris seulement les mots importants.'];
+  var SHORT = ['Faltan palabras: ¿qué?, ¿dónde?', 'Il manque des mots : quoi ? où ?'];
+  var AD = ['Es un anuncio: quieren venderte algo.', 'C\'est une publicité : ils veulent te vendre quelque chose.'];
+  var TRAP = ['Promete premios o miedo: es una trampa.', 'Ça promet des cadeaux ou fait peur : c\'est un piège.'];
+  var FORUM = ['Es la opinión de una persona. No es seguro.', "C'est l'avis d'une personne. Ce n'est pas sûr."];
+
+  function what(name, answer) {
+    return { kind: '¿Qué es? · Qu\'est-ce que c\'est ?', big: name, row: true,
+      opts: [NAV, BUS, WEB].map(function (o) {
+        return { html: o.es + '<span class="fr">' + o.fr + '</span>', ok: o.es === answer, why: WHY[o.es] };
+      }) };
+  }
+  function words(es, fr, good, long, short) {
+    return { kind: '¿Qué escribes? · Qu\'est-ce que tu écris ?', q: es + '<span class="fr">' + fr + '</span>', typed: true,
+      opts: [
+        { html: good, ok: true },
+        { html: long, why: LONG },
+        { html: short, why: SHORT }
+      ] };
+  }
+  function result(query, list) {
+    return { kind: '¿Qué resultado eliges? · Quel résultat choisis-tu ?', search: query,
+      opts: list.map(function (r) {
+        return { html: '<span class="url">' + (r.ad ? '<span class="ad">Patrocinado</span>' : '') + r.url + '</span>' +
+          '<span class="ti">' + r.ti + '</span><span class="sn">' + r.sn + '</span>', ok: !!r.ok, why: r.why, res: true };
+      }) };
+  }
+
+  var ROUNDS = [
+    [
+      what('Google Chrome', 'Navegador'),
+      what('Google', 'Buscador'),
+      what('Wikipedia', 'Página web'),
+      what('Microsoft Edge', 'Navegador'),
+      what('YouTube', 'Página web')
+    ],
+    [
+      words('Quieres saber qué tiempo hará mañana en Madrid.', 'Tu veux savoir le temps qu\'il fera demain à Madrid.',
+        'tiempo mañana Madrid', 'hola por favor me puedes decir qué tiempo va a hacer mañana en Madrid', 'tiempo'),
+      words('Quieres un vídeo para aprender a dibujar un león.', 'Tu veux une vidéo pour apprendre à dessiner un lion.',
+        'cómo dibujar un león', 'yo quiero aprender a dibujar un león muy bonito con un lápiz gracias', 'dibujar'),
+      words('Quieres saber cuánto cuesta el billete de metro en Madrid.', 'Tu veux savoir combien coûte le ticket de métro à Madrid.',
+        'precio billete metro Madrid', 'oye cuánto me va a costar a mí el billete del metro de Madrid si voy hoy', 'metro')
+    ],
+    [
+      result('capital de Malí', [
+        { ad: true, url: 'vuelos-baratos-ya.xyz', ti: 'Vuelos a Malí desde 9 € ¡Solo hoy!', sn: 'Reserva ya. Últimas plazas.', why: AD },
+        { url: 'es.wikipedia.org › wiki › Malí', ti: 'Malí – Wikipedia', sn: 'Malí es un país de África occidental. Su capital es Bamako.', ok: true },
+        { url: 'premios-gratis.click', ti: '¡Has ganado un móvil!', sn: 'Responde a esta pregunta y llévatelo gratis.', why: TRAP }
+      ]),
+      result('tiempo mañana Madrid', [
+        { url: 'foro-de-todo.net › charla', ti: '¿mañana llueve en madrid??', sn: 'mi primo dice que sí jaja', why: FORUM },
+        { ad: true, url: 'super-app-clima.xyz', ti: 'Descarga gratis la mejor app del tiempo', sn: 'Instala ahora y gana puntos.', why: AD },
+        { url: 'aemet.es › Predicción › Madrid', ti: 'Predicción para Madrid – AEMET', sn: 'Mañana: nubes y claros. Máxima 14 °C, mínima 5 °C.', ok: true }
+      ]),
+      result('número emergencias España', [
+        { url: 'noticias-locas.net', ti: '¡NO llames al 112! Lo que nadie te cuenta', sn: 'Te van a engañar. Mira este vídeo antes de que lo borren.', why: TRAP },
+        { url: 'es.wikipedia.org › wiki › 112', ti: '112 – Wikipedia', sn: 'El 112 es el teléfono de emergencias en España y en toda la Unión Europea. Es gratis.', ok: true },
+        { ad: true, url: 'llamadas-baratas.xyz', ti: 'Llama a tu país por 1 céntimo', sn: 'Oferta especial. Regístrate hoy.', why: AD }
+      ])
+    ]
+  ];
+
+  var stage = document.getElementById('stage');
+  var count = document.getElementById('count');
+  var prog = document.getElementById('prog');
+  var list, idx, firstTry, missed;
+
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  function begin() {
+    list = [];
+    ROUNDS.forEach(function (group) { list = list.concat(shuffle(group)); });
+    idx = 0; firstTry = 0;
+    show();
+  }
+
+  function show() {
+    count.textContent = idx + ' / ' + list.length;
+    prog.style.width = (100 * idx / list.length) + '%';
+    stage.innerHTML = '';
+    if (idx >= list.length) return win();
+    var r = list[idx];
+    missed = false;
+
+    var k = document.createElement('div'); k.className = 'kind'; k.textContent = r.kind; stage.appendChild(k);
+    if (r.q) { var q = document.createElement('div'); q.className = 'q'; q.innerHTML = r.q; stage.appendChild(q); }
+    if (r.big) { var b = document.createElement('div'); b.className = 'big'; b.textContent = r.big; stage.appendChild(b); }
+    if (r.search) { var s = document.createElement('div'); s.className = 'searchbar'; s.textContent = '🔍 ' + r.search; stage.appendChild(s); }
+
+    var box = document.createElement('div');
+    box.className = 'opts' + (r.row ? ' row' : '');
+    var fb = document.createElement('div'); fb.className = 'fb';
+    var opts = r.row ? r.opts : shuffle(r.opts);
+    opts.forEach(function (o) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'opt' + (r.row ? ' center' : '') + (r.typed ? ' typed' : '') + (o.res ? ' res' : '');
+      btn.innerHTML = o.html;
+      btn.onclick = function () {
+        if (o.ok) {
+          if (!missed) firstTry++;
+          btn.classList.add('ok');
+          box.querySelectorAll('button').forEach(function (x) { x.disabled = true; });
+          fb.className = 'fb good';
+          fb.innerHTML = '¡Muy bien! <span class="fr">Très bien !</span>' + (o.why ? '<span class="fr">' + o.why[0] + '</span>' : '');
+          setTimeout(function () { idx++; show(); }, o.why ? 2200 : 1300);
+        } else {
+          missed = true;
+          btn.classList.remove('no'); void btn.offsetWidth; btn.classList.add('no');
+          var why = o.why || ['Prueba otra vez.', 'Essaie encore.'];
+          fb.className = 'fb bad';
+          fb.innerHTML = why[0] + '<span class="fr">' + why[1] + '</span>';
+        }
+      };
+      box.appendChild(btn);
+    });
+    stage.appendChild(box);
+    stage.appendChild(fb);
+    var first = box.querySelector('button');
+    if (first) first.focus({ preventScroll: true });
+  }
+
+  function win() {
+    var w = document.createElement('div');
+    w.className = 'win';
+    w.innerHTML = '<div class="big">¡Terminado!<br><span class="fr">Terminé !</span></div>' +
+      '<div>' + firstTry + ' de ' + list.length + ' a la primera · ' + firstTry + ' sur ' + list.length + ' du premier coup</div>';
+    var again = document.createElement('button');
+    again.type = 'button';
+    again.textContent = 'Otra vez · Encore';
+    again.onclick = begin;
+    w.appendChild(again);
+    stage.appendChild(w);
+    again.focus();
+  }
+
+  begin();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aprendo con un vídeo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .name {
+    display: inline-block; margin-top: 6px; padding: 4px 10px; border: 2px solid var(--c); border-radius: 6px;
+    font-weight: 700; background: var(--card);
+  }
+  .ideas { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ideas span { background: var(--soft); border-radius: 999px; padding: 4px 14px; font-weight: 700; }
+  .notepad {
+    margin-top: 6px; border: 1px solid var(--key-edge); border-radius: 8px; background: var(--card);
+    font-family: Consolas, "Courier New", monospace; font-size: 0.95rem; padding: 8px 12px; max-width: 30em;
+    overflow-wrap: anywhere;
+  }
+  .good { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .good div { background: var(--soft); border-radius: 12px; padding: 10px 14px; }
+  .good strong { display: block; font-family: var(--display); font-size: 1.15rem; color: var(--c); }
+  .good .fr { display: block; }
+  .mine { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: end; font-weight: 700; }
+  .mine .line { min-width: 0; width: 100%; }
+  h2 { margin-top: 6px; }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 640px) { .good { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 3 · Proyecto personal</div>
+    <h1>Aprendo con un vídeo<span class="fr">J'apprends avec une vidéo</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>¿Qué quieres aprender?<span class="fr"> · Qu'est-ce que tu veux apprendre ?</span></h2>
+    <div class="ideas">
+      <span>cómo dibujar un león</span>
+      <span>trucos de fútbol</span>
+      <span>cómo hacer pan</span>
+      <span>cortar el pelo</span>
+      <span>aprender a nadar</span>
+    </div>
+    <div class="mine">Yo quiero aprender · Je veux apprendre : <span class="line"></span></div>
+  </section>
+
+  <h2>Buscar el vídeo<span class="fr"> · Chercher la vidéo</span></h2>
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">Abre <strong>youtube.com</strong> y escribe en el buscador: <em>cómo</em> + lo que quieres aprender.</span>
+        <span class="fr">Ouvre youtube.com et écris : « cómo » + ce que tu veux apprendre.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Elige un buen vídeo. Ponte los auriculares y míralo.</span>
+        <span class="fr">Choisis une bonne vidéo. Mets le casque et regarde-la.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+
+  <section class="good">
+    <div><strong>Corto</strong>Menos de 10 minutos<span class="fr">Court : moins de 10 minutes</span></div>
+    <div><strong>Claro</strong>El título dice lo que enseña<span class="fr">Clair : le titre dit ce qu'il apprend</span></div>
+    <div><strong>Visto</strong>Muchas visualizaciones<span class="fr">Vu : beaucoup de vues</span></div>
+  </section>
+
+  <h2>Guardar el enlace<span class="fr"> · Enregistrer le lien</span></h2>
+  <ol class="steps" style="counter-reset: s 2">
+    <li>
+      <div>
+        <span class="es">Haz clic en la barra de direcciones y copia: <kbd>Ctrl</kbd><span class="plus">+</span><kbd>C</kbd></span>
+        <span class="fr">Clique dans la barre d'adresse et copie.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Abre el Bloc de notas, escribe qué enseña el vídeo y pega el enlace: <kbd>Ctrl</kbd><span class="plus">+</span><kbd>V</kbd></span>
+        <span class="fr">Ouvre le Bloc-notes, écris ce que la vidéo apprend et colle le lien.</span>
+        <div class="notepad" aria-hidden="true">Este vídeo enseña a dibujar un león.<br>https://www.youtube.com/watch?v=…</div>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Archivo → Guardar como → tu carpeta → <strong>Textos</strong>.</span>
+        <span class="fr">Fichier → Enregistrer sous → ton dossier → Textos.</span>
+        <span class="name">video</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Comprueba: abre <em>video.txt</em>, copia el enlace y pégalo en una pestaña nueva. ¿Sale tu vídeo?</span>
+        <span class="fr">Vérifie : ouvre video.txt, copie le lien et colle-le dans un nouvel onglet. Ta vidéo s'affiche ?</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+</div>
+</body>
+</html>

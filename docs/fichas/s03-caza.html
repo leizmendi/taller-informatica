@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caza del tesoro</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .rules { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  .rules span { font-weight: 700; }
+  .rules .fr { font-weight: 400; }
+  .city { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; font-weight: 700; }
+  .qs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: q; }
+  .q {
+    counter-increment: q;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+    display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 6px 14px;
+  }
+  .q .ico { font-size: 2.4rem; line-height: 1; grid-row: span 2; text-align: center; }
+  .q .es { font-weight: 700; font-size: 1.15rem; display: block; }
+  .q .es::before { content: counter(q) ". "; color: var(--c); font-family: var(--display); }
+  .q .fr { display: block; }
+  .fill { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 10px; align-items: end; font-size: 0.95rem; }
+  .fill b { color: var(--muted); font-weight: 700; white-space: nowrap; }
+  .fill .line { min-width: 0; width: 100%; }
+  .q.extra { border-style: dashed; }
+  .q.extra .es::before { content: "★ "; }
+  @media print { .qs { gap: 6px; } .q { padding: 8px 12px; } body { font-size: 12.5pt; } .fill .line { height: 1.6em; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 3 · Ficha</div>
+    <h1>Caza del tesoro<span class="fr">Chasse au trésor</span></h1>
+  </header>
+
+  <section class="card">
+    <div class="rules">
+      <span>1. Pocas palabras <span class="fr">· Peu de mots</span></span>
+      <span>2. Mira la dirección <span class="fr">· Regarde l'adresse</span></span>
+      <span>3. «Patrocinado» = anuncio <span class="fr">· publicité</span></span>
+    </div>
+    <div class="city">Nuestra ciudad <span class="fr">· Notre ville :</span> <span class="line"></span></div>
+  </section>
+
+  <ol class="qs">
+    <li class="q">
+      <span class="ico" aria-hidden="true">🌍</span>
+      <div><span class="es">¿Cuál es la capital de Malí?</span><span class="fr">Quelle est la capitale du Mali ?</span></div>
+      <div class="fill"><b>Escribo · J'écris</b><span class="line"></span><b>Respuesta · Réponse</b><span class="line"></span></div>
+    </li>
+    <li class="q">
+      <span class="ico" aria-hidden="true">🌦️</span>
+      <div><span class="es">¿Qué tiempo hará mañana en nuestra ciudad? ¿Cuántos grados?</span><span class="fr">Quel temps fera-t-il demain dans notre ville ? Combien de degrés ?</span></div>
+      <div class="fill"><b>Escribo · J'écris</b><span class="line"></span><b>Respuesta · Réponse</b><span class="line"></span></div>
+    </li>
+    <li class="q">
+      <span class="ico" aria-hidden="true">📚</span>
+      <div><span class="es">¿A qué hora abre el sábado la biblioteca más cercana?</span><span class="fr">À quelle heure ouvre samedi la bibliothèque la plus proche ?</span></div>
+      <div class="fill"><b>Escribo · J'écris</b><span class="line"></span><b>Respuesta · Réponse</b><span class="line"></span></div>
+    </li>
+    <li class="q">
+      <span class="ico" aria-hidden="true">🚌</span>
+      <div><span class="es">¿Cuánto cuesta un billete de autobús en nuestra ciudad?</span><span class="fr">Combien coûte un ticket de bus dans notre ville ?</span></div>
+      <div class="fill"><b>Escribo · J'écris</b><span class="line"></span><b>Respuesta · Réponse</b><span class="line"></span></div>
+    </li>
+    <li class="q">
+      <span class="ico" aria-hidden="true">⚽</span>
+      <div><span class="es">¿Cuándo juega el próximo partido tu equipo favorito?</span><span class="fr">Quand joue le prochain match de ton équipe préférée ?</span></div>
+      <div class="fill"><b>Escribo · J'écris</b><span class="line"></span><b>Respuesta · Réponse</b><span class="line"></span></div>
+    </li>
+    <li class="q extra">
+      <span class="ico" aria-hidden="true">✈️</span>
+      <div><span class="es">Extra: ¿Cuántos kilómetros hay de Bamako a Madrid?</span><span class="fr">Combien de kilomètres y a-t-il de Bamako à Madrid ?</span></div>
+      <div class="fill"><b>Respuesta · Réponse</b><span class="line"></span></div>
+    </li>
+    <li class="q extra">
+      <span class="ico" aria-hidden="true">👥</span>
+      <div><span class="es">Extra: ¿Cuántas personas viven en Malí? Búscalo en 2 páginas. ¿Dicen lo mismo?</span><span class="fr">Combien de personnes vivent au Mali ? Cherche sur 2 sites. Ils disent la même chose ?</span></div>
+      <div class="fill"><b>Página 1 · Site 1</b><span class="line"></span><b>Página 2 · Site 2</b><span class="line"></span></div>
+    </li>
+  </ol>
+</div>
+</body>
+</html>

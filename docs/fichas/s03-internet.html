@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Navegador, buscador y web</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .compare {
+    display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr); gap: 14px 10px; align-items: center;
+  }
+  .colhead { font-family: var(--display); font-weight: 800; font-size: 1.4rem; text-align: center; }
+  .colhead .fr { display: block; font-family: var(--body); font-size: 0.75em; }
+  .item {
+    background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 14px;
+    display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: center;
+  }
+  .item svg { width: 72px; height: 72px; color: var(--c); }
+  .item .es { display: block; font-family: var(--display); font-weight: 800; font-size: 1.5rem; line-height: 1.1; }
+  .item .fr { display: block; }
+  .item .ex { display: block; font-size: 0.95rem; color: var(--muted); margin-top: 2px; }
+  .eq { text-align: center; font-family: var(--display); font-weight: 800; font-size: 2rem; color: var(--muted); }
+
+  /* Navegador dibujado */
+  .browser { border: 2px solid var(--key-edge); border-radius: 12px; overflow: hidden; background: var(--card); }
+  .tabs { display: flex; gap: 4px; padding: 8px 8px 0; background: var(--bg); overflow: hidden; }
+  .tab {
+    padding: 6px 14px; border-radius: 8px 8px 0 0; font-size: 0.95rem; white-space: nowrap;
+    background: var(--line); color: var(--muted); display: flex; align-items: center; gap: 8px;
+  }
+  .tab.on { background: var(--card); color: var(--ink); font-weight: 700; }
+  .tab .x { color: var(--muted); }
+  .navrow { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-bottom: 2px solid var(--line); }
+  .navrow .b { font-weight: 700; font-size: 1.2rem; color: var(--muted); }
+  .addr {
+    flex: 1; min-width: 0; border-radius: 999px; background: var(--bg); padding: 6px 14px;
+    font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .content { padding: 16px; display: grid; gap: 6px; }
+  .content .t { font-family: var(--display); font-weight: 800; font-size: 1.5rem; }
+  .content .l { height: 10px; border-radius: 5px; background: var(--line); }
+  .num {
+    display: inline-grid; place-items: center; width: 1.7em; height: 1.7em; border-radius: 50%; flex: none;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 0.95rem; line-height: 1;
+  }
+  .legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 20px; }
+  .legend li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; }
+  .legend .es { font-weight: 700; display: block; }
+  .legend .fr { display: block; }
+
+  .rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .rule { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .rule strong { font-family: var(--display); font-size: 1.3rem; line-height: 1.1; color: var(--c); }
+  .rule .fr { display: block; }
+  .rule code { font-family: var(--body); font-weight: 700; background: var(--card); padding: 2px 8px; border-radius: 6px; }
+  @media (max-width: 700px) {
+    .rules, .legend { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .compare { grid-template-columns: minmax(0, 1fr); }
+    .eq { transform: rotate(90deg); }
+    .colhead.right { display: none; }
+    .item svg { width: 56px; height: 56px; }
+    .item { grid-template-columns: 56px minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 3 · Para proyectar</div>
+    <h1>Navegador, buscador y página web<span class="fr">Navigateur, moteur de recherche et site web</span></h1>
+  </header>
+
+  <section class="compare">
+    <div class="colhead">En la biblioteca<span class="fr">À la bibliothèque</span></div>
+    <div></div>
+    <div class="colhead right">En internet<span class="fr">Sur internet</span></div>
+
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 44V6h28v38"/><path d="M4 44h40"/><circle cx="31" cy="26" r="1.5" fill="currentColor"/></svg>
+      <span><span class="es">la puerta</span><span class="fr">la porte</span></span>
+    </div>
+    <div class="eq" aria-hidden="true">=</div>
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="40" height="32" rx="3"/><path d="M4 17h40"/><circle cx="9" cy="12.5" r="1" fill="currentColor"/><circle cx="13" cy="12.5" r="1" fill="currentColor"/></svg>
+      <span><span class="es">el navegador</span><span class="fr">le navigateur</span><span class="ex">Chrome, Edge, Firefox</span></span>
+    </div>
+
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="14" r="8"/><path d="M8 44c0-9 7-15 16-15s16 6 16 15"/></svg>
+      <span><span class="es">la bibliotecaria</span><span class="fr">la bibliothécaire</span><span class="ex">Te dice dónde está el libro · Elle te dit où est le livre</span></span>
+    </div>
+    <div class="eq" aria-hidden="true">=</div>
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="20" r="13"/><path d="M30 30l13 13"/></svg>
+      <span><span class="es">el buscador</span><span class="fr">le moteur de recherche</span><span class="ex">Google, Bing</span></span>
+    </div>
+
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 12c-5-4-12-5-19-4v30c7-1 14 0 19 4 5-4 12-5 19-4V8c-7-1-14 0-19 4z"/><path d="M24 12v30"/></svg>
+      <span><span class="es">el libro</span><span class="fr">le livre</span></span>
+    </div>
+    <div class="eq" aria-hidden="true">=</div>
+    <div class="item">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M5 24h38M24 5c6 6 8 12 8 19s-2 13-8 19c-6-6-8-12-8-19s2-13 8-19z"/></svg>
+      <span><span class="es">la página web</span><span class="fr">le site web</span><span class="ex">Wikipedia, YouTube</span></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Las partes del navegador<span class="fr"> · Les parties du navigateur</span></h2>
+    <div class="browser" aria-hidden="true">
+      <div class="tabs">
+        <span class="num">1</span>
+        <span class="tab on">Malí – Wikipedia <span class="x">×</span></span>
+        <span class="tab">Google <span class="x">×</span></span>
+        <span class="tab">+</span>
+      </div>
+      <div class="navrow">
+        <span class="num">2</span>
+        <span class="b">←</span><span class="b">→</span><span class="b">⟳</span>
+        <span class="num">3</span>
+        <span class="addr">es.wikipedia.org/wiki/Malí</span>
+        <span class="b">☆</span>
+      </div>
+      <div class="content">
+        <div style="display:flex; gap:10px; align-items:center"><span class="num">4</span><span class="t">Malí</span></div>
+        <div class="l" style="width:90%"></div>
+        <div class="l" style="width:75%"></div>
+        <div class="l" style="width:82%"></div>
+      </div>
+    </div>
+    <ul class="legend">
+      <li><span class="num">1</span><span><span class="es">Pestañas: varias páginas a la vez</span><span class="fr">Onglets : plusieurs pages en même temps</span></span></li>
+      <li><span class="num">2</span><span><span class="es">Atrás, adelante y recargar</span><span class="fr">Retour, avancer et actualiser</span></span></li>
+      <li><span class="num">3</span><span><span class="es">Barra de direcciones: aquí se ve dónde estás</span><span class="fr">Barre d'adresse : ici on voit où tu es</span></span></li>
+      <li><span class="num">4</span><span><span class="es">La página web</span><span class="fr">Le site web</span></span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Buscar con cabeza<span class="fr"> · Chercher intelligemment</span></h2>
+    <div class="rules">
+      <div class="rule">
+        <strong>1. Pocas palabras</strong>
+        <span class="fr">Peu de mots</span>
+        <code>tiempo mañana Madrid</code>
+      </div>
+      <div class="rule">
+        <strong>2. Mira la dirección</strong>
+        <span class="fr">Regarde l'adresse</span>
+        <span>«Patrocinado» = anuncio<span class="fr">« Sponsorisé » = publicité</span></span>
+      </div>
+      <div class="rule">
+        <strong>3. Compara 2 páginas</strong>
+        <span class="fr">Compare 2 sites</span>
+        <span>¿Dicen lo mismo?<span class="fr">Elles disent la même chose ?</span></span>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

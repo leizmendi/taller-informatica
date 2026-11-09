@@ -81,6 +81,9 @@
     font-weight: 700;
   }
   .pill svg { width: 22px; height: 22px; flex: none; }
+  a.pill { color: var(--b1); border-color: var(--b1); text-decoration: none; }
+  a.pill:hover { background: var(--b1-soft); }
+  a.pill:focus-visible { outline: 3px solid var(--b1); outline-offset: 3px; }
 
   .blocks {
     display: grid;
@@ -163,6 +166,10 @@
         18:30 – 20:00
       </span>
       <span class="pill">12 clases · 12 séances</span>
+      <a class="pill" href="fichas/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h8M9 17h8"/></svg>
+        Fichas · Fiches →
+      </a>
     </div>
   </header>
 

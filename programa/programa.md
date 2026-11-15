@@ -48,6 +48,8 @@ En este bloque todos se ponen en el mismo punto de partida. Si la encuesta muest
 - Entender qué es un archivo y qué es una carpeta.
 - Crear su carpeta personal, guardar un archivo dentro y volver a encontrarlo.
 - Renombrar, copiar y borrar archivos, y recuperar uno de la papelera.
+- Instalar y desinstalar un programa en Windows desde Microsoft Store, y saber dónde aparece después (menú Inicio).
+- Entender qué es una cuenta de usuario: cada cuenta tiene su escritorio, sus archivos y su contraseña. Diferencia entre administrador y usuario estándar, y por qué en el ordenador del taller no se puede instalar cualquier cosa.
 - Saber que esa carpeta está solo en este ordenador (en la sesión 4 pasará a la nube).
 
 **Actividades**
@@ -56,7 +58,9 @@ En este bloque todos se ponen en el mismo punto de partida. Si la encuesta muest
 2. Crear la carpeta "Taller – [apodo]" con subcarpetas Textos, Fotos y Web.
 3. Guardar el texto de la sesión 1 dentro de su carpeta.
 4. Juego "¿dónde está?": el monitor esconde un archivo y lo tienen que encontrar con el buscador.
-5. **Extra:** copiar un archivo a otra carpeta y explicar la diferencia entre copiar y mover.
+5. Instalar una app gratuita desde Microsoft Store (por ejemplo, VLC o un juego de mecanografía), abrirla desde el menú Inicio y desinstalarla en Configuración → Aplicaciones. Norma del aula: en el ordenador del taller solo se instala con el monitor delante.
+6. Cuentas del ordenador: ver en Configuración → Cuentas qué cuentas hay, cambiar de usuario y comprobar que los archivos de una cuenta no se ven desde otra. Bloquear la pantalla con Windows + L y cerrar sesión antes de irse.
+7. **Extra:** copiar un archivo a otra carpeta y explicar la diferencia entre copiar y mover.
 
 ### Sesión 3 – Internet con cabeza
 
@@ -104,6 +108,7 @@ Al acabar este bloque cada uno tiene un correo y un Google Drive que funcionan, 
 
 - Crear contraseñas fuertes que se puedan recordar.
 - Reconocer estafas por SMS, WhatsApp y correo, y los bulos.
+- Instalar apps solo desde la tienda oficial (Play Store, App Store), reconocer apps falsas o de imitación y revisar los permisos que piden.
 - Saber que hay fotos, vídeos y voces falsas hechas con IA, y tener motivos para sospechar de ellas.
 - Configurar la privacidad de TikTok e Instagram.
 - Pensar antes de subir una foto o un dato personal.
@@ -115,7 +120,8 @@ Al acabar este bloque cada uno tiene un correo y un Google Drive que funcionan, 
 3. Crear una contraseña con una frase y comprobar lo fuerte que es en un medidor.
 4. Revisar juntos los ajustes de privacidad en su propio móvil: cuenta privada, quién puede escribirme, ubicación. Comprobar también quién puede ver sus archivos de Drive.
 5. Debate corto: ¿qué foto no subirías nunca? Huella digital y fotos de otros.
-6. **Extra:** activar la verificación en dos pasos en el correo.
+6. Apps en el móvil: comparar en la tienda una app auténtica y una imitación (desarrollador, descargas, opiniones). Instalar una útil, como el traductor o Drive, mirar qué permisos pide y quitar los que no hacen falta (ubicación, contactos, micrófono). Desinstalar una app que ya no usen. Nunca instalar apps desde enlaces que llegan por WhatsApp o SMS.
+7. **Extra:** activar la verificación en dos pasos en el correo.
 
 ### Sesión 6 – La IA para aprender
 
@@ -272,3 +278,5 @@ Si se empieza el martes 17 de noviembre, antes de Navidad caben 4 sesiones y el 
 - **Pregunta 14 (intereses):** los bloques más votados se alargan. Si "Programar, crear juegos" sale alto, se puede adelantar la web a la sesión 3 o 4 como proyecto de todo el trimestre y planear Scratch para el siguiente.
 - **Preguntas 2 y 3 (lectura):** si alguno no lee con soltura ni en castellano ni en francés, las fichas usan más iconos y se enseña a usar el dictado por voz.
 - **Pregunta 12 (IA):** si ya la usan mucho, la sesión 6 dedica menos tiempo a la demostración y más a comprobar respuestas y a la privacidad.
+
+**Pendiente:** confirmar con los educadores la fecha de inicio y la política de cuentas de Google (correo y Drive) para menores de 14 años, y si conviene pedir Google Workspace para organizaciones sin ánimo de lucro para gestionar las cuentas desde la asociación.

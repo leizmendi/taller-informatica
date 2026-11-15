@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Programas y cuentas – proyectar</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  html, body { height: 100%; }
+  body { overflow: hidden; }
+  .deck {
+    height: 100vh; height: 100dvh;
+    display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+    padding: 12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px));
+    gap: 8px;
+  }
+  .top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; font-size: 0.95rem; }
+  .top a { color: var(--c); font-weight: 700; }
+  .top .actions { display: flex; gap: 8px; }
+
+  #slides { min-height: 0; display: grid; }
+  .slide {
+    display: none; min-height: 0; height: 100%; overflow: auto; padding: 8px 0;
+    align-content: safe center; justify-items: center; text-align: center;
+    gap: clamp(12px, 3vh, 32px);
+  }
+  .slide.on { display: grid; }
+  .slide svg.icon { width: clamp(80px, 18vh, 180px); height: clamp(80px, 18vh, 180px); color: var(--c); }
+  .badge {
+    font-family: var(--display); font-weight: 800; font-size: clamp(1rem, 2.6vh, 1.6rem);
+    color: var(--c); background: var(--soft); padding: 4px 18px; border-radius: 999px;
+  }
+  .es {
+    margin: 0; font-family: var(--display); font-weight: 800;
+    font-size: clamp(2rem, 7vh, 5rem); line-height: 1.1; text-wrap: balance; max-width: 20ch;
+  }
+  .fr-big {
+    margin: 0; color: var(--muted); font-style: italic;
+    font-size: clamp(1.2rem, 4vh, 2.8rem); line-height: 1.2; text-wrap: balance; max-width: 40ch;
+  }
+  .slide kbd { font-size: clamp(1.6rem, 6vh, 4rem); min-width: 1.8em; height: 1.8em; border-radius: 14px; border-bottom-width: 7px; }
+  .combo { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.3em; font-family: var(--display); font-weight: 800; font-size: clamp(1.6rem, 6vh, 4rem); }
+  .combo .arrow { color: var(--muted); }
+  .path { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+  .path span.box {
+    font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 5vh, 3.4rem);
+    border: 3px solid var(--c); border-radius: 14px; padding: 2px 18px; background: var(--card);
+  }
+  .path .arrow { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 5vh, 3.4rem); color: var(--muted); }
+
+  .rule .es { color: var(--c); }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 3vw, 40px); width: min(100%, 1200px); }
+  @media (max-width: 640px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  .two > div { background: var(--card); border: 3px solid var(--line); border-radius: 20px; padding: clamp(12px, 3vh, 32px); display: grid; gap: 10px; justify-items: center; }
+  .two svg { width: clamp(60px, 12vh, 120px); height: clamp(60px, 12vh, 120px); color: var(--c); }
+  .two .t { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 4.5vh, 3rem); line-height: 1.1; }
+  .two .d { font-size: clamp(1rem, 3vh, 2rem); }
+  .two .fr { font-size: clamp(0.9rem, 2.4vh, 1.6rem); }
+
+  .bottom { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+  .dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .dots button { width: 14px; height: 14px; padding: 0; border-radius: 50%; border: 2px solid var(--c); background: transparent; }
+  .dots button[aria-current="true"] { background: var(--c); }
+  .nav { min-width: 3em; font-size: 1.2rem; }
+
+  @media print {
+    body { overflow: visible; }
+    .deck { height: auto; display: block; padding: 0; }
+    .top, .bottom { display: none !important; }
+    .slide { display: grid !important; break-after: page; min-height: 180mm; }
+    .slide:last-of-type { break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="top">
+    <a href="./">← Fichas</a>
+    <div class="actions">
+      <button type="button" class="ghost" id="full">Pantalla completa</button>
+    </div>
+  </div>
+
+  <main id="slides" aria-live="polite">
+    <section class="slide">
+      <div class="badge">Sesión 2</div>
+      <h1 class="es">Programas y cuentas</h1>
+      <p class="fr-big">Programmes et comptes</p>
+    </section>
+
+    <section class="slide rule">
+      <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="14" r="7"/><path d="M10 42c0-8 6-13 14-13s14 5 14 13"/><path d="M34 8l4 4 6-7"/></svg>
+      <div class="badge">Norma del aula · Règle</div>
+      <p class="es">Solo se instala con el monitor delante</p>
+      <p class="fr-big">On installe seulement avec le moniteur à côté</p>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Instalar · Installer — 1</div>
+      <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 16h32l-3 26H11z"/><path d="M17 16v-4a7 7 0 0 1 14 0v4"/></svg>
+      <p class="es">Abre Microsoft Store</p>
+      <p class="fr-big">Ouvre Microsoft Store</p>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Instalar · Installer — 2</div>
+      <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="20" r="13"/><path d="M30 30l12 12"/></svg>
+      <p class="es">Busca la app</p>
+      <p class="fr-big">Cherche l'application</p>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Instalar · Installer — 3</div>
+      <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6v24M14 21l10 10 10-10"/><path d="M8 34v8h32v-8"/></svg>
+      <div class="path"><span class="box">Obtener</span><span class="arrow">/</span><span class="box">Instalar</span></div>
+      <p class="fr-big">Obtenir / Installer</p>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Abrir · Ouvrir</div>
+      <div class="combo"><kbd>⊞</kbd><span class="arrow">→</span><span>nombre</span><span class="arrow">→</span><kbd>Intro</kbd></div>
+      <p class="es">Búscala en el menú Inicio</p>
+      <p class="fr-big">Touche ⊞ → écris le nom → Entrée</p>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Desinstalar · Désinstaller</div>
+      <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12h32M18 12V6h12v6M12 12l2 30h20l2-30M21 20v15M27 20v15"/></svg>
+      <div class="path"><span class="box">Configuración</span><span class="arrow">→</span><span class="box">Aplicaciones</span><span class="arrow">→</span><span class="box">···</span><span class="arrow">→</span><span class="box">Desinstalar</span></div>
+      <p class="fr-big">Paramètres → Applications → ··· → Désinstaller</p>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Las cuentas · Les comptes</div>
+      <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="15" r="6"/><path d="M5 38c0-7 5-11 12-11s12 4 12 11"/><circle cx="34" cy="17" r="5"/><path d="M31 27c7 0 12 4 12 10"/></svg>
+      <p class="es">Cada cuenta tiene su escritorio, sus archivos y su contraseña</p>
+      <p class="fr-big">Chaque compte a son bureau, ses fichiers et son mot de passe</p>
+    </section>
+
+    <section class="slide">
+      <div class="two">
+        <div>
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="21" r="10"/><path d="M26 27l16 16M36 37l4-4M32 33l3-3"/></svg>
+          <span class="t">Administrador</span>
+          <span class="d">Puede instalar todo</span>
+          <span class="fr">Administrateur · peut tout installer</span>
+        </div>
+        <div>
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="15" r="8"/><path d="M8 43c0-9 7-15 16-15s16 6 16 15"/></svg>
+          <span class="t">Usuario estándar</span>
+          <span class="d">No puede instalar cualquier cosa</span>
+          <span class="fr">Utilisateur standard · ne peut pas tout installer</span>
+        </div>
+      </div>
+      <div class="path"><span class="box">Configuración</span><span class="arrow">→</span><span class="box">Cuentas</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Bloquear · Verrouiller</div>
+      <div class="combo"><kbd>⊞</kbd><span class="arrow">+</span><kbd>L</kbd></div>
+      <p class="es">Para una pausa</p>
+      <p class="fr-big">Pour une pause : il faut le mot de passe pour revenir</p>
+    </section>
+
+    <section class="slide">
+      <div class="badge">Cerrar sesión · Se déconnecter</div>
+      <div class="combo"><kbd>⊞</kbd><span class="arrow">→</span><span>tu nombre</span><span class="arrow">→</span><span>Cerrar sesión</span></div>
+      <p class="es">Antes de irte</p>
+      <p class="fr-big">Avant de partir : touche ⊞ → ton nom → Se déconnecter</p>
+    </section>
+  </main>
+
+  <div class="bottom">
+    <button type="button" class="nav ghost" id="prev" aria-label="Anterior">←</button>
+    <div class="dots" id="dots"></div>
+    <button type="button" class="nav" id="next" aria-label="Siguiente">→</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dots = document.getElementById('dots');
+  var i = 0;
+  slides.forEach(function (_, n) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Pantalla ' + (n + 1));
+    b.addEventListener('click', function (e) { e.stopPropagation(); go(n); });
+    dots.appendChild(b);
+  });
+  function go(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    Array.prototype.forEach.call(dots.children, function (d, k) { d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+  document.getElementById('prev').addEventListener('click', function (e) { e.stopPropagation(); go(i - 1); });
+  document.getElementById('next').addEventListener('click', function (e) { e.stopPropagation(); go(i + 1); });
+  document.getElementById('slides').addEventListener('click', function () { go(i + 1); });
+  document.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if ((k === ' ' || k === 'Enter') && e.target.tagName === 'BUTTON') return;
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ' || k === 'Enter') { e.preventDefault(); go(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); go(i - 1); }
+    else if (k === 'Home') { go(0); }
+    else if (k === 'End') { go(slides.length - 1); }
+    else if (k === 'f' || k === 'F') { toggleFull(); }
+  });
+  function toggleFull() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) {}
+  }
+  document.getElementById('full').addEventListener('click', function (e) { e.stopPropagation(); e.currentTarget.blur(); toggleFull(); });
+  var start = parseInt((location.hash || '').slice(1), 10);
+  go(isNaN(start) ? 0 : start - 1);
+})();
+</script>
+</body>
+</html>

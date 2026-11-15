@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Programas y cuentas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 760px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+  .s {
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px;
+    display: grid; gap: 8px; align-content: start;
+  }
+  .s .head { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center; }
+  .s svg { width: 44px; height: 44px; color: var(--c); }
+  .s h2 { font-size: 1.3rem; }
+  .s ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; font-size: 0.98rem; }
+  .s .fr { font-size: 0.92rem; }
+  .rule {
+    border: 3px solid var(--c); background: var(--soft);
+    grid-template-columns: 52px minmax(0, 1fr); align-items: center; gap: 14px;
+  }
+  .rule svg { width: 52px; height: 52px; color: var(--c); }
+  .rule strong { font-family: var(--display); font-size: 1.3rem; }
+  .who { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 560px) { .who { grid-template-columns: minmax(0, 1fr); } }
+  .who div { background: var(--soft); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; }
+  .who strong { font-family: var(--display); font-size: 1.25rem; color: var(--c); }
+  .keys { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 560px) { .keys { grid-template-columns: minmax(0, 1fr); } }
+  .keys > div { display: grid; gap: 6px; }
+  .keys h3 { margin: 0; font-family: var(--display); font-size: 1.15rem; }
+  .combo { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+  .practice { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+  @media print { .steps, .keys, .who { gap: 8px; } .s { padding: 10px 12px; } body { font-size: 12.5pt; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 2 · Programas y cuentas</div>
+    <h1>Programas y cuentas<span class="fr">Programmes et comptes</span></h1>
+  </header>
+
+  <section class="card rule">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="14" r="7"/><path d="M10 42c0-8 6-13 14-13s14 5 14 13"/><path d="M34 8l4 4 6-7" /></svg>
+    <div>
+      <strong>En el taller, solo se instala con el monitor delante.</strong>
+      <p class="fr">À l'atelier, on installe seulement avec le moniteur à côté.</p>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="s">
+      <div class="head">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 16h32l-3 26H11z"/><path d="M17 16v-4a7 7 0 0 1 14 0v4"/><path d="M24 23v12M19 30l5 5 5-5"/></svg>
+        <h2>Instalar<span class="fr"> · Installer</span></h2>
+      </div>
+      <ol>
+        <li>Abre <strong>Microsoft Store</strong>.</li>
+        <li>Busca la app.</li>
+        <li>Pulsa <strong>Obtener</strong> o <strong>Instalar</strong>.</li>
+      </ol>
+      <p class="fr">Ouvre Microsoft Store → cherche l'app → Obtenir / Installer.</p>
+    </div>
+    <div class="s">
+      <div class="head">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><rect x="27" y="8" width="13" height="13" rx="2"/><rect x="8" y="27" width="13" height="13" rx="2"/><rect x="27" y="27" width="13" height="13" rx="2"/></svg>
+        <h2>Abrir<span class="fr"> · Ouvrir</span></h2>
+      </div>
+      <ol>
+        <li>Pulsa la tecla <kbd>⊞</kbd> (menú Inicio).</li>
+        <li>Escribe el nombre de la app.</li>
+        <li>Pulsa <kbd>Intro</kbd>.</li>
+      </ol>
+      <p class="fr">Touche ⊞ → écris le nom de l'app → Entrée.</p>
+    </div>
+    <div class="s">
+      <div class="head">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12h32M18 12V6h12v6M12 12l2 30h20l2-30M21 20v15M27 20v15"/></svg>
+        <h2>Desinstalar<span class="fr"> · Désinstaller</span></h2>
+      </div>
+      <ol>
+        <li><strong>Configuración</strong> → <strong>Aplicaciones</strong>.</li>
+        <li>Busca la app en la lista.</li>
+        <li><strong>···</strong> → <strong>Desinstalar</strong>.</li>
+      </ol>
+      <p class="fr">Paramètres → Applications → ··· → Désinstaller.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Las cuentas del ordenador<span class="fr"> · Les comptes de l'ordinateur</span></h2>
+    <p>Cada cuenta tiene su escritorio, sus archivos y su contraseña. Desde una cuenta no se ven los archivos de otra.</p>
+    <p class="fr">Chaque compte a son bureau, ses fichiers et son mot de passe.</p>
+    <div class="who">
+      <div><strong>Administrador · Administrateur</strong>Puede instalar cualquier programa y cambiar todo.<span class="fr">Peut tout installer et tout changer.</span></div>
+      <div><strong>Usuario estándar · Utilisateur standard</strong>Usa el ordenador, pero no puede instalar cualquier cosa.<span class="fr">Utilise l'ordinateur, mais ne peut pas tout installer.</span></div>
+    </div>
+    <p>Para ver las cuentas: <strong>Configuración</strong> → <strong>Cuentas</strong>.</p>
+    <p class="fr">Pour voir les comptes : Paramètres → Comptes.</p>
+  </section>
+
+  <section class="card">
+    <h2>Antes de irte<span class="fr"> · Avant de partir</span></h2>
+    <div class="keys">
+      <div>
+        <h3>Bloquear<span class="fr"> · Verrouiller</span></h3>
+        <div class="combo"><kbd>⊞</kbd><span class="plus">+</span><kbd>L</kbd></div>
+        <p class="fr">Pour une pause : il faut le mot de passe pour revenir.</p>
+      </div>
+      <div>
+        <h3>Cerrar sesión<span class="fr"> · Se déconnecter</span></h3>
+        <p><kbd>⊞</kbd> → tu nombre → <strong>Cerrar sesión</strong></p>
+        <p class="fr">Quand tu as fini : touche ⊞ → ton nom → Se déconnecter.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Practica<span class="fr"> · Entraîne-toi</span></h2>
+    <ol class="practice">
+      <li>Instala la app que diga el monitor.</li>
+      <li>Ábrela desde el menú Inicio.</li>
+      <li>Desinstálala. ¿Sigue en el menú Inicio?</li>
+      <li>Mira en Configuración → Cuentas qué cuentas hay. ¿La tuya es de administrador?</li>
+      <li>Bloquea la pantalla con <kbd>⊞</kbd> + <kbd>L</kbd> y vuelve a entrar.</li>
+    </ol>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿A quién contratarías?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  .cv { font-size: 0.92rem; gap: 6px; align-content: start; }
+  .cvhead { border-bottom: 3px solid var(--c); padding-bottom: 6px; display: grid; }
+  .cvhead strong { font-family: var(--display); font-size: 1.5rem; line-height: 1.1; }
+  .cvhead span { color: var(--muted); }
+  .cv h3 { margin: 6px 0 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--c); }
+  .cv .small { color: var(--muted); }
+  .cv.bad { font-family: "Comic Sans MS", "Comic Neue", cursive; }
+  .cv.bad .cvhead { border-color: var(--key-edge); }
+  .cv.bad h3 { color: var(--ink); }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 8 · Ficha</div>
+    <h1>¿A quién contratarías?<span class="fr">Qui embaucherais-tu ?</span></h1>
+  </header>
+
+  <section class="card">
+    <p>Lee los dos currículums. Marca con ✅ lo que está bien y con ❌ lo que está mal.</p>
+    <p class="fr">Lis les deux CV. Marque ✅ ce qui est bien et ❌ ce qui ne va pas.</p>
+  </section>
+
+  <div class="two">
+    <section class="card cv">
+      <div class="cvhead"><strong>Sekou K.</strong><span>Ayudante de cocina</span></div>
+      <p class="small">📞 600 00 00 00 · ✉️ sekou.k.cocina@gmail.com · Villaejemplo</p>
+      <h3>Experiencia</h3>
+      <p><b>Ayudante en restaurante familiar</b> · Bamako (Malí) · 2021–2023<br>Preparar verduras, fregar, atender a clientes.</p>
+      <p><b>Voluntario en comedor social</b> · Villaejemplo · 2025<br>Servir comidas y limpiar la cocina.</p>
+      <h3>Formación</h3>
+      <p>Estudios primarios · Malí<br>Curso de castellano A2 · 2025<br>Taller de informática · 2026–2027</p>
+      <h3>Idiomas</h3>
+      <p>Bambara (nativo) · Francés (alto) · Castellano (medio)</p>
+      <h3>Sé hacer</h3>
+      <p>Trabajo en equipo · Puntual · Correo y Google Drive</p>
+    </section>
+    <section class="card cv bad">
+      <div class="cvhead"><strong>ALI</strong><span>CURRICULUM</span></div>
+      <p class="small">✉️ elmasguapo2008@hotmail.com<br>NIE: X0000000T · NACIDO EL 3/4/2008</p>
+      <p>HOLA ME LLAMO ALI Y BUSCO TRABAJO DE LO QUE SEA PORQUE NECESITO DINERO.</p>
+      <h3>ESPERIENCIA</h3>
+      <p>TRABAJE EN MI PAIS EN MUCHAS COSAS.</p>
+      <h3>OTROS</h3>
+      <p>ME GUSTA EL FUTBOL, DORMIR Y SALIR CON MIS AMIGOS LOS FINES DE SEMANA.</p>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>¿Qué cambiarías en el CV de Ali?<span class="fr"> · Que changerais-tu dans le CV d'Ali ?</span></h2>
+    <p><span class="line" style="width:100%"></span></p>
+    <p><span class="line" style="width:100%"></span></p>
+    <p><span class="line" style="width:100%"></span></p>
+  </section>
+</div>
+</body>
+</html>

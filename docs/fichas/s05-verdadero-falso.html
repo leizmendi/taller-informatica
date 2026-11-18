@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Verdadero o falso?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  .msgs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 760px) { .msgs { grid-template-columns: minmax(0, 1fr); } }
+  .msg { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 14px; display: grid; gap: 10px; align-content: start; }
+  .mhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .kind { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted);
+    border: 1.5px solid var(--line); border-radius: 999px; padding: 2px 8px; }
+  .bubble { background: var(--soft); border-radius: 4px 16px 16px 16px; padding: 12px 14px; font-size: 1.1rem; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--c); }
+  details[open] summary { margin-bottom: 8px; }
+  details p { margin-top: 6px; }
+  .ans { font-size: 1.15rem; }
+  .ans.ok strong { color: var(--ok); }
+  .ans.ko strong { color: #c7322b; }
+  :root[data-theme="dark"] .ans.ko strong { color: #ff8a80; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ans.ko strong { color: #ff8a80; } }
+  .num { display: inline-grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; flex: none;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; line-height: 1; }
+  @media print { details > *:not(summary) { display: none; } details summary { display: none; } .msg { break-inside: avoid; } }
+</style>
+</head>
+<body class="b2">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque2">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 5 · Ficha</div>
+    <h1>¿Verdadero o falso?<span class="fr">Vrai ou faux ?</span></h1>
+  </header>
+
+  <section class="card">
+    <p>Lee el mensaje. ¿Es verdadero o es una estafa? Vota con la mano y después mira la solución.</p>
+    <p class="fr">Lis le message. Vrai ou arnaque ? Vote avec la main, puis regarde la solution.</p>
+  </section>
+
+  <div class="msgs">
+    <article class="msg">
+      <div class="mhead"><span class="num">1</span><span class="kind">SMS</span><strong>Correos</strong></div>
+      <p class="bubble">Tu paquete está retenido en aduanas. Paga 1,99 € para recibirlo: correos-envio-es.com</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ko"><strong>❌ Falso: estafa</strong> <span class="fr">· Faux : arnaque</span></p>
+        <p>Pide pagar y el enlace no es de Correos. Si esperas un paquete, entra tú en la web oficial.</p>
+        <p class="fr">Il demande de payer et le lien n'est pas officiel.</p>
+      </details>
+    </article>
+    <article class="msg">
+      <div class="mhead"><span class="num">2</span><span class="kind">WhatsApp</span><strong>+34 6•• ••• •••</strong></div>
+      <p class="bubble">Hola mamá, se me ha roto el móvil y este es mi número nuevo. ¿Me puedes hacer un Bizum urgente? Te lo devuelvo mañana.</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ko"><strong>❌ Falso: estafa</strong> <span class="fr">· Faux : arnaque</span></p>
+        <p>Número desconocido, prisa y dinero. Llama a esa persona a su número de siempre.</p>
+        <p class="fr">Numéro inconnu, urgence et argent. Appelle la personne à son numéro habituel.</p>
+      </details>
+    </article>
+    <article class="msg">
+      <div class="mhead"><span class="num">3</span><span class="kind">SMS</span><strong>PREMIOS</strong></div>
+      <p class="bubble">¡Enhorabuena! Has ganado un iPhone 16. Reclámalo en los próximos 10 minutos: bit.ly/premio-ya</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ko"><strong>❌ Falso: estafa</strong> <span class="fr">· Faux : arnaque</span></p>
+        <p>Nadie regala un móvil por un sorteo en el que no has participado. Y la prisa es una trampa.</p>
+        <p class="fr">Personne n'offre un téléphone sans concours. L'urgence est un piège.</p>
+      </details>
+    </article>
+    <article class="msg">
+      <div class="mhead"><span class="num">4</span><span class="kind">WhatsApp</span><strong>Empleo Rápido</strong></div>
+      <p class="bubble">Trabajo desde casa, 300 € al día sin experiencia. Mándame una foto de tu NIE para darte de alta.</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ko"><strong>❌ Falso: estafa</strong> <span class="fr">· Faux : arnaque</span></p>
+        <p>Demasiado bueno para ser verdad. Nunca mandes fotos de tus documentos a desconocidos.</p>
+        <p class="fr">Trop beau pour être vrai. N'envoie jamais la photo de tes papiers.</p>
+      </details>
+    </article>
+    <article class="msg">
+      <div class="mhead"><span class="num">5</span><span class="kind">SMS</span><strong>Google</strong></div>
+      <p class="bubble">G-482913 es tu código de verificación de Google.</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ok"><strong>✅ Verdadero</strong> <span class="fr">· Vrai</span></p>
+        <p>Es real si lo has pedido tú, al entrar en tu cuenta. Pero ese código no se da a nadie: ni por teléfono ni por WhatsApp.</p>
+        <p class="fr">Vrai si tu l'as demandé. Mais ce code ne se donne à personne.</p>
+      </details>
+    </article>
+    <article class="msg">
+      <div class="mhead"><span class="num">6</span><span class="kind">Correo</span><strong>Banco Seguro</strong></div>
+      <p class="bubble">Tu cuenta será bloqueada hoy. Entra aquí y escribe tu número de tarjeta y tu PIN para evitarlo.</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ko"><strong>❌ Falso: estafa</strong> <span class="fr">· Faux : arnaque</span></p>
+        <p>Un banco nunca te pide el PIN ni las claves por correo. Las amenazas y la prisa son señales de estafa.</p>
+        <p class="fr">Une banque ne demande jamais ton code par e-mail.</p>
+      </details>
+    </article>
+    <article class="msg">
+      <div class="mhead"><span class="num">7</span><span class="kind">WhatsApp</span><strong>Educador (grupo del centro)</strong></div>
+      <p class="bubble">Mañana no hay taller porque es festivo. ¡Nos vemos el martes que viene!</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ok"><strong>✅ Verdadero</strong> <span class="fr">· Vrai</span></p>
+        <p>Conoces a quien lo manda y no te pide dinero, datos ni que pulses un enlace.</p>
+        <p class="fr">Tu connais la personne et elle ne demande rien.</p>
+      </details>
+    </article>
+    <article class="msg">
+      <div class="mhead"><span class="num">8</span><span class="kind">SMS</span><strong>CitaSalud</strong></div>
+      <p class="bubble">Recordatorio: tiene cita en su centro de salud el 14/01 a las 10:30. No responda a este mensaje.</p>
+      <details>
+        <summary>Ver la solución · Voir la solution</summary>
+        <p class="ans ok"><strong>✅ Verdadero</strong> <span class="fr">· Vrai</span></p>
+        <p>Solo informa. Si tienes dudas, llama a tu centro de salud al número que ya conoces.</p>
+        <p class="fr">Il informe seulement. En cas de doute, appelle ton centre de santé.</p>
+      </details>
+    </article>
+  </div>
+
+  <section class="card">
+    <h2>Señales de estafa<span class="fr"> · Les signes d'une arnaque</span></h2>
+    <div class="tiles">
+      <div class="tile"><span class="big" aria-hidden="true">⏰</span><strong>Prisa</strong><span>"Urgente", "solo hoy", "en 10 minutos".</span><span class="fr">« Urgent », « aujourd'hui seulement ».</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">💶</span><strong>Dinero</strong><span>Te piden pagar, un Bizum o tu tarjeta.</span><span class="fr">On te demande de payer ou ta carte.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🔗</span><strong>Enlace raro</strong><span>Direcciones que imitan a una empresa.</span><span class="fr">Des adresses qui imitent une entreprise.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🪪</span><strong>Tus datos</strong><span>Contraseñas, códigos, fotos del NIE.</span><span class="fr">Mots de passe, codes, photo de tes papiers.</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Fotos, vídeos y voces hechos con IA<span class="fr"> · Photos, vidéos et voix faites avec l'IA</span></h2>
+    <ul class="bl">
+      <li>Manos, dedos, dientes u orejas raros. Letras que no se pueden leer.<span class="fr">Mains, doigts ou dents bizarres. Lettres illisibles.</span></li>
+      <li>Piel demasiado perfecta, sombras o luces que no cuadran.<span class="fr">Peau trop parfaite, ombres bizarres.</span></li>
+      <li>Una voz conocida que pide dinero con prisa, sin respirar ni dudar.<span class="fr">Une voix connue qui demande de l'argent vite.</span></li>
+      <li>Una noticia que solo sale en un vídeo, y no en periódicos o webs serias.<span class="fr">Une nouvelle qu'on voit seulement dans une vidéo.</span></li>
+    </ul>
+  </section>
+
+  <section class="card warn">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M24 15v11M24 32v1"/></svg>
+    <div>
+      <span class="es">Para, mira y pregunta. Antes de creer, pagar o reenviar algo, pregunta a alguien de confianza.</span>
+      <span class="fr">Arrête-toi, regarde et demande. Avant de croire, payer ou transférer, demande à quelqu'un de confiance.</span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

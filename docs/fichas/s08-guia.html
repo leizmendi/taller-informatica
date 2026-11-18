@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 8 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 8 · Guía del monitor</div>
+    <h1>Mi currículum (I)</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+      <ul class="tips">
+        <li>Saber qué es un CV y para qué sirve.</li>
+        <li>Reconocer lo que ya saben hacer: trabajos en su país, ayuda familiar, idiomas, deportes.</li>
+        <li>Rellenar los datos y la experiencia en una plantilla de CV de Google Docs.</li>
+      </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li>Preguntar a los educadores qué teléfono y qué correo conviene poner en el CV (el suyo, si tienen número estable, o el del centro).</li>
+        <li>Abrir tú la galería de plantillas de Docs y elegir 1 o 2 plantillas sencillas para todos (por ejemplo, "Swiss" o "Serif"). Así es más fácil ayudar.</li>
+        <li>Pensar en los que no han trabajado nunca: todo cuenta (cuidar a hermanos, ayudar en el campo o en la tienda de la familia, deporte en un equipo, idiomas).</li>
+        <li>Si alguno ya tiene un CV hecho con el centro o con otra entidad, que lo traiga: se mejora en lugar de empezar de cero.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s08-dos-cv.html">¿A quién contratarías?</a>: 1 por pareja (o proyectar).</li>
+        <li><a href="s08-se-hacer.html">Cosas que sé hacer</a>: 1 por chaval.</li>
+        <li><a href="s08-plantilla.html">Mi CV en Docs</a>: 1 por chaval.</li>
+        <li>La <a href="s01-records.html">hoja de récords</a> de la sesión 1.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–10'</td><td><strong>Calentamiento.</strong> Mecanografía en la web de siempre. Apuntar el mejor resultado en la hoja de récords.</td></tr>
+          <tr><td>10–20'</td><td><strong>¿A quién contratarías?</strong> Por parejas con la <a href="s08-dos-cv.html">ficha</a>: comparar los dos CV y marcar lo que está bien y lo que está mal. Corregir juntos. Palabras nuevas: <em>currículum, experiencia, formación</em>.</td></tr>
+          <tr><td>20–35'</td><td><strong>Cosas que sé hacer.</strong> Lluvia de ideas por parejas con la <a href="s08-se-hacer.html">ficha</a>. Uno pregunta y el otro contesta, y luego al revés. El monitor pasa y ayuda a convertir lo que cuentan en frases de CV ("ayudaba en la tienda de mi tío" → "Atención al cliente y venta").</td></tr>
+          <tr><td>35–85'</td><td><strong>Mi CV en Docs.</strong> Con la <a href="s08-plantilla.html">ficha</a>: crear el CV desde la plantilla en su carpeta de Drive y rellenar los datos de contacto, la formación, la experiencia y los idiomas, usando lo que han escrito en la lluvia de ideas.
+            <ul><li><strong>Extra:</strong> escribir un perfil de 2 frases sobre sí mismos, con ayuda de la IA si hace falta.</li></ul></td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> "Hoy he aprendido…". Palabras para el mural: <em>currículum, experiencia, idiomas</em>. Cerrar sesión.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Soluciones de "¿A quién contratarías?"</h2>
+      <ul class="tips">
+        <li><strong>CV de Sekou (bien):</strong> datos claros, correo serio, secciones ordenadas, cabe en una página, idiomas con nivel, sin faltas.</li>
+        <li><strong>CV de Ali (mal):</strong> correo poco serio (<em>elmasguapo2008</em>), sin teléfono, todo en mayúsculas, faltas ("trabaje", "esperiencia"), datos que no hacen falta (NIE y fecha de nacimiento), no dice qué sabe hacer.</li>
+      </ul>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+      <ul class="tips">
+        <li><strong>Datos que no se ponen:</strong> NIE o pasaporte, situación legal, religión, estado civil. La fecha de nacimiento y la foto son opcionales. Si ponen foto, que sea seria y con fondo liso.</li>
+        <li><strong>Experiencia sin contrato también cuenta:</strong> ayudar en el negocio familiar, cuidar animales o el campo, cuidar a hermanos pequeños, voluntariado, entrenar a un equipo.</li>
+        <li><strong>Idiomas:</strong> muchos hablan 3 o 4 idiomas y no lo ven como un mérito. Es lo primero que hay que destacar. Niveles sencillos: nativo, alto, medio, básico.</li>
+        <li><strong>Formación:</strong> si no tienen títulos, vale "Estudios primarios en Malí", el curso de castellano y este taller ("Taller de informática: Windows, correo, Google Drive, Docs").</li>
+        <li><strong>Ritmo:</strong> el CV no tiene que estar terminado hoy. En la sesión 9 se revisa y se pasa a PDF.</li>
+      </ul>
+  </section>
+</div>
+</body>
+</html>

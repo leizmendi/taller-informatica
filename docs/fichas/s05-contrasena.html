@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi contraseña fuerte</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  .ex { background: var(--soft); border-radius: 12px; padding: 12px 14px; display: grid; gap: 6px; font-size: 1.15rem; }
+  .lab { display: inline-block; min-width: 7.5em; font-weight: 700; color: var(--c); }
+  .ex code { background: var(--card); }
+</style>
+</head>
+<body class="b2">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque2">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 5 · Ficha</div>
+    <h1>Mi contraseña fuerte<span class="fr">Mon mot de passe fort</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>Una frase, cuatro palabras<span class="fr"> · Une phrase, quatre mots</span></h2>
+    <p>Una contraseña larga es más fuerte que una corta con símbolos raros. Y una frase se recuerda mejor.</p>
+    <p class="fr">Un mot de passe long est plus fort qu'un mot de passe court. Et une phrase se retient mieux.</p>
+    <div class="ex">
+      <p><span class="lab">Frase</span> Mi gato azul come tres mangos</p>
+      <p><span class="lab">Contraseña</span> <code>GatoAzul-Come3Mangos</code></p>
+    </div>
+  </section>
+
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">Inventa una frase rara que solo tú entiendas. Que no sea tu nombre, ni tu fecha, ni tu equipo.</span>
+        <span class="fr">Invente une phrase bizarre. Pas ton prénom, ni ta date, ni ton équipe.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Elige 4 palabras de la frase y únelas con mayúsculas o guiones.</span>
+        <span class="fr">Choisis 4 mots et colle-les avec des majuscules ou des tirets.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Añade un número y, si quieres, un símbolo: - ! ?</span>
+        <span class="fr">Ajoute un chiffre et, si tu veux, un symbole : - ! ?</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Prueba en el medidor una contraseña PARECIDA, no la tuya.</span>
+        <span class="fr">Teste dans le compteur un mot de passe SEMBLABLE, pas le tien.</span>
+        <span class="pill"><span class="ic" aria-hidden="true">📊</span> Medidor</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+
+  <section class="card">
+    <h2>Mi ejemplo para practicar<span class="fr"> · Mon exemple pour m'entraîner</span></h2>
+    <p>Escribe aquí una frase de práctica (no la de verdad).</p>
+    <p class="fr">Écris ici une phrase d'entraînement (pas la vraie).</p>
+    <p><span class="line" style="width:100%"></span></p>
+    <p><span class="line" style="width:100%"></span></p>
+  </section>
+
+  <section class="card">
+    <h2>Las 4 normas<span class="fr"> · Les 4 règles</span></h2>
+    <div class="tiles">
+      <div class="tile"><span class="big" aria-hidden="true">🔁</span><strong>Una para cada sitio</strong><span>Una distinta para el correo y otra para TikTok.</span><span class="fr">Un mot de passe différent pour chaque site.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🤐</span><strong>No se comparte</strong><span>Ni con amigos ni con tu pareja.</span><span class="fr">Ni avec tes amis, ni avec ton copain ou ta copine.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🧠</span><strong>No se escribe en el móvil</strong><span>Ni en notas ni en fotos.</span><span class="fr">Ni dans les notes, ni en photo.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🔐</span><strong>Dos pasos</strong><span>Activa la verificación en dos pasos.</span><span class="fr">Active la validation en deux étapes.</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Extra: verificación en dos pasos<span class="fr"> · Validation en deux étapes</span></h2>
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">Entra en tu cuenta de Google:</span>
+        <span class="fr">Entre dans ton compte Google :</span>
+        <span class="pill">myaccount.google.com</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Pulsa «Seguridad» → «Verificación en dos pasos».</span>
+        <span class="fr">Clique sur « Sécurité » → « Validation en deux étapes ».</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Sigue los pasos con tu móvil.</span>
+        <span class="fr">Suis les étapes avec ton téléphone.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+  </section>
+</div>
+</body>
+</html>

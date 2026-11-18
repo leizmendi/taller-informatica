@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi primer correo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  .mail { border: 2px solid var(--key-edge); border-radius: 12px; overflow: hidden; background: var(--card); }
+  .mrow { display: grid; grid-template-columns: auto 5.5em minmax(0, 1fr); gap: 10px; align-items: center; padding: 8px 12px; border-bottom: 2px solid var(--line); }
+  .mrow .k { color: var(--muted); font-weight: 700; }
+  .mbody { padding: 12px; display: grid; gap: 10px; }
+  .mbody p { display: flex; gap: 10px; align-items: flex-start; }
+  .att { background: var(--soft); border-radius: 8px; padding: 6px 10px; width: fit-content; }
+  .num { display: inline-grid; place-items: center; width: 1.7em; height: 1.7em; border-radius: 50%; flex: none;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 0.95rem; line-height: 1; }
+</style>
+</head>
+<body class="b2">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque2">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 4 · Ficha</div>
+    <h1>Mi primer correo<span class="fr">Mon premier e-mail</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>Las partes de un correo<span class="fr"> · Les parties d'un e-mail</span></h2>
+    <div class="mail">
+      <div class="mrow"><span class="num">1</span><span class="k">Para</span><span>monitor@example.com</span></div>
+      <div class="mrow"><span class="num">2</span><span class="k">Asunto</span><span>Mi primer correo del taller</span></div>
+      <div class="mbody">
+        <p><span class="num">3</span> Hola:</p>
+        <p><span class="num">4</span> Te escribo desde el taller. Me gusta aprender a usar el ordenador. Te envío mi texto de la primera clase.</p>
+        <p><span class="num">5</span> Un saludo,<br>Moussa</p>
+        <p class="att"><span class="num">6</span> 📄 nombre.txt</p>
+      </div>
+    </div>
+    <ul class="bl">
+      <li><strong>1. Para:</strong> la dirección de la persona.<span class="fr">À : l'adresse de la personne.</span></li>
+      <li><strong>2. Asunto:</strong> de qué trata, en pocas palabras.<span class="fr">Objet : de quoi ça parle, en quelques mots.</span></li>
+      <li><strong>3. Saludo:</strong> Hola, Buenos días…<span class="fr">Salutation : Bonjour…</span></li>
+      <li><strong>4. Texto:</strong> frases cortas y claras.<span class="fr">Texte : des phrases courtes et claires.</span></li>
+      <li><strong>5. Despedida y tu nombre:</strong> Un saludo, Gracias…<span class="fr">Formule de fin et ton prénom : Cordialement, Merci…</span></li>
+      <li><strong>6. Archivo adjunto:</strong> un documento o una foto.<span class="fr">Pièce jointe : un document ou une photo.</span></li>
+    </ul>
+  </section>
+
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">En Gmail, pulsa «Redactar».</span>
+        <span class="fr">Dans Gmail, clique sur « Nouveau message ».</span>
+        <span class="pill"><span class="ic" aria-hidden="true">✏️</span> Redactar</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Escribe la dirección del monitor, el asunto y tu mensaje.</span>
+        <span class="fr">Écris l'adresse du moniteur, l'objet et ton message.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Pulsa el icono de Drive y elige el texto de la sesión 1.</span>
+        <span class="fr">Clique sur l'icône Drive et choisis le texte de la séance 1.</span>
+        <span class="pill"><span class="ic" aria-hidden="true">△</span> Drive</span>
+        <span class="pill"><span class="ic" aria-hidden="true">📎</span> Adjuntar</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Lee el correo otra vez y pulsa «Enviar».</span>
+        <span class="fr">Relis l'e-mail et clique sur « Envoyer ».</span>
+        <span class="pill"><span class="ic" aria-hidden="true">➤</span> Enviar</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+
+  <section class="card">
+    <h2>Extra</h2>
+    <ul class="bl">
+      <li>Escribe a un compañero. Cuando te conteste, pulsa «Responder».<span class="fr">Écris à un camarade. Quand il répond, clique sur « Répondre ».</span></li>
+      <li>Reenvía un correo al monitor con «Reenviar».<span class="fr">Transfère un e-mail au moniteur avec « Transférer ».</span></li>
+    </ul>
+  </section>
+
+  <section class="card warn">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M24 15v11M24 32v1"/></svg>
+    <div>
+      <span class="es">Al terminar: tu foto o tu inicial (arriba a la derecha) → «Cerrar sesión».</span>
+      <span class="fr">À la fin : ta photo ou ton initiale (en haut à droite) → « Se déconnecter ».</span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

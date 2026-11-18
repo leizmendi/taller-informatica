@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Preguntas para la IA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+</style>
+</head>
+<body class="b2">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque2">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 6 · Ficha</div>
+    <h1>Preguntas para la IA<span class="fr">Questions pour l'IA</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>1. Palabras difíciles<span class="fr"> · Mots difficiles</span></h2>
+    <p>Escribe a la IA:</p>
+    <p class="fr">Écris à l'IA :</p>
+    <pre class="code">Explícame la palabra «…» como a un niño de 10 años, en castellano fácil, con 2 ejemplos.</pre>
+    <table class="write">
+      <thead><tr><th>Palabra · Mot</th><th>Qué significa · Ce que ça veut dire</th></tr></thead>
+      <tbody>
+        <tr><td>Palabra 1<span class="fr">Mot 1</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>Palabra 2<span class="fr">Mot 2</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>Palabra 3<span class="fr">Mot 3</span></td><td><span class="line tall"></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>2. Pilla a la IA<span class="fr"> · Piège l'IA</span></h2>
+    <p>Hazle una de estas preguntas. Después compruébalo tú: cuenta, busca en Google o pregunta.</p>
+    <p class="fr">Pose une de ces questions. Puis vérifie : compte, cherche sur Google ou demande.</p>
+    <ul class="bl">
+      <li>¿Cuántas erres hay en la palabra «ferrocarril»?<span class="fr">Combien de « r » dans le mot « ferrocarril » ?</span></li>
+      <li>¿A qué hora abre hoy la biblioteca de mi barrio?<span class="fr">À quelle heure ouvre la bibliothèque de mon quartier ?</span></li>
+      <li>Dime 3 libros que ha escrito mi monitor del taller.<span class="fr">Donne-moi 3 livres écrits par mon moniteur.</span></li>
+    </ul>
+    <table class="write">
+      
+      <tbody>
+        <tr><td>¿Qué contestó?<span class="fr">Qu'a-t-elle répondu ?</span></td><td><span class="line"></span></td></tr>
+        <tr><td>¿Era verdad?<span class="fr">C'était vrai ?</span></td><td><span class="line"></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>3. Conversa por voz<span class="fr"> · Parle avec elle</span></h2>
+    <p>Pulsa el botón de voz 🎙️ y di:</p>
+    <p class="fr">Appuie sur le bouton voix 🎙️ et dis :</p>
+    <pre class="code">Vamos a practicar castellano. Tú eres [el médico / el dependiente de una tienda / el conductor del autobús] y yo soy un chico que está aprendiendo. Habla despacio y con frases cortas. Al final, dime qué errores he cometido.</pre>
+    <div class="opts"><span>🩺 El médico · Le médecin</span><span>🛒 La tienda · Le magasin</span><span>🚌 El autobús · Le bus</span></div>
+  </section>
+
+  <section class="card">
+    <h2>Extra: corrige mi texto<span class="fr"> · Corrige mon texte</span></h2>
+    <pre class="code">Corrige este texto. No lo escribas otra vez: dime cada error y explícame por qué en castellano fácil. Texto: …</pre>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 12 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body class="b4">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque4">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 12 · Guía del monitor</div>
+    <h1>Mi primera web (II) y cierre</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+      <ul class="tips">
+        <li>Completar la web con sus favoritos, enlaces e imágenes, entre ellas una creada con IA.</li>
+        <li>Presentar su trabajo al grupo.</li>
+        <li>Valorar lo aprendido en el trimestre.</li>
+      </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li>Comprobar que las carpetas <code>Mi web – apodo</code> de la sesión 11 siguen en los ordenadores.</li>
+        <li>Decidir cómo se crean las imágenes con IA: con la cuenta de cada uno (Gemini o ChatGPT, si tienen permiso) o por turnos con la tuya en el proyector. Si es con la tuya, mandarles la imagen por correo o dejarla en una carpeta compartida.</li>
+        <li>Preparar la encuesta final: es el <a href="https://forms.gle/C2eZx6vvF21azCqU7">mismo formulario</a> de la sesión 1 (o solo las preguntas 7 a 10 y 12). Así se comparan el antes y el después.</li>
+        <li>Probar el proyector con un ordenador de los chavales: la muestra se hace desde su web.</li>
+        <li>Imprimir los diplomas y escribir el nombre o apodo de cada uno (con la fecha).</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s12-completa.html">Termino mi web</a>: 1 por chaval.</li>
+        <li><a href="s12-muestra.html">Enseño mi web</a>: 1 por chaval.</li>
+        <li><a href="s12-diploma.html">Diploma</a>: 1 por chaval, mejor en papel grueso.</li>
+        <li><a href="s12-me-llevo.html">Lo que me llevo</a>: 1 por chaval.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <p>Hoy no hay calentamiento de mecanografía: se hace el último récord al final, para comparar con el primero.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–30'</td><td><strong>Termino mi web.</strong> Con la <a href="s12-completa.html">ficha</a>: añadir favoritos, un enlace a un vídeo o una canción y una imagen creada con IA (en lugar de una foto suya).
+            <ul><li><strong>Extra:</strong> añadir una sección nueva copiando una existente.</li></ul></td></tr>
+          <tr><td>30–35'</td><td><strong>Debate.</strong> ¿Quién es el autor de una imagen hecha con IA? ¿Se puede usar cualquier imagen de internet? Preguntas en la <a href="s12-muestra.html">ficha</a>.</td></tr>
+          <tr><td>35–60'</td><td><strong>Muestra.</strong> Cada uno enseña su web en el proyector durante 1 minuto, con el guion de la <a href="s12-muestra.html">ficha</a>. Aplausos después de cada uno.</td></tr>
+          <tr><td>60–70'</td><td><strong>Encuesta final.</strong> Rellenar otra vez el <a href="https://forms.gle/C2eZx6vvF21azCqU7">formulario</a> (o solo las preguntas 7–10 y 12). Último récord de mecanografía para compararlo con el primero de la hoja.</td></tr>
+          <tr><td>70–85'</td><td><strong>Lo que me llevo.</strong> Subir la carpeta <code>Mi web</code> a la carpeta Web de Drive y comprobar desde el móvil, con la <a href="s12-me-llevo.html">ficha</a>, que ven todo: textos, CV y web.</td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> Entrega de los <a href="s12-diploma.html">diplomas</a>. "Este trimestre he aprendido…". Última palabra para el mural. Cerrar sesión por última vez.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Para el debate</h2>
+      <ul class="tips">
+        <li><strong>¿Quién es el autor?</strong> No hay una respuesta cerrada: en España, la ley protege las obras creadas por personas, y una imagen hecha solo con IA no suele tener autor. Lo honrado es decir que está hecha con IA.</li>
+        <li><strong>¿Puedo usar cualquier imagen de internet?</strong> No: casi todas tienen autor. Se pueden usar las que tienen licencia libre (las de la búsqueda de Docs, Wikimedia Commons, Pixabay) o las que haces tú.</li>
+        <li><strong>Personas reales:</strong> nunca se crean imágenes de compañeros, educadores o personas reales con IA.</li>
+      </ul>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+      <ul class="tips">
+        <li><strong>Muestra sin presión:</strong> a quien le dé vergüenza, puede presentar con un compañero o dejar que el monitor lea mientras él señala.</li>
+        <li><strong>Imágenes con IA:</strong> pedir dibujos, paisajes, animales u objetos. Nada de personas reales, tampoco ellos mismos.</li>
+        <li><strong>Comparar el antes y el después:</strong> enseñarles la hoja de récords y algunas respuestas de la encuesta (sin nombres). Verlo les motiva mucho.</li>
+        <li><strong>Después del taller:</strong> recordarles que su Drive es suyo y se lo llevan: textos, CV y web. Y la contraseña, en el sitio seguro de siempre.</li>
+      </ul>
+  </section>
+</div>
+</body>
+</html>

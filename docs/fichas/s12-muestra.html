@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Enseño mi web</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+</style>
+</head>
+<body class="b4">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque4">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 12 · Ficha</div>
+    <h1>Enseño mi web<span class="fr">Je présente ma page web</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>Mi minuto<span class="fr"> · Ma minute</span></h2>
+    <p>Completa las frases. Las dirás delante del grupo.</p>
+    <p class="fr">Complète les phrases. Tu les diras devant le groupe.</p>
+    <table class="write">
+      
+      <tbody>
+        <tr><td>Hola, soy … y esta es mi web.<span class="fr">Bonjour, je suis … et voici ma page.</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>El color es … porque …<span class="fr">La couleur est … parce que …</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>Mi cosa favorita es …<span class="fr">Ma chose préférée est …</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>Me gustaría trabajar de …<span class="fr">J'aimerais travailler comme …</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>Lo más difícil fue …<span class="fr">Le plus difficile, c'était …</span></td><td><span class="line tall"></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Debate</h2>
+    <ul class="bl">
+      <li>Si una imagen la hace la IA, ¿quién es el autor? ¿Tú, la IA o nadie?<span class="fr">Si l'IA fait une image, qui est l'auteur ? Toi, l'IA ou personne ?</span></li>
+      <li>¿Puedo poner en mi web cualquier imagen de internet? ¿Por qué?<span class="fr">Je peux mettre n'importe quelle image d'internet ? Pourquoi ?</span></li>
+      <li>¿Está bien hacer con IA una imagen de un compañero sin preguntarle?<span class="fr">C'est bien de faire une image d'un camarade avec l'IA sans demander ?</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Cuando presenta un compañero<span class="fr"> · Quand un camarade présente</span></h2>
+    <div class="tiles">
+      <div class="tile"><span class="big" aria-hidden="true">👀</span><strong>Miro</strong><span>Escucho sin hablar.</span><span class="fr">J'écoute sans parler.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">👏</span><strong>Aplaudo</strong><span>Al terminar, aplaudimos todos.</span><span class="fr">À la fin, on applaudit.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">⭐</span><strong>Digo algo bueno</strong><span>Una cosa que me gusta de su web.</span><span class="fr">Une chose que j'aime.</span></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Formulario de práctica</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  form { display: grid; gap: 14px; }
+  .field { display: grid; gap: 4px; align-content: start; }
+  .field label { font-weight: 700; }
+  .field label .fr { font-weight: 400; }
+  .field input, .field select { font: inherit; padding: 10px 12px; border: 2px solid var(--key-edge); border-radius: 10px; background: var(--card); color: var(--ink); min-width: 0; }
+  .field input:focus, .field select:focus { outline: 3px solid var(--c); outline-offset: 1px; border-color: var(--c); }
+  .field .hint { font-size: 0.9rem; color: var(--muted); }
+  .field .err { font-size: 0.95rem; font-weight: 700; color: #c7322b; display: none; }
+  .field.bad input, .field.bad select { border-color: #c7322b; }
+  .field.bad .err { display: block; }
+  .row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 600px) { .row2 { grid-template-columns: minmax(0, 1fr); } }
+  .chk { display: flex; gap: 10px; align-items: flex-start; }
+  .chk input { width: 1.3em; height: 1.3em; margin-top: 0.2em; flex: none; }
+  #ok { display: none; background: var(--soft); border: 2px solid var(--ok); border-radius: 14px; padding: 14px 16px; font-weight: 700; }
+  #ok.show { display: block; }
+  .idcard { background: var(--soft); border-radius: 14px; padding: 14px 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 6px 20px; }
+  .idcard span { display: inline-block; min-width: 7.5em; color: var(--muted); font-weight: 700; font-size: 0.9rem; }
+  .fake { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .field .err { color: #ff8a80; } }
+  :root[data-theme="dark"] .field .err { color: #ff8a80; }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 10 · Ficha</div>
+    <h1>Formulario de práctica<span class="fr">Formulaire d'entraînement</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>Copia estos datos inventados<span class="fr"> · Copie ces données inventées</span></h2>
+    <div class="idcard">
+      <p><span>Nombre</span> Ana</p>
+      <p><span>Apellidos</span> Prueba Ejemplo</p>
+      <p><span>Documento</span> NIE X1234567L</p>
+      <p><span>Nacimiento</span> 15/03/2008</p>
+      <p><span>Código postal</span> 28001</p>
+      <p><span>Teléfono</span> 600 000 000</p>
+      <p><span>Correo</span> ana.prueba@example.com</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <p class="fake">Práctica · No se envía nada · Rien n'est envoyé</p>
+    <h2>Solicitud de cita · Demande de rendez-vous</h2>
+    <form id="form" novalidate>
+    <div class="field" id="f-nombre">
+      <label for="nombre">Nombre <span class="fr">· Prénom</span></label>
+      <input id="nombre" autocomplete="off">
+      <span class="err">Escribe el nombre. · Écris le prénom.</span>
+    </div>
+    <div class="field" id="f-apellidos">
+      <label for="apellidos">Apellidos <span class="fr">· Noms de famille</span></label>
+      <input id="apellidos" autocomplete="off">
+      <span class="err">Escribe los apellidos. · Écris les noms.</span>
+    </div>
+    <div class="row2">
+    <div class="field" id="f-tipo">
+      <label for="tipo">Tipo de documento <span class="fr">· Type de document</span></label>
+      <select id="tipo"><option value="">Elige…</option><option>NIE</option><option>Pasaporte</option><option>DNI</option></select>
+      <span class="err">Elige el tipo. · Choisis le type.</span>
+    </div>
+    <div class="field" id="f-doc">
+      <label for="doc">Número de documento <span class="fr">· Numéro</span></label>
+      <input id="doc" autocomplete="off">
+      <span class="hint">NIE: letra, 7 números y letra. Ej.: X1234567L</span>
+      <span class="err">El NIE no es correcto. · Le NIE n'est pas correct.</span>
+    </div>
+    </div>
+    <div class="row2">
+    <div class="field" id="f-fecha">
+      <label for="fecha">Fecha de nacimiento <span class="fr">· Date de naissance</span></label>
+      <input id="fecha" inputmode="numeric" autocomplete="off">
+      <span class="hint">dd/mm/aaaa</span>
+      <span class="err">Usa el formato dd/mm/aaaa. · Utilise le format jj/mm/aaaa.</span>
+    </div>
+    <div class="field" id="f-cp">
+      <label for="cp">Código postal <span class="fr">· Code postal</span></label>
+      <input id="cp" inputmode="numeric" autocomplete="off">
+      <span class="hint">5 números</span>
+      <span class="err">Son 5 números. · Ce sont 5 chiffres.</span>
+    </div>
+    </div>
+    <div class="row2">
+    <div class="field" id="f-tel">
+      <label for="tel">Teléfono móvil <span class="fr">· Téléphone portable</span></label>
+      <input id="tel" inputmode="tel" autocomplete="off">
+      <span class="hint">9 números, empieza por 6 o 7</span>
+      <span class="err">Son 9 números y empieza por 6 o 7. · 9 chiffres, commence par 6 ou 7.</span>
+    </div>
+    <div class="field" id="f-email">
+      <label for="email">Correo electrónico <span class="fr">· E-mail</span></label>
+      <input id="email" inputmode="email" autocomplete="off">
+      <span class="err">El correo no es correcto: revisa la @ y que no haya espacios. · Vérifie le @ et les espaces.</span>
+    </div>
+    </div>
+    <div class="field" id="f-acepto">
+      <label class="chk"><input type="checkbox" id="acepto"> <span>He leído y acepto la política de privacidad. <span class="fr">J'ai lu et j'accepte la politique de confidentialité.</span></span></label>
+      <span class="err">Tienes que aceptar para seguir. · Tu dois accepter.</span>
+    </div>
+    <div><button type="submit">Enviar · Envoyer</button></div>
+    <p id="ok" role="status">✅ ¡Todo correcto! Es una práctica: no se ha enviado nada. <span class="fr">Tout est correct ! C'est un entraînement : rien n'a été envoyé.</span></p>
+    </form>
+  </section>
+
+  <section class="card warn">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M24 15v11M24 32v1"/></svg>
+    <div>
+      <span class="es">Es una práctica: este formulario no envía nada. En uno de verdad, revisa todo antes de pulsar «Enviar».</span>
+      <span class="fr">C'est un entraînement : rien n'est envoyé. Dans un vrai formulaire, vérifie tout avant d'envoyer.</span>
+    </div>
+  </section>
+</div>
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var ok = document.getElementById('ok');
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function nieOk(v) {
+    v = v.toUpperCase().replace(/[\s-]/g, '');
+    if (!/^[XYZ]\d{7}[A-Z]$/.test(v)) return false;
+    var n = parseInt('XYZ'.indexOf(v[0]) + v.slice(1, 8), 10);
+    return 'TRWAGMYFPDXBNJZSQVHLCKE'[n % 23] === v[8];
+  }
+  function dniOk(v) {
+    v = v.toUpperCase().replace(/[\s-]/g, '');
+    if (!/^\d{8}[A-Z]$/.test(v)) return false;
+    return 'TRWAGMYFPDXBNJZSQVHLCKE'[parseInt(v.slice(0, 8), 10) % 23] === v[8];
+  }
+  function fechaOk(v) {
+    var m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v);
+    if (!m) return false;
+    var d = new Date(+m[3], +m[2] - 1, +m[1]);
+    return d.getFullYear() === +m[3] && d.getMonth() === +m[2] - 1 && d.getDate() === +m[1] && +m[3] > 1900 && d < new Date();
+  }
+  var checks = {
+    nombre: function () { return val('nombre').length > 0; },
+    apellidos: function () { return val('apellidos').length > 0; },
+    tipo: function () { return val('tipo') !== ''; },
+    doc: function () {
+      var t = val('tipo'), v = val('doc');
+      if (t === 'NIE') return nieOk(v);
+      if (t === 'DNI') return dniOk(v);
+      return v.length >= 5;
+    },
+    fecha: function () { return fechaOk(val('fecha')); },
+    cp: function () { return /^(0[1-9]|[1-4]\d|5[0-2])\d{3}$/.test(val('cp')); },
+    tel: function () { return /^[67]\d{8}$/.test(val('tel').replace(/\s/g, '')); },
+    email: function () { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('email')); },
+    acepto: function () { return document.getElementById('acepto').checked; }
+  };
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var first = null;
+    Object.keys(checks).forEach(function (k) {
+      var good = checks[k]();
+      document.getElementById('f-' + k).classList.toggle('bad', !good);
+      if (!good && !first) first = k;
+    });
+    ok.classList.toggle('show', !first);
+    if (first) document.getElementById(first).focus();
+  });
+})();
+</script>
+</body>
+</html>

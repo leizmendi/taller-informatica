@@ -17,6 +17,20 @@
   .list strong { font-size: 1.1rem; }
   .list .use { color: var(--muted); font-size: 0.9rem; text-align: right; }
   @media (max-width: 560px) { .list a { grid-template-columns: minmax(0, 1fr); } .list .use { text-align: left; } }
+  .blk {
+    margin: 16px 0 0; scroll-margin-top: 16px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--display); font-weight: 800; font-size: 1.7rem; line-height: 1.1; color: var(--bc);
+  }
+  .blk::before { content: ""; width: 14px; height: 1.4em; border-radius: 4px; background: var(--bc); flex: none; }
+  .blk small { font-family: var(--body); font-weight: 400; font-style: italic; font-size: 1rem; color: var(--muted); }
+  .k1 { --bc: #2e6bd1; } .k2 { --bc: #13906a; } .k3 { --bc: #c45a17; } .k4 { --bc: #8247cc; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .k1 { --bc: #7aa6f5; } :root:not([data-theme="light"]) .k2 { --bc: #4fd0a4; }
+    :root:not([data-theme="light"]) .k3 { --bc: #f59a5c; } :root:not([data-theme="light"]) .k4 { --bc: #b88cf2; }
+  }
+  :root[data-theme="dark"] .k1 { --bc: #7aa6f5; } :root[data-theme="dark"] .k2 { --bc: #4fd0a4; }
+  :root[data-theme="dark"] .k3 { --bc: #f59a5c; } :root[data-theme="dark"] .k4 { --bc: #b88cf2; }
 </style>
 </head>
 <body>
@@ -26,6 +40,8 @@
     <div class="eyebrow">Taller de informática</div>
     <h1>Fichas<span class="fr">Fiches</span></h1>
   </header>
+
+  <h2 class="blk k1" id="bloque1">Bloque 1 · Lo básico <small>Les bases</small></h2>
 
   <section class="card">
     <h2>Sesión 1 – El ordenador y yo</h2>
@@ -63,6 +79,105 @@
       <li><a href="s03-video.html"><strong>Aprendo con un vídeo</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
       <li><a href="s03-trucos.html"><strong>Trucos del navegador</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
       <li><a href="buscar.html"><strong>Busca con cabeza</strong><span class="use">Juego, abrir en cada ordenador</span></a></li>
+    </ul>
+  </section>
+
+  <h2 class="blk k2" id="bloque2">Bloque 2 · Comunicarse y protegerse <small>Communiquer et se protéger</small></h2>
+
+  <section class="card">
+    <h2>Sesión 4 – Correo electrónico y Google Drive</h2>
+    <ul class="list">
+      <li><a href="s04-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s04-que-uso.html"><strong>¿Correo, WhatsApp o SMS?</strong><span class="use">Imprimir, 1 por pareja</span></a></li>
+      <li><a href="s04-cuenta.html"><strong>Mi cuenta de Google</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s04-drive.html"><strong>Mi carpeta en Drive</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s04-correo.html"><strong>Mi primer correo</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Sesión 5 – Seguridad</h2>
+    <ul class="list">
+      <li><a href="s05-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s05-verdadero-falso.html"><strong>¿Verdadero o falso?</strong><span class="use">Para proyectar</span></a></li>
+      <li><a href="s05-contrasena.html"><strong>Mi contraseña fuerte</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s05-privacidad.html"><strong>Mi móvil, privado</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s05-apps.html"><strong>¿App de verdad o de imitación?</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Sesión 6 – La IA para aprender</h2>
+    <ul class="list">
+      <li><a href="s06-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s06-que-es-ia.html"><strong>¿Qué es un chatbot de IA?</strong><span class="use">Para proyectar</span></a></li>
+      <li><a href="s06-preguntas.html"><strong>Preguntas para la IA</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s06-carta.html"><strong>Una carta oficial</strong><span class="use">Imprimir, 1 por pareja</span></a></li>
+    </ul>
+  </section>
+
+  <h2 class="blk k3" id="bloque3">Bloque 3 · Cosas útiles para la vida <small>Utile pour la vie</small></h2>
+
+  <section class="card">
+    <h2>Sesión 7 – Escribir en el ordenador</h2>
+    <ul class="list">
+      <li><a href="s07-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s07-formato.html"><strong>Dar formato a un texto</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s07-mi-texto.html"><strong>Mi barrio o mi país</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Sesión 8 – Mi currículum (I)</h2>
+    <ul class="list">
+      <li><a href="s08-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s08-dos-cv.html"><strong>¿A quién contratarías?</strong><span class="use">Imprimir, 1 por pareja, o proyectar</span></a></li>
+      <li><a href="s08-se-hacer.html"><strong>Cosas que sé hacer</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s08-plantilla.html"><strong>Mi CV en Docs</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Sesión 9 – Mi currículum (II) y buscar trabajo o formación</h2>
+    <ul class="list">
+      <li><a href="s09-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s09-revision.html"><strong>Revisamos el CV</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s09-buscar.html"><strong>Buscar trabajo o un curso</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s09-enviar.html"><strong>Enviar mi CV</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s09-entrevista.html"><strong>Entrevista con la IA</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Sesión 10 – Trámites por internet</h2>
+    <ul class="list">
+      <li><a href="s10-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s10-web-oficial.html"><strong>¿Web oficial o falsa?</strong><span class="use">Para proyectar</span></a></li>
+      <li><a href="s10-cita.html"><strong>Pedir cita previa</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s10-formulario.html"><strong>Formulario de práctica</strong><span class="use">Abrir en cada ordenador</span></a></li>
+      <li><a href="s10-clave.html"><strong>Cl@ve y certificado digital</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+    </ul>
+  </section>
+
+  <h2 class="blk k4" id="bloque4">Bloque 4 · Crear <small>Créer</small></h2>
+
+  <section class="card">
+    <h2>Sesión 11 – Mi primera web (I)</h2>
+    <ul class="list">
+      <li><a href="s11-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s11-pasos.html"><strong>Mi primera web, paso a paso</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s11-no-poner.html"><strong>Qué no se pone en una web</strong><span class="use">Imprimir en A3, para la pared</span></a></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Sesión 12 – Mi primera web (II) y cierre</h2>
+    <ul class="list">
+      <li><a href="s12-guia.html"><strong>Guía del monitor</strong><span class="use">Para preparar la clase</span></a></li>
+      <li><a href="s12-completa.html"><strong>Termino mi web</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s12-muestra.html"><strong>Enseño mi web</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s12-me-llevo.html"><strong>Lo que me llevo</strong><span class="use">Imprimir, 1 por chaval</span></a></li>
+      <li><a href="s12-diploma.html"><strong>Diploma</strong><span class="use">Imprimir en A4 horizontal, 1 por chaval</span></a></li>
     </ul>
   </section>
 </div>

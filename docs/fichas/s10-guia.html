@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 10 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 10 · Guía del monitor</div>
+    <h1>Trámites por internet</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+      <ul class="tips">
+        <li>Pedir cita previa en una web oficial.</li>
+        <li>Rellenar un formulario online sin errores.</li>
+        <li>Saber qué son Cl@ve y el certificado digital, y para qué sirven.</li>
+        <li>Reconocer una web oficial (.gob.es, sede electrónica) frente a una falsa.</li>
+      </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li>Elegir qué cita previa se simula: la del centro de salud de tu comunidad, la del SEPE (<code>sede.sepe.gob.es</code>) o la de extranjería (<code>sede.administracionespublicas.gob.es</code>, "Cita previa"). Recorrerla tú antes hasta el último paso para saber dónde parar.</li>
+        <li>Hablar con los educadores si se simula la de extranjería: puede ser un tema delicado para algunos. La del centro de salud o la del SEPE suelen ser más tranquilas.</li>
+        <li>Buscar un ejemplo real de web que imita a una oficial (las webs que cobran por pedir citas gratuitas son un buen ejemplo) o usar el dibujo de la ficha.</li>
+        <li>Comprobar que el <a href="s10-formulario.html">formulario de práctica</a> abre en los ordenadores. No envía nada a ningún sitio.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s10-web-oficial.html">¿Web oficial o falsa?</a>: para proyectar (no hace falta imprimir).</li>
+        <li><a href="s10-cita.html">Pedir cita previa</a>: 1 por chaval.</li>
+        <li><a href="s10-clave.html">Cl@ve y certificado digital</a>: 1 por chaval.</li>
+        <li><a href="s10-formulario.html">Formulario de práctica</a>: abrir en cada ordenador.</li>
+        <li>La <a href="s01-records.html">hoja de récords</a> de la sesión 1.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–10'</td><td><strong>Calentamiento.</strong> Mecanografía en la web de siempre. Apuntar el mejor resultado en la hoja de récords.</td></tr>
+          <tr><td>10–20'</td><td><strong>¿Web oficial o falsa?</strong> Proyectar la <a href="s10-web-oficial.html">ficha</a> y comparar las dos direcciones. Repasar las señales. Palabras nuevas: <em>cita previa, trámite, sede electrónica</em>.</td></tr>
+          <tr><td>20–40'</td><td><strong>Cita previa simulada.</strong> Con la <a href="s10-cita.html">ficha</a>, primero en el proyector y después cada uno: elegir el trámite, la provincia y la oficina, y llegar hasta la pantalla de elegir hora. <strong>Parar ahí: no se confirma ninguna cita.</strong></td></tr>
+          <tr><td>40–60'</td><td><strong>Formulario de práctica.</strong> Abrir el <a href="s10-formulario.html">formulario</a> y rellenarlo con los datos inventados de la tarjeta. El formulario avisa de los errores, como uno de verdad.
+            <ul><li><strong>Extra:</strong> descargar un PDF oficial (por ejemplo, un impreso de solicitud del ayuntamiento) y guardarlo en su Drive.</li></ul></td></tr>
+          <tr><td>60–70'</td><td><strong>Cl@ve y certificado digital.</strong> Con la <a href="s10-clave.html">ficha</a>: son como la llave para entrar en las webs de la Administración. Explicar para qué sirven y dónde se piden, sin darse de alta.</td></tr>
+          <tr><td>70–85'</td><td><strong>Proyecto personal.</strong> Repasar la carpeta de Drive: textos, CV en PDF y lo que falta. Preparar la sesión 11: pensar en un emoji, un color y 3 cosas favoritas para su web.</td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> "Hoy he aprendido…". Palabras para el mural: <em>cita previa, formulario, oficial</em>. Cerrar sesión.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Soluciones de "¿Qué sirve para qué?"</h2>
+      <ul class="tips">
+        <li><strong>Cita en el médico:</strong> normalmente no hace falta nada: basta con la tarjeta sanitaria o el teléfono (depende de la comunidad).</li>
+        <li><strong>Vida laboral:</strong> Cl@ve o certificado digital. También se puede pedir con un código por SMS si el móvil está registrado en la Seguridad Social.</li>
+        <li><strong>Apuntarse al paro (SEPE o servicio de empleo de la comunidad):</strong> con Cl@ve o certificado por internet, o en persona con cita previa.</li>
+      </ul>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+      <ul class="tips">
+        <li><strong>Datos inventados:</strong> en toda la sesión se usan los datos de la tarjeta, nunca los suyos. Si alguno quiere pedir una cita de verdad, que lo haga con su educador.</li>
+        <li><strong>No confirmar:</strong> una cita confirmada ocupa el hueco de otra persona. Por eso se para en la pantalla de elegir hora.</li>
+        <li><strong>Las citas son gratis:</strong> ninguna administración cobra por dar cita. Las webs que piden dinero por conseguirla no son oficiales.</li>
+        <li><strong>Cl@ve:</strong> a muchos les pedirán Cl@ve más adelante (para el SEPE, la Seguridad Social o Hacienda). Basta con que sepan que existe, que es personal y que no se presta.</li>
+        <li><strong>Formularios:</strong> los errores más habituales son la fecha (dd/mm/aaaa), el código postal y escribir el correo con espacios. El formulario de práctica los detecta.</li>
+      </ul>
+  </section>
+</div>
+</body>
+</html>

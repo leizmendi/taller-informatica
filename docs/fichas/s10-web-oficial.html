@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Web oficial o falsa?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  .addr { border-radius: 999px; background: var(--bg); border: 2px solid var(--line); padding: 8px 16px; font-size: 1.05rem; overflow-wrap: anywhere; }
+  .addr.ok { border-color: var(--ok); }
+  .addr.ko { border-color: #c7322b; }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 10 · Ficha</div>
+    <h1>¿Web oficial o falsa?<span class="fr">Site officiel ou faux ?</span></h1>
+  </header>
+
+  <div class="two">
+    <section class="card">
+      <h2>✅ Oficial<span class="fr"> · Officiel</span></h2>
+      <div class="addr ok"><span aria-hidden="true">🔒</span> <b>sede.sepe.gob.es</b>/portalSede/...</div>
+      <ul class="bl">
+        <li>Termina en <mark>.gob.es</mark> o es una «sede electrónica».<span class="fr">Finit par .gob.es ou c'est une « sede electrónica ».</span></li>
+        <li>La cita es gratis.<span class="fr">Le rendez-vous est gratuit.</span></li>
+        <li>Tiene el escudo y el nombre del ministerio o la comunidad.<span class="fr">Il y a le blason et le nom du ministère.</span></li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>❌ Imitación<span class="fr"> · Imitation</span></h2>
+      <div class="addr ko"><span aria-hidden="true">🔒</span> <b>sepe-citaprevia-online.com</b>/pedir-cita</div>
+      <ul class="bl">
+        <li>Usa la palabra «sepe», pero termina en .com.<span class="fr">Il utilise « sepe », mais finit par .com.</span></li>
+        <li>Te cobra por conseguir la cita.<span class="fr">Il te fait payer le rendez-vous.</span></li>
+        <li>Sale arriba en Google con la palabra «Patrocinado».<span class="fr">Il apparaît en haut de Google avec « Sponsorisé ».</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Las señales<span class="fr"> · Les signes</span></h2>
+    <div class="tiles">
+      <div class="tile"><span class="big" aria-hidden="true">🔎</span><strong>Mira la dirección</strong><span>Lee el final, justo antes de la primera barra /.</span><span class="fr">Lis la fin, juste avant le premier /.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🆓</span><strong>Es gratis</strong><span>Ninguna administración cobra por dar cita.</span><span class="fr">Aucune administration ne fait payer un rendez-vous.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🔒</span><strong>El candado no basta</strong><span>Las webs falsas también tienen candado.</span><span class="fr">Les faux sites ont aussi un cadenas.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">📢</span><strong>Cuidado con los anuncios</strong><span>Salta los resultados que dicen «Patrocinado».</span><span class="fr">Évite les résultats « Sponsorisé ».</span></div>
+    </div>
+  </section>
+
+  <section class="card warn">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M24 15v11M24 32v1"/></svg>
+    <div>
+      <span class="es">Si dudas, escribe tú la dirección oficial o pregunta a tu educador. No pagues nunca por una cita.</span>
+      <span class="fr">En cas de doute, écris toi-même l'adresse officielle ou demande à ton éducateur. Ne paie jamais un rendez-vous.</span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 9 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 9 · Guía del monitor</div>
+    <h1>Mi currículum (II) y buscar trabajo o formación</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+      <ul class="tips">
+        <li>Terminar el CV y guardarlo en PDF.</li>
+        <li>Conocer dónde se buscan ofertas de trabajo y cursos (servicio público de empleo, portales de empleo, entidades del barrio).</li>
+        <li>Enviar el CV por correo con un mensaje de presentación.</li>
+        <li>Prepararse para una entrevista de trabajo practicando con la IA.</li>
+      </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li>Buscar 3 o 4 ofertas o cursos reales y cercanos que encajen con el grupo (cocina, almacén, jardinería, cursos de FP básica o de la propia entidad). Guardar los enlaces para proyectarlos.</li>
+        <li>Averiguar qué entidades del barrio ayudan a buscar empleo a jóvenes migrantes y apuntar su web y su teléfono.</li>
+        <li>Tener tu correo de monitor en la pizarra: es el destinatario del CV.</li>
+        <li>Para la entrevista simulada: decidir si cada uno usa la IA con su cuenta o por turnos con la del proyector, como en la sesión 6. Probar antes el modo de voz.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s09-revision.html">Revisamos el CV</a>: 1 por chaval.</li>
+        <li><a href="s09-buscar.html">Buscar trabajo o un curso</a>: 1 por chaval.</li>
+        <li><a href="s09-enviar.html">Enviar mi CV</a>: 1 por chaval.</li>
+        <li><a href="s09-entrevista.html">Entrevista con la IA</a>: 1 por chaval.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <p>Hoy no hay calentamiento de mecanografía: la sesión va llena.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–20'</td><td><strong>Revisión por parejas.</strong> Cada uno comparte su CV con un compañero (Compartir → su correo → Comentador). El compañero deja comentarios siguiendo la <a href="s09-revision.html">lista</a>. Después, cada uno arregla su CV.</td></tr>
+          <tr><td>20–25'</td><td><strong>CV en PDF.</strong> Archivo → Descargar → PDF, con un nombre claro: <code>CV_Nombre.pdf</code>. Subirlo a Textos en Drive.</td></tr>
+          <tr><td>25–45'</td><td><strong>Buscar trabajo o un curso.</strong> Proyectar las ofertas preparadas y las webs de la <a href="s09-buscar.html">ficha</a>. Cada uno elige una oferta o curso y rellena qué piden y qué tiene él. Palabras nuevas: <em>oferta, requisitos, entrevista</em>.</td></tr>
+          <tr><td>45–60'</td><td><strong>Enviar mi CV.</strong> Con la <a href="s09-enviar.html">ficha</a>: enviar el CV al monitor como si fuera la oferta elegida, con asunto, mensaje corto y el PDF adjunto desde Drive.
+            <ul><li><strong>Extra:</strong> escribir una carta de presentación breve.</li></ul></td></tr>
+          <tr><td>60–85'</td><td><strong>Entrevista simulada.</strong> Con la <a href="s09-entrevista.html">ficha</a>: la IA hace de entrevistadora para la oferta elegida y ellos contestan por voz. Al final le piden 3 consejos para mejorar y los apuntan.</td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> "Hoy he aprendido…". Palabras para el mural: <em>oferta, entrevista, requisitos</em>. Cerrar sesión.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+      <ul class="tips">
+        <li><strong>Comentarios amables:</strong> antes de revisar, acordar la regla "una cosa buena y una cosa para mejorar". El que revisa no cambia el texto, solo comenta.</li>
+        <li><strong>Ofertas falsas:</strong> repasar lo de la sesión 5. Desconfiar de las ofertas que piden dinero, fotos del NIE o que se escriba por WhatsApp a un número desconocido.</li>
+        <li><strong>Requisitos y papeles:</strong> algunas ofertas piden permiso de trabajo. No es tema para tratar en grupo: si alguno pregunta, que lo hable con su educador.</li>
+        <li><strong>Entrevista:</strong> recordarles que la IA es para practicar. En una entrevista de verdad, lo que más cuenta es llegar puntual, saludar, mirar a la cara y decir la verdad.</li>
+        <li><strong>Correo de envío:</strong> el CV se envía desde su cuenta. Si alguno tiene un correo poco serio, es buen momento para crear otro.</li>
+      </ul>
+  </section>
+</div>
+</body>
+</html>

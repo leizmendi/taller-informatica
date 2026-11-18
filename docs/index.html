@@ -98,7 +98,7 @@
     border-radius: 18px;
     overflow: hidden;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     min-width: 0;
   }
   .block-head {
@@ -138,6 +138,15 @@
   .es { font-weight: 700; font-size: 1.12rem; display: block; }
   .fr-t { font-style: italic; color: var(--muted); display: block; }
 
+  .blink {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin: 0 18px 16px; padding: 10px 16px; border-radius: 999px;
+    border: 2px solid var(--c); color: var(--c); background: var(--card);
+    font-weight: 700; text-decoration: none;
+  }
+  .blink svg { width: 22px; height: 22px; flex: none; }
+  .blink:hover { background: var(--soft); }
+  .blink:focus-visible { outline: 3px solid var(--c); outline-offset: 3px; }
   .take {
     background: var(--card);
     border: 2px dashed var(--line);
@@ -188,6 +197,7 @@
         <li><span class="n">2</span><span><span class="es">Archivos y carpetas</span><span class="fr-t">Fichiers et dossiers</span></span></li>
         <li><span class="n">3</span><span><span class="es">Internet: buscar y traducir</span><span class="fr-t">Internet : chercher et traduire</span></span></li>
       </ol>
+      <a class="blink" href="fichas/#bloque1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h8M9 17h8"/></svg> Fichas del bloque · Fiches du bloc →</a>
     </article>
 
     <article class="block b2">
@@ -200,6 +210,7 @@
         <li><span class="n">5</span><span><span class="es">Seguridad: contraseñas, estafas y vídeos falsos</span><span class="fr-t">Sécurité : mots de passe, arnaques et fausses vidéos</span></span></li>
         <li><span class="n">6</span><span><span class="es">La IA para aprender castellano</span><span class="fr-t">L'IA pour apprendre l'espagnol</span></span></li>
       </ol>
+      <a class="blink" href="fichas/#bloque2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h8M9 17h8"/></svg> Fichas del bloque · Fiches du bloc →</a>
     </article>
 
     <article class="block b3">
@@ -213,6 +224,7 @@
         <li><span class="n">9</span><span><span class="es">Buscar trabajo y practicar una entrevista</span><span class="fr-t">Chercher du travail et s'entraîner à un entretien</span></span></li>
         <li><span class="n">10</span><span><span class="es">Trámites por internet: cita previa, formularios</span><span class="fr-t">Démarches en ligne : rendez-vous, formulaires</span></span></li>
       </ol>
+      <a class="blink" href="fichas/#bloque3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h8M9 17h8"/></svg> Fichas del bloque · Fiches du bloc →</a>
     </article>
 
     <article class="block b4">
@@ -224,6 +236,7 @@
         <li><span class="n">11</span><span><span class="es">Mi primera página web</span><span class="fr-t">Ma première page web</span></span></li>
         <li><span class="n">12</span><span><span class="es">Termino mi web y la enseño</span><span class="fr-t">Je finis ma page web et je la montre</span></span></li>
       </ol>
+      <a class="blink" href="fichas/#bloque4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h8M9 17h8"/></svg> Fichas del bloque · Fiches du bloc →</a>
     </article>
   </section>
 

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 7 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 7 · Guía del monitor</div>
+    <h1>Escribir en el ordenador</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+      <ul class="tips">
+        <li>Crear un documento de Google Docs dentro de su carpeta de Drive.</li>
+        <li>Dar formato: título, negrita, tamaño, color y listas.</li>
+        <li>Insertar una imagen.</li>
+        <li>Descargar en PDF e imprimir.</li>
+      </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li>Comprobar que la impresora del centro funciona desde los ordenadores del taller y que hay papel. Si no se puede imprimir desde ahí, preparar un pendrive o imprimir tú desde tu Drive.</li>
+        <li>Tener a mano las contraseñas en los sobres (o donde se guarden): muchos no se acordarán.</li>
+        <li>Abrir tú un documento de prueba y mirar dónde están en la barra los botones de la ficha: cambian un poco con las versiones.</li>
+        <li>Si el corrector no sale en castellano: Archivo → Idioma → Español.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s07-formato.html">Dar formato a un texto</a>: 1 por chaval.</li>
+        <li><a href="s07-mi-texto.html">Mi barrio o mi país</a>: 1 por chaval.</li>
+        <li>La <a href="s01-records.html">hoja de récords</a> de la sesión 1.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–10'</td><td><strong>Calentamiento.</strong> Mecanografía en la web de siempre. Apuntar el mejor resultado en la hoja de récords.</td></tr>
+          <tr><td>10–20'</td><td><strong>De Bloc de notas a Docs.</strong> Enseñar en el proyector: en Drive, dentro de Textos, Nuevo → Documentos de Google. Ponerle nombre arriba a la izquierda. Se guarda solo. Señalar la barra de herramientas. Palabras nuevas: <em>documento, negrita, imprimir</em>.</td></tr>
+          <tr><td>20–40'</td><td><strong>Dar formato.</strong> Con la <a href="s07-formato.html">ficha</a>: copiar el texto de ejemplo y dejarlo como el modelo, paso a paso.</td></tr>
+          <tr><td>40–65'</td><td><strong>Mi barrio o mi país.</strong> Con la <a href="s07-mi-texto.html">ficha</a>: título, 3 frases y una foto de internet (Insertar → Imagen → Buscar en la Web). Pueden escribir las frases primero en francés y traducirlas.
+            <ul><li><strong>Extra:</strong> el corrector ortográfico y una tabla sencilla con 3 datos (capital, idiomas, comida típica).</li></ul></td></tr>
+          <tr><td>65–85'</td><td><strong>PDF e impresión.</strong> Archivo → Descargar → PDF. Subir el PDF a la carpeta Textos de Drive. Imprimir (Archivo → Imprimir) y colgar los textos en la pared.</td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> "Hoy he aprendido…". Palabras para el mural: <em>documento, negrita, imprimir</em>. Cerrar sesión.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+      <ul class="tips">
+        <li><strong>Seleccionar primero:</strong> el error más común es pulsar la negrita sin haber seleccionado el texto. "Primero pinto (selecciono), luego elijo el color".</li>
+        <li><strong>Fotos de internet:</strong> con Insertar → Imagen → Buscar en la Web, Docs busca imágenes que se pueden usar. Que no pongan fotos suyas ni de personas reconocibles.</li>
+        <li><strong>Mi país:</strong> a algunos les puede costar hablar de su país. Por eso se puede elegir "Mi barrio" (donde viven ahora) o un lugar que les guste.</li>
+        <li><strong>PDF:</strong> explicar para qué sirve: se ve igual en cualquier ordenador o móvil y no se puede cambiar sin querer. Es el formato del CV de las sesiones 8 y 9.</li>
+        <li><strong>Doble nivel:</strong> los que van rápido pueden ayudar a otro a buscar los botones, sin tocar su ratón.</li>
+      </ul>
+  </section>
+</div>
+</body>
+</html>

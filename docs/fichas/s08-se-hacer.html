@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cosas que sé hacer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  .words { display: flex; flex-wrap: wrap; gap: 10px; }
+  .words span { border: 2px solid var(--line); border-radius: 999px; padding: 6px 14px; font-weight: 700; }
+  .words i { display: block; font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 8 · Ficha</div>
+    <h1>Cosas que sé hacer<span class="fr">Ce que je sais faire</span></h1>
+  </header>
+
+  <section class="card">
+    <p>Pregunta a tu compañero y escribe. Todo cuenta: también lo que hacías en casa o en tu país.</p>
+    <p class="fr">Demande à ton camarade et écris. Tout compte : aussi ce que tu faisais à la maison ou dans ton pays.</p>
+  </section>
+
+  <section class="card">
+    <h2>Mis cosas<span class="fr"> · Mes choses</span></h2>
+    <table class="write">
+      
+      <tbody>
+        <tr><td>💼 ¿Has trabajado? ¿Dónde y qué hacías?<span class="fr">As-tu travaillé ? Où et quoi ?</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>🏠 ¿Ayudabas en casa, en el campo o en la tienda de tu familia?<span class="fr">Tu aidais à la maison, aux champs, au magasin ?</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>🗣️ ¿Qué idiomas hablas? ¿Qué nivel?<span class="fr">Quelles langues parles-tu ? Quel niveau ?</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>📚 ¿Qué has estudiado? ¿Qué cursos haces aquí?<span class="fr">Qu'as-tu étudié ? Quelles formations ici ?</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>⚽ ¿Qué deporte o actividad haces?<span class="fr">Quel sport ou activité fais-tu ?</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>💻 ¿Qué sabes hacer con el ordenador y el móvil?<span class="fr">Que sais-tu faire avec l'ordinateur et le téléphone ?</span></td><td><span class="line tall"></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Palabras para tu CV<span class="fr"> · Des mots pour ton CV</span></h2>
+    <p>Rodea las que son verdad para ti.</p>
+    <p class="fr">Entoure celles qui sont vraies pour toi.</p>
+    <div class="words">
+      <span>puntual<i>ponctuel</i></span><span>trabajador<i>travailleur</i></span><span>responsable<i>responsable</i></span>
+      <span>trabajo en equipo<i>travail en équipe</i></span><span>aprendo rápido<i>j'apprends vite</i></span><span>atención al cliente<i>service client</i></span>
+      <span>cocina<i>cuisine</i></span><span>limpieza<i>ménage</i></span><span>agricultura<i>agriculture</i></span>
+      <span>cuidado de animales<i>soin des animaux</i></span><span>construcción<i>bâtiment</i></span><span>venta<i>vente</i></span>
+      <span>mecánica<i>mécanique</i></span><span>cuidado de niños<i>garde d'enfants</i></span><span>informática básica<i>informatique de base</i></span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

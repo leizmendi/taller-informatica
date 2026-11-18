@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Una carta oficial</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+  .letter { font-family: Georgia, "Times New Roman", serif; font-size: 0.95rem; line-height: 1.5; gap: 10px; }
+  .lhead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  .ref { text-align: right; color: var(--muted); }
+  .pd { background: #ffe680; color: #000; padding: 0 4px; border-radius: 3px; }
+  .sign { text-align: right; font-style: italic; }
+</style>
+</head>
+<body class="b2">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque2">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 6 · Ficha</div>
+    <h1>Una carta oficial<span class="fr">Une lettre officielle</span></h1>
+  </header>
+
+  <section class="card">
+    <p>Esta carta es <strong>inventada</strong>. Primero tapa los datos personales con papel o rotulador. Después pide a la IA que te la explique.</p>
+    <p class="fr">Cette lettre est <strong>inventée</strong>. D'abord, cache les données personnelles. Ensuite, demande à l'IA de l'expliquer.</p>
+  </section>
+
+  <section class="card letter">
+    <div class="lhead">
+      <div><strong>AYUNTAMIENTO DE VILLAEJEMPLO</strong><br>Servicio de Padrón Municipal<br>Plaza Mayor, 1</div>
+      <div class="ref">Ref.: PAD/2027/000123<br>Fecha: 10 de enero de 2027</div>
+    </div>
+    <p class="to">Destinatario: <span class="pd">Moussa Ejemplo Ejemplo</span><br>NIE: <span class="pd">X1234567L</span><br>Domicilio: <span class="pd">Calle Inventada, 12, 2.º B</span></p>
+    <p><strong>Asunto: Renovación de la inscripción padronal</strong></p>
+    <p>De conformidad con lo dispuesto en el artículo 16.1 de la Ley 7/1985, Reguladora de las Bases del Régimen Local, se le comunica que la inscripción en el Padrón Municipal de los extranjeros no comunitarios sin autorización de residencia permanente debe ser objeto de renovación periódica cada dos años.</p>
+    <p>A tal efecto, deberá personarse en las oficinas de atención ciudadana, previa solicitud de cita, en el plazo de <strong>quince días hábiles</strong> a contar desde el día siguiente a la recepción de la presente notificación, aportando documento de identidad en vigor.</p>
+    <p>Transcurrido dicho plazo sin que se haya efectuado la renovación, se procederá a acordar la caducidad de la inscripción y a dar de baja la misma.</p>
+    <p class="sign">La Jefa del Servicio de Padrón</p>
+  </section>
+
+  <section class="card">
+    <h2>Pídele a la IA<span class="fr"> · Demande à l'IA</span></h2>
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">Tapa los datos marcados en amarillo: nombre, NIE y dirección.</span>
+        <span class="fr">Cache les données en jaune : nom, NIE et adresse.</span>
+        <span class="pill"><span class="ic" aria-hidden="true">🖍️</span> Tapar</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Copia el texto (sin los datos) o haz una foto de la carta ya tapada.</span>
+        <span class="fr">Copie le texte (sans les données) ou prends en photo la lettre cachée.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Escribe: «Explícame esta carta en castellano fácil. ¿Qué tengo que hacer y antes de cuándo?»</span>
+        <span class="fr">Écris : « Explique-moi cette lettre en français simple. Que dois-je faire et avant quand ? »</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+  </section>
+
+  <section class="card">
+    <h2>¿Lo has entendido?<span class="fr"> · Tu as compris ?</span></h2>
+    <table class="write">
+      
+      <tbody>
+        <tr><td>¿Quién envía la carta?<span class="fr">Qui envoie la lettre ?</span></td><td><span class="line"></span></td></tr>
+        <tr><td>¿Qué hay que hacer?<span class="fr">Que faut-il faire ?</span></td><td><span class="line"></span></td></tr>
+        <tr><td>¿Cuánto tiempo hay?<span class="fr">Combien de temps ?</span></td><td><span class="line"></span></td></tr>
+        <tr><td>¿Qué pasa si no lo haces?<span class="fr">Que se passe-t-il si tu ne le fais pas ?</span></td><td><span class="line"></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card warn">
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M24 15v11M24 32v1"/></svg>
+    <div>
+      <span class="es">Lo que diga la IA sobre tus papeles, compruébalo siempre con un educador o un abogado. Nunca subas fotos de tu NIE, pasaporte o tarjeta sanitaria.</span>
+      <span class="fr">Vérifie toujours avec un éducateur ou un avocat. N'envoie jamais la photo de ton NIE, passeport ou carte de santé.</span>
+    </div>
+  </section>
+</div>
+</body>
+</html>

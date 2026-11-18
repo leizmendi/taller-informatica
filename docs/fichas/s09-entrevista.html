@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entrevista con la IA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  h2 { margin-top: 6px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 6px 6px 0 0; padding: 4px 12px;
+    border: 2px solid var(--c); border-radius: 999px; font-weight: 700; background: var(--card);
+  }
+  .pill .ic { font-size: 1.2em; line-height: 1; }
+  ul.bl { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  ul.bl .fr, .tile .fr, .cell .fr { display: block; }
+  .warn { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .warn svg { width: 48px; height: 48px; color: var(--c); }
+  .warn .es { display: block; font-weight: 700; }
+  .warn .fr { display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr)); gap: 14px; }
+  .tile { background: var(--soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tile strong { font-family: var(--display); font-size: 1.25rem; line-height: 1.15; color: var(--c); }
+  .tile .big { font-size: 2rem; line-height: 1; }
+  .write { width: 100%; border-collapse: collapse; }
+  .write th, .write td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .write th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .write td:first-child { width: 40%; }
+  .write td .fr { display: block; }
+  .write .line { min-width: 0; width: 100%; }
+  .write .line.tall { height: 3.2em; }
+  .box { border: 2px dashed var(--key-edge); border-radius: 12px; min-height: 5em; }
+  .box.tall { min-height: 9em; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .opts span { display: inline-flex; align-items: center; gap: 8px; }
+  .opts span::before { content: ""; width: 1.1em; height: 1.1em; border: 2px solid var(--key-edge); border-radius: 4px; flex: none; }
+  code, .code { font-family: Consolas, "Courier New", monospace; font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+  pre.code { padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; line-height: 1.5; }
+  mark { background: var(--soft); color: var(--c); font-weight: 700; padding: 0 4px; border-radius: 4px; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 12.5pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+</style>
+</head>
+<body class="b3">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque3">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 9 · Ficha</div>
+    <h1>Entrevista con la IA<span class="fr">Entretien avec l'IA</span></h1>
+  </header>
+
+  <section class="card">
+    <h2>Escribe o di a la IA<span class="fr"> · Écris ou dis à l'IA</span></h2>
+    <pre class="code">Quiero practicar una entrevista de trabajo para [la oferta que elegiste]. Tú eres la persona que me entrevista. Hazme las preguntas de una en una y espera mi respuesta. Habla en castellano sencillo. Al final, dime 3 cosas que he hecho bien y 3 que puedo mejorar.</pre>
+  </section>
+
+  <section class="card">
+    <h2>Preguntas que suelen hacer<span class="fr"> · Questions fréquentes</span></h2>
+    <ul class="bl">
+      <li>Háblame de ti.<span class="fr">Parle-moi de toi.</span></li>
+      <li>¿Por qué quieres este trabajo?<span class="fr">Pourquoi veux-tu ce travail ?</span></li>
+      <li>¿Qué experiencia tienes?<span class="fr">Quelle expérience as-tu ?</span></li>
+      <li>¿Cuáles son tus puntos fuertes?<span class="fr">Quels sont tes points forts ?</span></li>
+      <li>¿Qué horario puedes hacer?<span class="fr">Quels horaires peux-tu faire ?</span></li>
+      <li>¿Tienes alguna pregunta?<span class="fr">As-tu une question ?</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Lo que me dice la IA<span class="fr"> · Ce que l'IA me dit</span></h2>
+    <table class="write">
+      
+      <tbody>
+        <tr><td>✅ Lo he hecho bien<span class="fr">J'ai bien fait</span></td><td><span class="line tall"></span></td></tr>
+        <tr><td>🔧 Puedo mejorar<span class="fr">Je peux améliorer</span></td><td><span class="line tall"></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>En una entrevista de verdad<span class="fr"> · Dans un vrai entretien</span></h2>
+    <div class="tiles">
+      <div class="tile"><span class="big" aria-hidden="true">⏰</span><strong>Puntual</strong><span>Llega 10 minutos antes.</span><span class="fr">Arrive 10 minutes avant.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">👋</span><strong>Saluda</strong><span>Buenos días, mira a la cara y sonríe.</span><span class="fr">Dis bonjour, regarde la personne, souris.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">📵</span><strong>Móvil apagado</strong><span>En silencio y guardado.</span><span class="fr">En silencieux et rangé.</span></div>
+      <div class="tile"><span class="big" aria-hidden="true">🙋</span><strong>Pregunta</strong><span>Lleva una pregunta preparada.</span><span class="fr">Prépare une question.</span></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

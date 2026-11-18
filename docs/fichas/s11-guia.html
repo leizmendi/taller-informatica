@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 11 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body class="b4">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque4">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 11 · Guía del monitor</div>
+    <h1>Mi primera web (I)</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+      <ul class="tips">
+        <li>Entender que una web es un archivo de texto que el navegador muestra.</li>
+        <li>Abrir la plantilla con un editor y en el navegador.</li>
+        <li>Cambiar solo las partes marcadas CAMBIA: nombre, colores, emoji y textos.</li>
+        <li>Recordar qué datos no se ponen nunca en una web.</li>
+      </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li>Copiar la <a href="https://github.com/leizmendi/taller-informatica/blob/main/plantilla_web/index.html">plantilla</a> (<code>plantilla_web/index.html</code> del repositorio) en cada ordenador, dentro de una carpeta del escritorio llamada <code>Mi web – apodo</code>. Desde GitHub se descarga con el botón de descarga (↓) de la página del archivo.</li>
+        <li>Comprobar que en el Explorador se ven las extensiones de los archivos (Vista → Mostrar → Extensiones de nombre de archivo). Así no se confunden <code>index.html</code> e <code>index.html.txt</code>.</li>
+        <li>Comprobar que lo guardado en el escritorio no se borra al reiniciar: la web se termina en la sesión 12.</li>
+        <li>Tener abierta la web de ejemplo ("La web de Txin") en el navegador del proyector, y su código en el Bloc de notas.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s11-pasos.html">Mi primera web, paso a paso</a>: 1 por chaval.</li>
+        <li><a href="s11-no-poner.html">Qué no se pone en una web</a>: 1 copia en A3 para la pared y, si quieres, 1 por chaval.</li>
+        <li>La <a href="s01-records.html">hoja de récords</a> de la sesión 1.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–10'</td><td><strong>Calentamiento.</strong> Mecanografía en la web de siempre. Apuntar el mejor resultado en la hoja de récords.</td></tr>
+          <tr><td>10–20'</td><td><strong>¿Qué es una web?</strong> En el proyector, enseñar "La web de Txin" en el navegador. Después, botón derecho → Abrir con → Bloc de notas: es solo texto. Cambiar una palabra delante de ellos, guardar con <kbd>Ctrl</kbd>+<kbd>S</kbd> y actualizar con <kbd>F5</kbd>. Palabras nuevas: <em>web, código, guardar</em>.</td></tr>
+          <tr><td>20–30'</td><td><strong>Abrir la plantilla.</strong> Con la <a href="s11-pasos.html">ficha</a>: abrir <code>index.html</code> con el Bloc de notas y con el navegador, y poner las dos ventanas una al lado de la otra (<kbd>Windows</kbd>+<kbd>←</kbd> y <kbd>Windows</kbd>+<kbd>→</kbd>).</td></tr>
+          <tr><td>30–55'</td><td><strong>Mis primeros cambios.</strong> Cambiar el título de la pestaña, el nombre y el emoji. Guardar y actualizar después de cada cambio, para ver qué pasa.</td></tr>
+          <tr><td>55–75'</td><td><strong>Colores y "Sobre mí".</strong> Probar colores de la lista de la ficha y escribir 2 o 3 frases en "Sobre mí".
+            <ul><li><strong>Extra:</strong> cambiar también el color de fondo con un código como <code>#e6f4ff</code>.</li></ul></td></tr>
+          <tr><td>75–85'</td><td><strong>Lo que no se pone.</strong> Leer juntos la <a href="s11-no-poner.html">ficha</a> y colgarla en la pared. Cada uno repasa su web y quita lo que no debe estar.</td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> "Hoy he aprendido…". Palabras para el mural: <em>web, código, guardar</em>. Comprobar que la carpeta <code>Mi web</code> está guardada y cerrar sesión.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Si algo se rompe</h2>
+      <ul class="tips">
+        <li><strong>La web sale en blanco o rara:</strong> casi siempre falta un <code>&lt;</code>, un <code>&gt;</code> o unas comillas. Deshacer con <kbd>Ctrl</kbd>+<kbd>Z</kbd> hasta que vuelva a salir bien.</li>
+        <li><strong>No cambia nada:</strong> no se ha guardado (<kbd>Ctrl</kbd>+<kbd>S</kbd>) o no se ha actualizado (<kbd>F5</kbd>).</li>
+        <li><strong>Al guardar sale "Guardar como":</strong> el archivo se abrió desde otra carpeta. Cerrar y abrirlo de nuevo desde <code>Mi web</code>.</li>
+        <li><strong>Letras raras en vez de tildes:</strong> en el Bloc de notas, Guardar como → Codificación: UTF-8.</li>
+        <li><strong>Peor caso:</strong> copiar otra vez la plantilla y repetir los cambios. Por eso conviene hacer pocos cambios cada vez.</li>
+      </ul>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+      <ul class="tips">
+        <li><strong>Solo CAMBIA:</strong> que cambien solo el texto que está en los sitios marcados. Lo que hay entre <code>&lt;</code> y <code>&gt;</code> no se toca.</li>
+        <li><strong>En local, no en Drive:</strong> Drive no muestra la web como página, por eso se trabaja en el escritorio. En la sesión 12 se sube a la carpeta Web de Drive para guardarla.</li>
+        <li><strong>Emojis:</strong> <kbd>Windows</kbd>+<kbd>.</kbd> abre el panel de emojis. Es lo que más les gusta: buen momento para que se animen.</li>
+        <li><strong>Doble nivel:</strong> los que van rápido pueden añadir más favoritos copiando una línea entera, o adelantar el enlace de la sesión 12.</li>
+        <li><strong>Publicar:</strong> la web no se publica en internet: se queda en su Drive. Aun así, la norma de qué no poner se trabaja como si fuera pública.</li>
+      </ul>
+  </section>
+</div>
+</body>
+</html>

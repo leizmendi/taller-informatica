@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesión 6 – Guía del monitor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  body.b2 { --c: #13906a; --soft: #e2f4ee; }
+  body.b3 { --c: #c45a17; --soft: #fcebdf; }
+  body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body.b2 { --c: #4fd0a4; --soft: #17352f; }
+    :root:not([data-theme="light"]) body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+    :root:not([data-theme="light"]) body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  }
+  :root[data-theme="dark"] body.b2 { --c: #4fd0a4; --soft: #17352f; }
+  :root[data-theme="dark"] body.b3 { --c: #f59a5c; --soft: #3a2a20; }
+  :root[data-theme="dark"] body.b4 { --c: #b88cf2; --soft: #2e2448; }
+  @media print {
+    :root body.b2, :root:not([data-theme="light"]) body.b2, :root[data-theme="dark"] body.b2 { --c: #13906a; --soft: #e2f4ee; }
+    :root body.b3, :root:not([data-theme="light"]) body.b3, :root[data-theme="dark"] body.b3 { --c: #c45a17; --soft: #fcebdf; }
+    :root body.b4, :root:not([data-theme="light"]) body.b4, :root[data-theme="dark"] body.b4 { --c: #8247cc; --soft: #efe6fa; }
+  }
+  body { font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td:first-child { white-space: nowrap; font-weight: 700; color: var(--c); width: 6.5em; }
+  td ul { margin: 6px 0 0; padding-left: 1.2em; }
+  .table-wrap { overflow-x: auto; }
+  .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
+  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  code { font-size: 0.95em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+</style>
+</head>
+<body class="b2">
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque2">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 6 · Guía del monitor</div>
+    <h1>La IA para aprender</h1>
+  </header>
+
+  <section class="card">
+    <h2>Objetivos</h2>
+      <ul class="tips">
+        <li>Entender qué es un chatbot de IA: no es una persona ni lo sabe todo, y se puede equivocar con total seguridad.</li>
+        <li>Saber que Meta AI está dentro de WhatsApp e Instagram y que lo que le escriben no es privado.</li>
+        <li>Usar la IA para aprender castellano: explicar palabras, conversar por voz y corregir textos.</li>
+        <li>Pedirle que explique una carta o un aviso oficial en castellano fácil o en francés, tapando antes los datos personales.</li>
+        <li>Distinguir entre usar la IA para aprender y usarla para copiar.</li>
+      </ul>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Antes de la clase</h2>
+      <ul class="check">
+        <li><strong>Cuentas:</strong> ChatGPT y Gemini se pueden usar desde los 13 años con permiso de los tutores; Claude exige ser mayor de 18. Confirmar con los educadores si los chavales pueden tener cuenta propia. Si no, las demostraciones se hacen en el proyector con tu cuenta y ellos prueban por turnos.</li>
+        <li>Comprobar que el filtro del centro deja entrar en <em>chatgpt.com</em> y <em>gemini.google.com</em>.</li>
+        <li>Probar antes las preguntas trampa de la ficha: los modelos cambian y alguna puede que ya la acierten. Ten una de recambio.</li>
+        <li>Comprobar que el modo de voz funciona en el ordenador del proyector (micrófono y altavoces) o en tu móvil.</li>
+        <li>Si usas tu cuenta: desactivar el historial o borrar después las conversaciones, y no tener abiertas conversaciones personales.</li>
+        <li>Imprimir la carta de ejemplo y tener papel o rotuladores para tapar los datos.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Qué imprimir</h2>
+      <ul class="check">
+        <li><a href="s06-que-es-ia.html">¿Qué es un chatbot?</a>: para proyectar (no hace falta imprimir).</li>
+        <li><a href="s06-preguntas.html">Preguntas para la IA</a>: 1 por chaval.</li>
+        <li><a href="s06-carta.html">Una carta oficial</a>: 1 por pareja.</li>
+        <li>La <a href="s01-records.html">hoja de récords</a> de la sesión 1.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Desarrollo (90')</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tiempo</th><th>Qué se hace</th></tr></thead>
+        <tbody>
+          <tr><td>0–10'</td><td><strong>Calentamiento.</strong> Mecanografía en la web de siempre. Apuntar el mejor resultado en la hoja de récords.</td></tr>
+          <tr><td>10–20'</td><td><strong>¿Qué es un chatbot?</strong> Proyectar la <a href="s06-que-es-ia.html">ficha</a>. Demostración: preguntarle algo en francés y pedirle la respuesta en castellano fácil. Buscar juntos el círculo de Meta AI en WhatsApp y recordar que no es una conversación privada. Palabras nuevas: <em>inteligencia artificial, preguntar, comprobar</em>.</td></tr>
+          <tr><td>20–35'</td><td><strong>Palabras difíciles.</strong> Por parejas, con la <a href="s06-preguntas.html">ficha</a>: pedirle que explique 3 palabras de su clase de castellano "como a un niño de 10 años", con ejemplos. Apuntarlas en la ficha.</td></tr>
+          <tr><td>35–45'</td><td><strong>Pillar a la IA.</strong> Hacerle una de las preguntas trampa y comprobar la respuesta en Google o contando. Comentar: suena muy segura y aun así se equivoca.</td></tr>
+          <tr><td>45–60'</td><td><strong>Conversación por voz.</strong> Elegir una situación de la ficha (médico, tienda, autobús) y practicar por turnos con el modo de voz. Pedirle al final que diga qué errores han cometido.
+            <ul><li><strong>Extra:</strong> pedirle que corrija un texto suyo y explique los errores, en lugar de que lo reescriba.</li></ul></td></tr>
+          <tr><td>60–75'</td><td><strong>Una carta oficial.</strong> Con la <a href="s06-carta.html">carta de ejemplo</a> (inventada): primero tapar los datos personales y después pedirle a la IA que la explique en castellano fácil o en francés. Comentar la norma: lo que diga sobre papeles se comprueba siempre con un educador o un abogado.</td></tr>
+          <tr><td>75–85'</td><td><strong>Proyecto personal.</strong> Guardar en Drive (Textos) las 3 palabras explicadas y una frase corregida por la IA.</td></tr>
+          <tr><td>85–90'</td><td><strong>Cierre.</strong> "Hoy he aprendido…". Palabras para el mural: <em>inteligencia artificial, comprobar, privado</em>. Cerrar sesión.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Soluciones de las preguntas trampa</h2>
+      <ul class="tips">
+        <li><strong>"¿Cuántas erres hay en ferrocarril?"</strong> Hay 4 (fe<strong>rr</strong>oca<strong>rr</strong>il). Las IA suelen fallar al contar letras.</li>
+        <li><strong>"¿A qué hora abre la biblioteca de mi barrio?"</strong> Si no busca en internet, suele inventarse un horario. Se comprueba en la web del ayuntamiento.</li>
+        <li><strong>"Dime 3 libros que ha escrito [nombre de un vecino o del monitor]".</strong> A menudo se inventa títulos para una persona que no ha escrito ninguno.</li>
+      </ul>
+  </section>
+
+  <section class="card">
+    <h2>Consejos</h2>
+      <ul class="tips">
+        <li><strong>No es una persona:</strong> evita decir que "piensa" o "sabe". Mejor "contesta lo que es más probable". Así se entiende por qué se equivoca con tanta seguridad.</li>
+        <li><strong>Aprender o copiar:</strong> la pregunta que les sirve es "¿después de usarla, sé hacerlo yo solo?". Pedir "explícame" y "corrige y dime por qué" ayuda a aprender; pedir "hazme los deberes" no.</li>
+        <li><strong>Datos personales:</strong> nunca su nombre completo, su dirección, su NIE ni fotos de sus papeles. Antes de pegar o fotografiar un documento, se tapan los datos.</li>
+        <li><strong>Papeles y trámites:</strong> la IA puede explicar qué dice una carta, pero no sustituye a un abogado ni a un educador. Si dice algo sobre su situación legal, se comprueba siempre.</li>
+        <li><strong>Meta AI en WhatsApp:</strong> lo que se le escribe lo puede usar Meta. Que no le cuenten cosas que no contarían en público.</li>
+      </ul>
+  </section>
+</div>
+</body>
+</html>

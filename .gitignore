@@ -1,5 +1,7 @@
-# El PDF de la encuesta se genera desde el formulario
+# Los PDF no se suben (pueden ser CV o trabajos de los chavales),
+# salvo la encuesta en blanco
 *.pdf
+!Encuesta inicial – Taller de informática.pdf
 
 # Nunca subir respuestas ni datos de los chavales
 respuestas/

@@ -31,6 +31,15 @@
   }
   :root[data-theme="dark"] .k1 { --bc: #7aa6f5; } :root[data-theme="dark"] .k2 { --bc: #4fd0a4; }
   :root[data-theme="dark"] .k3 { --bc: #f59a5c; } :root[data-theme="dark"] .k4 { --bc: #b88cf2; }
+  .blk { flex-wrap: wrap; }
+  .blk .prog {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 14px; border-radius: 999px; border: 2px solid var(--bc); color: var(--bc); background: var(--card);
+    font-family: var(--body); font-size: 0.95rem; font-weight: 700; text-decoration: none;
+  }
+  .blk .prog svg { width: 18px; height: 18px; flex: none; }
+  .blk .prog:hover { background: var(--bg); }
+  .blk .prog:focus-visible { outline: 3px solid var(--bc); outline-offset: 3px; }
 </style>
 </head>
 <body>
@@ -41,7 +50,7 @@
     <h1>Fichas<span class="fr">Fiches</span></h1>
   </header>
 
-  <h2 class="blk k1" id="bloque1">Bloque 1 · Lo básico <small>Les bases</small></h2>
+  <h2 class="blk k1" id="bloque1">Bloque 1 · Lo básico <small>Les bases</small><a class="prog" href="../#bloque1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programa · Programme</a></h2>
 
   <section class="card">
     <h2>Sesión 1 – El ordenador y yo</h2>
@@ -82,7 +91,7 @@
     </ul>
   </section>
 
-  <h2 class="blk k2" id="bloque2">Bloque 2 · Comunicarse y protegerse <small>Communiquer et se protéger</small></h2>
+  <h2 class="blk k2" id="bloque2">Bloque 2 · Comunicarse y protegerse <small>Communiquer et se protéger</small><a class="prog" href="../#bloque2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programa · Programme</a></h2>
 
   <section class="card">
     <h2>Sesión 4 – Correo electrónico y Google Drive</h2>
@@ -116,7 +125,7 @@
     </ul>
   </section>
 
-  <h2 class="blk k3" id="bloque3">Bloque 3 · Cosas útiles para la vida <small>Utile pour la vie</small></h2>
+  <h2 class="blk k3" id="bloque3">Bloque 3 · Cosas útiles para la vida <small>Utile pour la vie</small><a class="prog" href="../#bloque3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programa · Programme</a></h2>
 
   <section class="card">
     <h2>Sesión 7 – Escribir en el ordenador</h2>
@@ -159,7 +168,7 @@
     </ul>
   </section>
 
-  <h2 class="blk k4" id="bloque4">Bloque 4 · Crear <small>Créer</small></h2>
+  <h2 class="blk k4" id="bloque4">Bloque 4 · Crear <small>Créer</small><a class="prog" href="../#bloque4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programa · Programme</a></h2>
 
   <section class="card">
     <h2>Sesión 11 – Mi primera web (I)</h2>

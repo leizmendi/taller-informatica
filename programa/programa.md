@@ -15,7 +15,7 @@ Son 12 sesiones de 90 minutos, los martes de 18:30 a 20:00, en 4 bloques que van
 
 | Tiempo | Momento | Qué se hace |
 | --- | --- | --- |
-| 10' | Calentamiento | Mecanografía con un juego, siempre igual (por ejemplo, TypingClub o Mecanografía.net). Se apunta el récord para ver el progreso |
+| 10' | Calentamiento | Mecanografía en [mecanografia-online.com](https://mecanografia-online.com/), siempre igual: unos 5' de práctica y 2 pruebas en el [test de mecanografía](https://mecanografia-online.com/typingTest) (3 el primer día). Se apunta la mejor en la hoja de récords para ver el progreso |
 | 55' | Tema del día | Máximo 10' de explicación y el resto práctica guiada, con la tarea básica y la extra |
 | 20' | Proyecto personal | Cada uno avanza en lo suyo: carpeta, textos, CV, web |
 | 5' | Cierre | "Hoy he aprendido…" y 3 palabras nuevas en castellano en el mural de vocabulario |

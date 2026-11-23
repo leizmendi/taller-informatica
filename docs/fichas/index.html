@@ -40,6 +40,11 @@
   .blk .prog svg { width: 18px; height: 18px; flex: none; }
   .blk .prog:hover { background: var(--bg); }
   .blk .prog:focus-visible { outline: 3px solid var(--bc); outline-offset: 3px; }
+  .typing { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+  .typing h2 { margin: 0; }
+  .typing p { margin: 4px 0 0; }
+  .typing .btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .typing .btn svg { width: 22px; height: 22px; flex: none; }
 </style>
 </head>
 <body>
@@ -49,6 +54,15 @@
     <div class="eyebrow">Taller de informática</div>
     <h1>Fichas<span class="fr">Fiches</span></h1>
   </header>
+
+  <section class="card typing">
+    <div>
+      <h2>Mecanografía<span class="fr"> · Dactylographie</span></h2>
+      <p>Calentamiento de cada sesión: 5' de práctica y 2 pruebas de velocidad. Se apunta la mejor.</p>
+      <p class="fr">Échauffement : 5' d'exercices et 2 tests de vitesse. On note le meilleur.</p>
+    </div>
+    <a class="btn" href="https://mecanografia-online.com/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg> mecanografia-online.com →</a>
+  </section>
 
   <h2 class="blk k1" id="bloque1">Bloque 1 · Lo básico <small>Les bases</small><a class="prog" href="../#bloque1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programa · Programme</a></h2>
 

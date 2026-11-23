@@ -31,8 +31,8 @@
   td ul { margin: 6px 0 0; padding-left: 1.2em; }
   .table-wrap { overflow-x: auto; }
   .check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-  .check li { display: grid; grid-template-columns: 1.4em minmax(0, 1fr); gap: 8px; }
-  .check li::before { content: ""; width: 1.1em; height: 1.1em; margin-top: 0.2em; border: 2px solid var(--key-edge); border-radius: 4px; }
+  .check li { position: relative; padding-left: 2em; }
+  .check li::before { content: ""; position: absolute; left: 0; top: 0.2em; width: 1.1em; height: 1.1em; box-sizing: border-box; border: 2px solid var(--key-edge); border-radius: 4px; }
   .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
   @media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
   ul.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }

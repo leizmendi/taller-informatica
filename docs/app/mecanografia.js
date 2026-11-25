@@ -1,5 +1,5 @@
-import { exigirSesion, guardarIntento, misMejores, fmt } from './comun.js';
-import { NIVELES, letrasHasta } from './ejercicios.js';
+import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, fmt } from './comun.js';
+import { NIVELES, letrasHasta, EJERCICIOS, formatoValor } from './ejercicios.js';
 import { PALABRAS, FRASES, TEXTOS_TEST, PRACTICA } from './textos.js';
 import { crearTeclado, LEYENDA_DEDOS } from './teclado.js';
 
@@ -16,6 +16,12 @@ const captura = $('captura');
 let modo = null;      // { tipo: 'nivel', n } | { tipo: 'test' }
 let sesion = null;    // estado del ejercicio en curso
 let hechos = new Set();
+
+// En los niveles solo cuenta como récord un intento superado (≥ 90 % de aciertos)
+const esNivel = id => /^meca-\d+$/.test(id);
+const misIntentos = await misMejores();
+const records = calcularRecords(misIntentos, i => !esNivel(i.ejercicio) || i.acierto >= SUPERADO);
+const idEjercicio = () => modo.tipo === 'test' ? 'meca-test' : `meca-${modo.n}`;
 
 // ---------- Generar textos ----------
 
@@ -151,7 +157,8 @@ function pintarMarcador() {
     ${quedan != null ? `<span>⏱️ <b>${Math.ceil(quedan)}</b> s</span>` : `<span>⏱️ <b>${fmt(segundos())}</b> s</span>`}
     <span>Velocidad · Vitesse <b>${sesion.inicio ? fmt(ppm) : 0}</b> ppm</span>
     <span>Aciertos · Réussite <b>${fmt(acierto)}</b> %</span>
-    <span>Fallos · Erreurs <b>${sesion.errores}</b></span>`;
+    <span>Fallos · Erreurs <b>${sesion.errores}</b></span>
+    ${records[idEjercicio()] != null ? `<span>🏆 Récord <b>${formatoValor(EJERCICIOS[idEjercicio()], records[idEjercicio()])}</b></span>` : ''}`;
 }
 
 function teclaRecibida(ch) {
@@ -193,7 +200,7 @@ async function terminar() {
 
   const { ppm, acierto, s } = calcular();
   const superado = acierto >= SUPERADO;
-  const ejercicio = modo.tipo === 'test' ? 'meca-test' : `meca-${modo.n}`;
+  const ejercicio = idEjercicio();
   const peores = Object.entries(sesion.falladas).sort((a, b) => b[1] - a[1]).slice(0, 3)
     .map(([c]) => c === ' ' ? 'espacio' : c.toUpperCase());
 
@@ -208,6 +215,7 @@ async function terminar() {
     </p>
     ${modo.tipo === 'nivel' ? `<p>${superado ? '✓ Nivel superado · Niveau réussi' : `Para superar el nivel necesitas un ${SUPERADO} % de aciertos. Il faut ${SUPERADO} % de réussite.`}</p>` : ''}
     ${peores.length ? `<p class="muted">Repasa · Révise : ${peores.join(', ')}</p>` : ''}
+    <p id="record"></p>
     <p class="muted" id="guardado">Guardando… · Enregistrement…</p>
     <div class="fila">
       <button id="btn-repetir">Repetir · Recommencer</button>
@@ -220,12 +228,22 @@ async function terminar() {
   r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   if (sesion.pos === 0) { $('guardado').textContent = ''; return; }
+  const valor = Math.round(ppm * 10) / 10;
+  const cuenta = modo.tipo === 'test' || superado;
   const ok = await guardarIntento({
-    ejercicio, valor: Math.round(ppm * 10) / 10, acierto: Math.round(acierto * 10) / 10,
+    ejercicio, valor, acierto: Math.round(acierto * 10) / 10,
     segundos: Math.round(s * 10) / 10, errores: sesion.errores,
     detalle: { caracteres: sesion.pos, superado, falladas: sesion.falladas },
   });
   $('guardado').textContent = ok ? '✓ Guardado · Enregistré' : 'No se ha podido guardar · Erreur d’enregistrement';
+  const ej = EJERCICIOS[ejercicio], previo = records[ejercicio];
+  if (ok && cuenta) {
+    $('record').innerHTML = mensajeRecord(ej, valor, previo);
+    if (mejora(ej, valor, previo)) { records[ejercicio] = valor; pintarMarcador(); }
+  } else if (previo != null) {
+    // Nivel no superado: no cuenta, solo se recuerda el récord
+    $('record').innerHTML = `Tu récord · Ton record : <b>${formatoValor(ej, previo)}</b>`;
+  }
   if (ok && superado && modo.tipo === 'nivel') { hechos.add(modo.n); marcarNiveles(); }
 }
 
@@ -265,7 +283,7 @@ $('niveles').onclick = e => {
 };
 $('ver-teclado').onchange = e => $('bloque-teclado').classList.toggle('oculto', !e.target.checked);
 
-for (const i of await misMejores()) {
+for (const i of misIntentos) {
   const m = /^meca-(\d+)$/.exec(i.ejercicio);
   if (m && i.acierto >= SUPERADO) hechos.add(Number(m[1]));
 }

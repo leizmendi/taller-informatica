@@ -1,6 +1,7 @@
 // Código compartido por todas las páginas de la app.
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 import { SUPABASE_URL, SUPABASE_KEY, DOMINIO_ALUMNOS } from './config.js';
+import { EJERCICIOS, formatoValor } from './ejercicios.js';
 
 export const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -72,6 +73,33 @@ export async function misMejores() {
   const { data } = await sb.from('intentos')
     .select('ejercicio, valor, acierto').eq('alumno_id', (await miPerfil()).id);
   return data || [];
+}
+
+// ---------- Récords personales ----------
+
+// ¿valor mejora la marca previa? (sin marca previa, sí)
+export function mejora(ej, valor, previo) {
+  return previo == null || (ej.menorMejor ? valor < previo : valor > previo);
+}
+
+// Mejor marca por ejercicio. "aceptar" descarta intentos que no cuentan.
+export function calcularRecords(intentos, aceptar = () => true) {
+  const r = {};
+  for (const i of intentos) {
+    const ej = EJERCICIOS[i.ejercicio];
+    if (!ej || !aceptar(i)) continue;
+    const v = Number(i.valor);
+    if (mejora(ej, v, r[i.ejercicio])) r[i.ejercicio] = v;
+  }
+  return r;
+}
+
+// Mensaje al terminar una prueba, comparando con el récord anterior.
+export function mensajeRecord(ej, valor, previo) {
+  if (previo == null) return '🏅 ¡Primera marca! Ya tienes récord · Premier record !';
+  if (mejora(ej, valor, previo))
+    return `🏆 <b>¡Nuevo récord personal!</b> · Nouveau record ! <span class="muted">(antes · avant ${formatoValor(ej, previo)})</span>`;
+  return `Tu récord sigue siendo · Ton record : <b>${formatoValor(ej, previo)}</b>`;
 }
 
 // ---------- Utilidades ----------

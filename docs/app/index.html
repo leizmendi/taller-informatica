@@ -39,7 +39,7 @@
 
 </main>
 <script type="module">
-import { sb, entrar, miPerfil, pintarCabecera, misMejores, esc } from './comun.js';
+import { sb, entrar, miPerfil, pintarCabecera, misMejores, calcularRecords, esc } from './comun.js';
 import { FICHAS, EJERCICIOS, formatoValor } from './ejercicios.js';
 
 const $ = id => document.getElementById(id);
@@ -52,12 +52,7 @@ async function mostrar() {
   pintarCabecera(p);
   $('apodo').textContent = p.apodo;
 
-  const mejores = {};
-  for (const i of await misMejores()) {
-    const ej = EJERCICIOS[i.ejercicio]; if (!ej) continue;
-    const prev = mejores[i.ejercicio];
-    if (prev == null || (ej.menorMejor ? i.valor < prev : i.valor > prev)) mejores[i.ejercicio] = i.valor;
-  }
+  const mejores = calcularRecords(await misMejores());
 
   const tarjetas = FICHAS.map((f, k) => {
     const marcas = f.ejercicios.filter(e => e.clasifica && mejores[e.id] != null)

@@ -19,7 +19,7 @@ Materiales de un taller de informática para chavales recién llegados, con clas
 
 ## App del taller (`docs/app/`)
 
-Cada alumno entra con usuario y contraseña y tiene sus fichas con pruebas cronometradas: mecanografía (11 niveles, de F‑J‑espacio a mayúsculas y acentos, más un test de 1 minuto) y ratón (clic, doble clic, clic derecho y arrastrar). Las marcas se guardan y hay clasificación por curso. El monitor crea cursos y cuentas desde **Administración**.
+Cada alumno entra con usuario y contraseña y tiene sus fichas con pruebas cronometradas: mecanografía (14 niveles, de F‑J‑espacio a mayúsculas y acentos, números y símbolos como % & @ # €, más un test de 1 minuto) y ratón (clic, doble clic, clic derecho y arrastrar). Las marcas se guardan y hay clasificación por curso. El monitor crea cursos y cuentas desde **Administración**.
 
 Se publica con GitHub Pages en https://leizmendi.github.io/taller-informatica/app/ y guarda los datos en Supabase.
 

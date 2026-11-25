@@ -16,6 +16,12 @@ export const NIVELES = [
   { n: 9,  nuevas: 'vmnbc',   titulo: 'V, M, N, B, C' },
   { n: 10, nuevas: 'xz,.',    titulo: 'Fila de abajo' },
   { n: 11, nuevas: '',        titulo: 'Mayúsculas y acentos', frases: true },
+  { n: 12, nuevas: '1234567890', titulo: 'Números', practica: 'numeros',
+    ayuda: 'Fila de los números: cada dedo sube desde su tecla. Les chiffres : chaque doigt monte depuis sa touche.' },
+  { n: 13, nuevas: '!"$%&/()=?:;_', titulo: 'Símbolos con ⇧', practica: 'shift',
+    ayuda: 'El símbolo de arriba de la tecla: mantén ⇧ con la otra mano. Le symbole du haut : garde ⇧ enfoncée avec l’autre main.' },
+  { n: 14, nuevas: '@#€[]{}\\|', titulo: 'Símbolos con Alt Gr', practica: 'altgr',
+    ayuda: 'El símbolo de abajo a la derecha: mantén Alt Gr (a la derecha del espacio) y pulsa la tecla. Le symbole en bas à droite : garde Alt Gr enfoncée.' },
 ];
 
 export function letrasHasta(n) {

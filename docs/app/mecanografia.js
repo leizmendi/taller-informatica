@@ -1,6 +1,6 @@
 import { exigirSesion, guardarIntento, misMejores, fmt } from './comun.js';
 import { NIVELES, letrasHasta } from './ejercicios.js';
-import { PALABRAS, FRASES, TEXTOS_TEST } from './textos.js';
+import { PALABRAS, FRASES, TEXTOS_TEST, PRACTICA } from './textos.js';
 import { crearTeclado, LEYENDA_DEDOS } from './teclado.js';
 
 const $ = id => document.getElementById(id);
@@ -35,6 +35,7 @@ function grupo(letras, largo) {
 export function textoNivel(n, objetivo = 64) {
   const nivel = NIVELES.find(l => l.n === n);
   if (nivel.frases) return mezclar(FRASES).slice(0, 3).join(' ');
+  if (nivel.practica) return textoPractica(nivel, objetivo);
 
   const letras = letrasHasta(n).filter(c => c !== ' ');
   const nuevas = [...nivel.nuevas];
@@ -66,6 +67,18 @@ export function textoNivel(n, objetivo = 64) {
   return trozos.join(' ');
 }
 
+// Números y símbolos: calentamiento con tres teclas nuevas y luego trozos reales
+function textoPractica(nivel, objetivo) {
+  const trozos = mezclar([...nivel.nuevas]).slice(0, 3).map(c => c.repeat(3));
+  let largo = trozos.join(' ').length;
+  const fuente = mezclar(PRACTICA[nivel.practica]);
+  for (let i = 0; largo < objetivo; i++) {
+    const t = fuente[i % fuente.length];
+    trozos.push(t); largo += t.length + 1;
+  }
+  return trozos.join(' ');
+}
+
 function textoTest() {
   return mezclar(TEXTOS_TEST).slice(0, 3).join(' ');
 }
@@ -78,7 +91,7 @@ function empezar(nuevoModo) {
   sesion = { texto, pos: 0, errores: 0, fallo: false, inicio: null, fin: null, timer: null, falladas: {} };
 
   const caja = $('texto');
-  caja.innerHTML = [...texto].map(c => c === ' ' ? '<span class="esp"> </span>' : `<span>${c.replace('<', '&lt;')}</span>`).join('');
+  caja.innerHTML = [...texto].map(c => c === ' ' ? '<span class="esp"> </span>' : `<span>${c.replace('&', '&amp;').replace('<', '&lt;')}</span>`).join('');
   sesion.spans = [...caja.children];
   $('resultado').classList.add('oculto');
   $('zona').classList.remove('oculto');
@@ -91,9 +104,9 @@ function empezar(nuevoModo) {
     const nivel = NIVELES.find(l => l.n === modo.n);
     teclado.usadas(nivel.frases ? [] : letrasHasta(modo.n));
     $('titulo-ej').textContent = `Nivel ${nivel.n} · ${nivel.titulo}`;
-    $('ayuda-ej').textContent = nivel.frases
+    $('ayuda-ej').textContent = nivel.ayuda ?? (nivel.frases
       ? 'Mayúscula: mantén ⇧ con la otra mano. Acento: pulsa ´ y después la vocal.'
-      : nivel.nuevas ? `Teclas nuevas: ${nivel.nuevas.toUpperCase().split('').join(' ')}` : '';
+      : nivel.nuevas ? `Teclas nuevas: ${nivel.nuevas.toUpperCase().split('').join(' ')}` : '');
   }
   pintarMarcador();
   pintarPosicion();
@@ -230,7 +243,7 @@ captura.addEventListener('blur', () => $('texto').classList.remove('activo'));
 captura.addEventListener('keydown', e => { if (e.key === 'Tab') e.preventDefault(); });
 $('texto').addEventListener('click', enfocar);
 document.addEventListener('keydown', e => {
-  if (document.activeElement !== captura && sesion && !sesion.fin && e.key.length === 1 && !e.ctrlKey && !e.metaKey) enfocar();
+  if (document.activeElement !== captura && sesion && !sesion.fin && e.key.length === 1 && (!e.ctrlKey || e.altKey) && !e.metaKey) enfocar();
 });
 
 // ---------- Selector de niveles ----------

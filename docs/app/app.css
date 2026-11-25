@@ -94,6 +94,9 @@ table.tabla { border-collapse: collapse; width: 100%; font-variant-numeric: tabu
 .tecla.marca::after {
   content: ""; position: absolute; bottom: 5px; width: 0.9em; height: 2px; background: currentColor; border-radius: 2px;
 }
+.tecla .sup, .tecla .alt { position: absolute; font-size: 0.7em; font-weight: 400; line-height: 1; }
+.tecla .sup { top: 3px; left: 5px; }
+.tecla .alt { bottom: 3px; right: 5px; }
 .tecla.siguiente { outline: 4px solid var(--ink); outline-offset: 1px; opacity: 1; transform: scale(1.06); z-index: 1; }
 .tecla.pulsada { transform: scale(0.94); }
 /* Colores por dedo */

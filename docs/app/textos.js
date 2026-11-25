@@ -34,6 +34,26 @@ export const FRASES = [
   '¡Qué rápido escribes!',
 ];
 
+// Niveles de números y símbolos: trozos de la vida real (correos, precios,
+// porcentajes...). Solo minúsculas, para no mezclar con las mayúsculas.
+export const PRACTICA = {
+  numeros: [
+    '12', '25', '100', '2026', '7 8 9', '1 2 3', '4 5 6', '0 0 7', 'aula 12', 'sala 3',
+    'el 5 de mayo', '10 euros', '948 123 456', 'tengo 11', 'calle 15', 'piso 2', '365 días',
+    '24 horas', '60 segundos', '1000', '50', '90', '38',
+  ],
+  shift: [
+    '50%', '25%', '¡hola!', '¡ya!', '¿sí?', '¿qué?', '(casa)', '(1)', '3=3', '7=7', 'a/b', '2/3',
+    '"hola"', '"sí"', 'tú & yo', 'yo & tú', '10$', '5$', 'uno; dos', 'hora: 10', 'mi_foto',
+    'foto_1', 'nota: 9', '(2+3)', '¿vienes?', '¡bien!', 'precio: 20$', '100%',
+  ],
+  altgr: [
+    'ana@correo.es', 'leo@gmail.com', 'mi@email.es', 'taller@aula.es', '#taller', '#hoy', '#2026',
+    '20€', '5€', '1,50€', '[uno]', '[1]', '{dos}', '{a}', 'sol|luna', 'a|b', 'c:\\fotos',
+    'd:\\juegos', '#clase', 'pepe@hotmail.com', '3€', '[ok]',
+  ],
+};
+
 // Textos del test de 1 minuto
 export const TEXTOS_TEST = [
   'El ordenador tiene una pantalla, un teclado y un ratón. Con el teclado escribimos letras y números. Con el ratón movemos la flecha y hacemos clic. Cada día practicamos un poco y cada día escribimos más rápido.',

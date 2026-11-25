@@ -22,6 +22,10 @@ const ACENTO = { 'á':'a', 'é':'e', 'í':'i', 'ó':'o', 'ú':'u' };
 const ACENTO_MAY = { 'Á':'a', 'É':'e', 'Í':'i', 'Ó':'o', 'Ú':'u' };
 const DIERESIS = { 'ü':'u', 'Ü':'u' };
 
+// Qué símbolo lleva cada tecla con ⇧ y con Alt Gr (para pintarlo en la tecla)
+const SIMBOLO_SHIFT = Object.fromEntries(Object.entries(SHIFT).filter(([s]) => s !== 'Ç').map(([s, k]) => [k, s]));
+const SIMBOLO_ALTGR = Object.fromEntries(Object.entries(ALTGR).map(([s, k]) => [k, s]));
+
 function shiftPara(tecla) {
   // Se usa la mayúscula de la mano contraria
   return MANO_IZQ.has(DEDO_DE[tecla]) ? '⇧ ' : '⇧';
@@ -53,6 +57,12 @@ export function crearTeclado(contenedor) {
       t.className = `tecla d-${d}`;
       t.style.gridColumn = `span ${ancho}`;
       t.textContent = k.trim().length === 1 ? k.toUpperCase() : k.trim();
+      for (const [cls, mapa] of [['sup', SIMBOLO_SHIFT], ['alt', SIMBOLO_ALTGR]]) {
+        if (!mapa[k]) continue;
+        const s = document.createElement('span');
+        s.className = cls; s.textContent = mapa[k];
+        t.appendChild(s);
+      }
       if (k === 'f' || k === 'j') t.classList.add('marca');
       if (k === ' ') t.textContent = '';
       f.appendChild(t);

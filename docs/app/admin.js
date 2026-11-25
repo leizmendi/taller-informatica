@@ -87,6 +87,7 @@ async function cargarAlumnos() {
       <td style="white-space:nowrap">
         <button class="ghost peq" data-acc="apodo">Apodo</button>
         <button class="ghost peq" data-acc="pass">Contraseña</button>
+        ${a.id !== yo.id ? `<button class="ghost peq" data-acc="rol">${a.rol === 'admin' ? 'Quitar monitor' : 'Hacer monitor'}</button>` : ''}
         ${a.id !== yo.id ? '<button class="peligro peq" data-acc="borrar">Borrar</button>' : ''}
       </td></tr>`).join('')}</tbody></table>`;
 
@@ -124,6 +125,19 @@ $('alumnos').addEventListener('click', async e => {
     if (error) return mensaje(error.message, true);
     añadirTarjeta(usuario, pass);
     mensaje(`Contraseña cambiada para ${usuario}`);
+  }
+  if (b.dataset.acc === 'rol') {
+    const a = await sb.from('perfiles').select('rol').eq('id', id).single();
+    if (a.error) return mensaje(a.error.message, true);
+    const nuevo = a.data.rol === 'admin' ? 'alumno' : 'admin';
+    const pregunta = nuevo === 'admin'
+      ? `¿Hacer monitor a ${usuario}? Podrá ver y gestionar todos los cursos y cuentas.`
+      : `¿Quitar a ${usuario} el papel de monitor? Pasará a ser alumno.`;
+    if (!confirm(pregunta)) return;
+    const { error } = await sb.rpc('admin_cambiar_rol', { p_alumno: id, p_rol: nuevo });
+    if (error) return mensaje(error.message, true);
+    mensaje(nuevo === 'admin' ? `${usuario} ya es monitor` : `${usuario} vuelve a ser alumno`);
+    cargarAlumnos();
   }
   if (b.dataset.acc === 'borrar') {
     if (!confirm(`¿Borrar a ${usuario} y todos sus resultados? No se puede deshacer.`)) return;

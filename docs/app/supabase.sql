@@ -222,12 +222,27 @@ begin
   delete from auth.users where id = p_alumno;
 end $$;
 
+-- Hacer monitor a una cuenta o devolverla a alumno.
+-- Nadie se quita el papel a sí mismo, así siempre queda algún monitor.
+create or replace function public.admin_cambiar_rol(p_alumno uuid, p_rol text)
+returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not es_admin() then raise exception 'Solo el monitor'; end if;
+  if p_rol not in ('alumno', 'admin') then raise exception 'Papel no válido'; end if;
+  if p_alumno = auth.uid() then raise exception 'No puedes cambiar tu propio papel'; end if;
+  update perfiles set rol = p_rol where id = p_alumno;
+  if not found then raise exception 'No existe esa cuenta'; end if;
+end $$;
+
 -- Solo usuarios con sesión pueden llamar a las funciones.
 revoke execute on function public.clasificacion(text, boolean, uuid) from anon, public;
 revoke execute on function public.admin_crear_alumno(text, text, text, uuid) from anon, public;
 revoke execute on function public.admin_cambiar_password(uuid, text) from anon, public;
 revoke execute on function public.admin_borrar_alumno(uuid) from anon, public;
+revoke execute on function public.admin_cambiar_rol(uuid, text) from anon, public;
 grant execute on function public.clasificacion(text, boolean, uuid) to authenticated;
 grant execute on function public.admin_crear_alumno(text, text, text, uuid) to authenticated;
 grant execute on function public.admin_cambiar_password(uuid, text) to authenticated;
 grant execute on function public.admin_borrar_alumno(uuid) to authenticated;
+grant execute on function public.admin_cambiar_rol(uuid, text) to authenticated;

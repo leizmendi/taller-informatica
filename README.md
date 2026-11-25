@@ -35,6 +35,8 @@ Se publica con GitHub Pages en https://leizmendi.github.io/taller-informatica/ap
 4. Authentication → Sign In / Providers: desactiva "Allow new users to sign up".
 5. Entra en la app con tu correo, ve a Administración, crea el curso y los alumnos e imprime sus tarjetas.
 
+**Más monitores:** créale una cuenta desde Administración (mejor sin curso) y pulsa **Hacer monitor** en su fila. Verá y gestionará todos los cursos. Con **Quitar monitor** vuelve a ser alumno; nadie puede quitarse el papel a sí mismo.
+
 **Añadir una ficha nueva:** se declara en [`docs/app/ejercicios.js`](docs/app/ejercicios.js), se crea su página y se guardan los resultados con `guardarIntento()`. La base de datos no cambia.
 
 La clave de `config.js` es pública por diseño; los datos los protegen las reglas de `supabase.sql`. Los alumnos se dan de alta con un apodo, nunca con su nombre real.

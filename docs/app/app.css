@@ -109,6 +109,17 @@ table.tabla { border-collapse: collapse; width: 100%; font-variant-numeric: tabu
 .dedos { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.85rem; color: var(--muted); }
 .dedos span::before { content: ""; display: inline-block; width: 0.9em; height: 0.9em; border-radius: 3px; margin-right: 5px; vertical-align: -1px; background: var(--b); }
 
+/* Celebración de récord */
+.confeti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 100; }
+.confeti i {
+  position: absolute; top: -20px; width: 10px; height: 14px; border-radius: 2px;
+  animation: caer var(--d) cubic-bezier(.3,.6,.6,1) var(--r) forwards;
+}
+@keyframes caer { to { transform: translate(var(--x), 110vh) rotate(var(--g)); } }
+.record-nuevo { display: inline-block; font-size: 1.25em; animation: pop .7s ease-out both; }
+@keyframes pop { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .record-nuevo { animation: none; } }
+
 /* Ratón */
 .arena {
   position: relative; height: min(60vh, 480px); border-radius: 16px; overflow: hidden;

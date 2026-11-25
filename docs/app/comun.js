@@ -55,9 +55,14 @@ export function pintarCabecera(p) {
     <span class="quien">${esc(p.apodo)}${p.cursos ? ` · <span class="fr">${esc(p.cursos.nombre)}</span>` : ''}</span>
     <span class="acciones">
       ${p.rol === 'admin' ? '<a href="admin.html">Administración</a>' : ''}
+      <button class="ghost" id="btn-sonido"></button>
       <button class="ghost" id="btn-salir">Salir · Sortir</button>
     </span>`;
   el.querySelector('#btn-salir').onclick = salir;
+  const bs = el.querySelector('#btn-sonido');
+  const pintar = () => { bs.textContent = silencio() ? '🔇' : '🔊'; bs.title = silencio() ? 'Activar sonido · Activer le son' : 'Quitar sonido · Couper le son'; };
+  bs.onclick = () => { localStorage.setItem('taller-silencio', silencio() ? '0' : '1'); pintar(); if (!silencio()) sonar('ok'); };
+  pintar();
 }
 
 // ---------- Resultados ----------
@@ -98,8 +103,62 @@ export function calcularRecords(intentos, aceptar = () => true) {
 export function mensajeRecord(ej, valor, previo) {
   if (previo == null) return '🏅 ¡Primera marca! Ya tienes récord · Premier record !';
   if (mejora(ej, valor, previo))
-    return `🏆 <b>¡Nuevo récord personal!</b> · Nouveau record ! <span class="muted">(antes · avant ${formatoValor(ej, previo)})</span>`;
+    return `<span class="record-nuevo">🏆 <b>¡Nuevo récord personal!</b> · Nouveau record !</span> <span class="muted">(antes · avant ${formatoValor(ej, previo)})</span>`;
   return `Tu récord sigue siendo · Ton record : <b>${formatoValor(ej, previo)}</b>`;
+}
+
+// ---------- Sonidos y celebración ----------
+// Sonidos generados en el navegador (sin archivos). Se pueden quitar con 🔊 en la cabecera.
+
+export const silencio = () => localStorage.getItem('taller-silencio') === '1';
+let audio = null;
+
+function nota(freq, cuando, dur, tipo = 'sine', vol = 0.2) {
+  const o = audio.createOscillator(), g = audio.createGain();
+  o.type = tipo; o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, cuando);
+  g.gain.exponentialRampToValueAtTime(vol, cuando + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, cuando + dur);
+  o.connect(g).connect(audio.destination);
+  o.start(cuando); o.stop(cuando + dur + 0.05);
+}
+
+// tipo: 'ok' (prueba superada), 'fallo' (no superada), 'record' (récord nuevo)
+export function sonar(tipo) {
+  if (silencio()) return;
+  try {
+    audio ??= new (window.AudioContext || window.webkitAudioContext)();
+    if (audio.state === 'suspended') audio.resume();
+    const t = audio.currentTime + 0.02;
+    if (tipo === 'ok') { nota(660, t, 0.15); nota(990, t + 0.13, 0.3); }
+    if (tipo === 'fallo') { nota(392, t, 0.25, 'triangle', 0.25); nota(262, t + 0.25, 0.5, 'triangle', 0.25); }
+    if (tipo === 'record') {
+      [523, 659, 784].forEach((f, i) => nota(f, t + i * 0.12, 0.16, 'square', 0.07));
+      nota(1047, t + 0.36, 0.6, 'square', 0.07);
+      nota(1319, t + 0.36, 0.6, 'sine', 0.12);
+    }
+  } catch { /* sin audio: no pasa nada */ }
+}
+
+// Lluvia de confeti por toda la pantalla durante unos segundos
+export function celebrar() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const capa = document.createElement('div');
+  capa.className = 'confeti';
+  const colores = ['#f25c54', '#f7b267', '#ffd166', '#06d6a0', '#118ab2', '#8e7dff', '#ff70a6'];
+  for (let i = 0; i < 120; i++) {
+    const c = document.createElement('i');
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = colores[i % colores.length];
+    c.style.setProperty('--x', (Math.random() * 30 - 15) + 'vw');
+    c.style.setProperty('--g', (Math.random() * 1440 - 720) + 'deg');
+    c.style.setProperty('--d', (2 + Math.random() * 1.8) + 's');
+    c.style.setProperty('--r', (Math.random() * 0.8) + 's');
+    if (i % 3 === 0) c.style.borderRadius = '50%';
+    capa.appendChild(c);
+  }
+  document.body.appendChild(capa);
+  setTimeout(() => capa.remove(), 4800);
 }
 
 // ---------- Utilidades ----------

@@ -1,4 +1,4 @@
-import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, fmt } from './comun.js';
+import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, sonar, celebrar, fmt } from './comun.js';
 import { NIVELES, letrasHasta, EJERCICIOS, formatoValor } from './ejercicios.js';
 import { PALABRAS, FRASES, TEXTOS_TEST, PRACTICA } from './textos.js';
 import { crearTeclado, LEYENDA_DEDOS } from './teclado.js';
@@ -230,6 +230,10 @@ async function terminar() {
   if (sesion.pos === 0) { $('guardado').textContent = ''; return; }
   const valor = Math.round(ppm * 10) / 10;
   const cuenta = modo.tipo === 'test' || superado;
+  // Récord de verdad: mejorar una marca anterior (la primera no lleva confeti)
+  const previoAhora = records[ejercicio];
+  if (cuenta && previoAhora != null && mejora(EJERCICIOS[ejercicio], valor, previoAhora)) { sonar('record'); celebrar(); }
+  else sonar(cuenta ? 'ok' : 'fallo');
   const ok = await guardarIntento({
     ejercicio, valor, acierto: Math.round(acierto * 10) / 10,
     segundos: Math.round(s * 10) / 10, errores: sesion.errores,

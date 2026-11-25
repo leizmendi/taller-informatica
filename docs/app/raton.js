@@ -1,4 +1,4 @@
-import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, fmt } from './comun.js';
+import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, sonar, celebrar, fmt } from './comun.js';
 import { EJERCICIOS, formatoValor } from './ejercicios.js';
 
 const $ = id => document.getElementById(id);
@@ -131,6 +131,9 @@ async function terminar() {
       </div></div></div>`;
   $('btn-otra').onclick = empezar;
   const ejercicio = modo, valor = Math.round(s * 10) / 10;
+  const previoAhora = records[ejercicio];
+  if (previoAhora != null && mejora(EJERCICIOS[ejercicio], valor, previoAhora)) { sonar('record'); celebrar(); }
+  else sonar('ok');
   const ok = await guardarIntento({
     ejercicio, valor, segundos: Math.round(s * 10) / 10, errores: fallos,
     acierto: Math.round(MODOS[modo].rondas / (MODOS[modo].rondas + fallos) * 1000) / 10,

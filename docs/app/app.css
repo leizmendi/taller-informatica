@@ -1,0 +1,143 @@
+/* Estilos de la app. Se apoya en ../fichas/fichas.css (colores, tipografía, botones). */
+
+#cabecera {
+  display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between;
+  font-size: 0.95rem;
+}
+#cabecera a { color: var(--c); font-weight: 700; }
+#cabecera .quien { font-weight: 700; }
+#cabecera .acciones { display: flex; gap: 12px; align-items: center; }
+
+.card {
+  background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 18px 20px;
+}
+.oculto { display: none !important; }
+.muted { color: var(--muted); }
+.error { color: #c2334a; font-weight: 700; }
+.ok { color: var(--ok); font-weight: 700; }
+
+/* Formularios */
+form.fila, .fila { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+label { display: grid; gap: 4px; font-weight: 700; font-size: 0.9rem; }
+input, select {
+  font: inherit; padding: 8px 12px; border-radius: 10px; border: 2px solid var(--line);
+  background: var(--card); color: var(--ink); min-width: 0;
+}
+input:focus, select:focus { outline: none; border-color: var(--c); }
+button.peq { padding: 4px 12px; font-size: 0.85rem; }
+button.peligro { background: transparent; color: #c2334a; border-color: #c2334a; }
+button:disabled { opacity: 0.5; cursor: default; }
+
+/* Acceso */
+.login { max-width: 420px; margin: 8vh auto 0; display: grid; gap: 14px; }
+.login input { font-size: 1.3rem; }
+.login button { font-size: 1.2rem; padding: 12px; }
+
+/* Fichas en la portada */
+.fichas { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.ficha {
+  display: grid; gap: 6px; text-decoration: none; color: inherit;
+  background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 20px;
+  transition: border-color .15s, transform .15s;
+}
+.ficha:hover { border-color: var(--c); transform: translateY(-2px); }
+.ficha .icono { font-size: 2.6rem; line-height: 1; }
+.ficha h2 { font-size: 1.4rem; }
+.ficha .marca { font-size: 0.9rem; color: var(--muted); }
+
+/* Tablas */
+table.tabla { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.tabla th, .tabla td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.tabla th { font-family: var(--display); color: var(--c); }
+.tabla tr.yo td { background: var(--soft); font-weight: 700; }
+.tabla td.num { text-align: right; }
+.medalla { font-size: 1.3rem; }
+.tabla-wrap { overflow-x: auto; }
+
+/* Selector de niveles */
+.niveles { display: flex; flex-wrap: wrap; gap: 8px; }
+.niveles button { min-width: 3em; padding: 6px 12px; }
+.niveles button.hecho::after { content: " ✓"; }
+.niveles button.actual { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+/* Texto a escribir */
+.texto {
+  font-family: "Courier New", ui-monospace, monospace; font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.7; letter-spacing: 0.04em; word-break: break-word;
+  background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 18px 22px;
+  cursor: text; min-height: 4.5em;
+}
+.texto.activo { border-color: var(--c); }
+.texto span.hecho { color: var(--ok); }
+.texto span.actual { background: var(--c); color: var(--card); border-radius: 4px; }
+.texto span.fallo { background: #c2334a; color: #fff; border-radius: 4px; }
+.texto span.esp.actual, .texto span.esp.fallo { min-width: 0.6em; display: inline-block; }
+
+.marcador { display: flex; flex-wrap: wrap; gap: 12px 28px; font-size: 1.1rem; }
+.marcador b { font-family: var(--display); font-size: 1.6rem; }
+
+#captura { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* Teclado en pantalla */
+.teclado {
+  display: grid; gap: 5px; padding: 12px; border-radius: 16px;
+  background: var(--card); border: 2px solid var(--line); user-select: none;
+  font-family: var(--body); font-size: clamp(0.65rem, 1.5vw, 1rem);
+}
+.teclado .fila-t { display: grid; grid-template-columns: repeat(60, 1fr); gap: 5px; }
+.tecla {
+  grid-column: span 4; height: 2.8em; border-radius: 8px; border: 2px solid var(--key-edge);
+  background: var(--key); display: flex; align-items: center; justify-content: center;
+  font-weight: 700; position: relative; opacity: 0.3; filter: grayscale(1);
+}
+.tecla.usada { opacity: 1; filter: none; }
+.tecla.marca::after {
+  content: ""; position: absolute; bottom: 5px; width: 0.9em; height: 2px; background: currentColor; border-radius: 2px;
+}
+.tecla.siguiente { outline: 4px solid var(--ink); outline-offset: 1px; opacity: 1; transform: scale(1.06); z-index: 1; }
+.tecla.pulsada { transform: scale(0.94); }
+/* Colores por dedo */
+.d-mi { background: #f6d6e0; } .d-ai { background: #fde5c4; } .d-ci { background: #d6f0d2; } .d-ii { background: #cfe3fb; }
+.d-id { background: #e2d7f7; } .d-cd { background: #d6f0d2; } .d-ad { background: #fde5c4; } .d-md { background: #f6d6e0; }
+.d-pu { background: #e4e7ef; }
+@media (prefers-color-scheme: dark) {
+  .tecla { color: #1a2140; }
+}
+.dedos { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.85rem; color: var(--muted); }
+.dedos span::before { content: ""; display: inline-block; width: 0.9em; height: 0.9em; border-radius: 3px; margin-right: 5px; vertical-align: -1px; background: var(--b); }
+
+/* Ratón */
+.arena {
+  position: relative; height: min(60vh, 480px); border-radius: 16px; overflow: hidden;
+  background: var(--card); border: 2px solid var(--line); touch-action: none; user-select: none;
+}
+.diana {
+  position: absolute; width: 64px; height: 64px; border-radius: 50%; cursor: pointer;
+  background: radial-gradient(circle, #fff 0 18%, #c2334a 19% 38%, #fff 39% 58%, #c2334a 59%);
+  box-shadow: 0 3px 8px rgba(0,0,0,.25); animation: aparece .15s ease-out;
+}
+.diana.dos { background: radial-gradient(circle, #fff 0 18%, #2e6bd1 19% 38%, #fff 39% 58%, #2e6bd1 59%); }
+.diana.der { background: radial-gradient(circle, #fff 0 18%, #13906a 19% 38%, #fff 39% 58%, #13906a 59%); }
+@keyframes aparece { from { transform: scale(.4); } to { transform: scale(1); } }
+.bola { position: absolute; width: 56px; height: 56px; border-radius: 50%; background: #f0a020; cursor: grab; box-shadow: 0 3px 8px rgba(0,0,0,.3); }
+.bola.cogida { cursor: grabbing; transform: scale(1.1); }
+.caja { position: absolute; width: 110px; height: 110px; border-radius: 18px; border: 4px dashed var(--c); background: var(--soft); }
+.arena .centro { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; }
+.modos { display: flex; flex-wrap: wrap; gap: 8px; }
+.modos button.elegido { background: var(--ink); border-color: var(--ink); }
+
+/* Impresión de credenciales */
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.tarjeta { border: 2px dashed var(--line); border-radius: 12px; padding: 12px; }
+.tarjeta b { font-family: "Courier New", monospace; font-size: 1.2rem; }
+@media print {
+  body * { visibility: hidden; }
+  #imprimible, #imprimible * { visibility: visible; }
+  #imprimible { position: absolute; inset: 0; }
+  #imprimible button { display: none; }
+}
+
+.tabla { font-size: 0.95rem; }
+.tabla td.num, .tabla th.num { white-space: nowrap; }
+.tabla select { font-size: 0.85rem; padding: 4px 8px; }
+a.btn { text-decoration: none; display: inline-block; }

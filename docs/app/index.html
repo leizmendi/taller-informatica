@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taller de informática · Mi cuenta</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../fichas/fichas.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main class="page">
+
+  <!-- Sin sesión -->
+  <section id="v-login" class="oculto">
+    <form class="login card" id="f-login">
+      <div class="eyebrow">Taller de informática</div>
+      <h1>Entrar <span class="fr">Se connecter</span></h1>
+      <label>Usuario <span class="fr">Identifiant</span>
+        <input id="usuario" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+      </label>
+      <label>Contraseña <span class="fr">Mot de passe</span>
+        <input id="password" type="password" autocomplete="current-password" required>
+      </label>
+      <button type="submit">Entrar · Entrer</button>
+      <p id="login-error" class="error"></p>
+    </form>
+  </section>
+
+  <!-- Con sesión -->
+  <section id="v-fichas" class="oculto" style="display:grid; gap:20px">
+    <nav id="cabecera"></nav>
+    <div>
+      <div class="eyebrow">Taller de informática</div>
+      <h1>Hola, <span id="apodo"></span> 👋 <span class="fr">Mes fiches</span></h1>
+    </div>
+    <div class="fichas" id="lista-fichas"></div>
+  </section>
+
+</main>
+<script type="module">
+import { sb, entrar, miPerfil, pintarCabecera, misMejores, esc } from './comun.js';
+import { FICHAS, EJERCICIOS, formatoValor } from './ejercicios.js';
+
+const $ = id => document.getElementById(id);
+
+async function mostrar() {
+  const p = await miPerfil();
+  if (!p) { $('v-login').classList.remove('oculto'); $('usuario').focus(); return; }
+
+  $('v-fichas').classList.remove('oculto');
+  pintarCabecera(p);
+  $('apodo').textContent = p.apodo;
+
+  const mejores = {};
+  for (const i of await misMejores()) {
+    const ej = EJERCICIOS[i.ejercicio]; if (!ej) continue;
+    const prev = mejores[i.ejercicio];
+    if (prev == null || (ej.menorMejor ? i.valor < prev : i.valor > prev)) mejores[i.ejercicio] = i.valor;
+  }
+
+  const tarjetas = FICHAS.map((f, k) => {
+    const marcas = f.ejercicios.filter(e => e.clasifica && mejores[e.id] != null)
+      .map(e => `${esc(e.titulo)}: <b>${formatoValor(e, mejores[e.id])}</b>`);
+    return `<a class="ficha" href="${f.pagina}">
+      <span class="icono">${f.icono}</span>
+      <span class="eyebrow">Ficha ${k + 1}</span>
+      <h2>${esc(f.titulo)} <span class="fr">${esc(f.fr)}</span></h2>
+      <span class="marca">${marcas.length ? 'Mis récords · ' + marcas.join(' · ') : 'Aún sin récords · Pas encore de record'}</span>
+    </a>`;
+  });
+  tarjetas.push(`<a class="ficha" href="clasificacion.html">
+      <span class="icono">🏆</span>
+      <span class="eyebrow">Curso · Cours</span>
+      <h2>Clasificación <span class="fr">Classement</span></h2>
+      <span class="marca">Las mejores marcas del grupo</span>
+    </a>`);
+  $('lista-fichas').innerHTML = tarjetas.join('');
+}
+
+$('f-login').onsubmit = async e => {
+  e.preventDefault();
+  $('login-error').textContent = '';
+  const btn = e.submitter; btn.disabled = true;
+  try {
+    await entrar($('usuario').value, $('password').value);
+    location.reload();
+  } catch (err) {
+    $('login-error').textContent = err.message;
+    btn.disabled = false;
+  }
+};
+
+mostrar();
+</script>
+</body>
+</html>

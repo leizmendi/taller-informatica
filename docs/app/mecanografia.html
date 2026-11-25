@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mecanografía · Taller de informática</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../fichas/fichas.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main class="page" style="max-width:1100px">
+  <nav id="cabecera"></nav>
+  <header>
+    <div class="eyebrow">Ficha 1 · Fiche 1</div>
+    <h1>Mecanografía <span class="fr">Dactylographie</span></h1>
+  </header>
+
+  <div class="niveles" id="niveles" aria-label="Niveles"></div>
+
+  <section id="zona" class="oculto" style="display:grid; gap:14px">
+    <div>
+      <h2 id="titulo-ej"></h2>
+      <p class="muted" id="ayuda-ej"></p>
+    </div>
+    <div class="marcador" id="marcador"></div>
+    <div class="texto" id="texto" tabindex="-1"></div>
+    <textarea id="captura" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Escribe aquí"></textarea>
+  </section>
+
+  <section id="resultado" class="card oculto" style="display:grid; gap:12px"></section>
+
+  <section style="display:grid; gap:8px">
+    <label style="display:flex; gap:8px; align-items:center; font-weight:400">
+      <input type="checkbox" id="ver-teclado" checked> Ver teclado · Voir le clavier
+    </label>
+    <div id="bloque-teclado" style="display:grid; gap:8px">
+      <div id="teclado"></div>
+      <div class="dedos" id="dedos"></div>
+    </div>
+  </section>
+</main>
+<script type="module" src="mecanografia.js"></script>
+</body>
+</html>

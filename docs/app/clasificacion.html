@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clasificación · Taller de informática</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../fichas/fichas.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main class="page">
+  <nav id="cabecera"></nav>
+  <header>
+    <div class="eyebrow">Curso · Cours</div>
+    <h1>Clasificación <span class="fr">Classement</span></h1>
+  </header>
+  <div class="fila">
+    <label id="l-curso" class="oculto">Curso <select id="curso"></select></label>
+    <label>Prueba · Épreuve <select id="ej"></select></label>
+  </div>
+  <div class="card tabla-wrap" id="tabla"></div>
+  <p class="muted">Cuenta la mejor marca de cada uno. · On garde le meilleur résultat de chacun.</p>
+</main>
+<script type="module">
+import { sb, exigirSesion, esc, fmt } from './comun.js';
+import { CLASIFICABLES, EJERCICIOS, formatoValor } from './ejercicios.js';
+
+const $ = id => document.getElementById(id);
+const perfil = await exigirSesion();
+const params = new URLSearchParams(location.search);
+
+$('ej').innerHTML = CLASIFICABLES.map(e =>
+  `<option value="${e.id}">${esc(e.ficha.titulo)} · ${esc(e.titulo)}</option>`).join('');
+if (EJERCICIOS[params.get('ej')]?.clasifica) $('ej').value = params.get('ej');
+
+if (perfil.rol === 'admin') {
+  const { data: cursos } = await sb.from('cursos').select('id, nombre').order('creado', { ascending: false });
+  $('curso').innerHTML = (cursos || []).map(c => `<option value="${c.id}">${esc(c.nombre)}</option>`).join('');
+  if (params.get('curso')) $('curso').value = params.get('curso');
+  $('l-curso').classList.remove('oculto');
+}
+
+async function cargar() {
+  const ej = EJERCICIOS[$('ej').value];
+  const curso = perfil.rol === 'admin' ? $('curso').value || null : null;
+  if (perfil.rol === 'admin' && !curso) { $('tabla').innerHTML = '<p>Crea primero un curso en Administración.</p>'; return; }
+  if (perfil.rol !== 'admin' && !perfil.curso_id) { $('tabla').innerHTML = '<p>Aún no estás en ningún curso.</p>'; return; }
+
+  $('tabla').innerHTML = '<p class="muted">Cargando…</p>';
+  const { data, error } = await sb.rpc('clasificacion', { p_ejercicio: ej.id, p_menor_mejor: ej.menorMejor, p_curso: curso });
+  if (error) { $('tabla').innerHTML = `<p class="error">${esc(error.message)}</p>`; return; }
+  if (!data.length) { $('tabla').innerHTML = '<p>Nadie ha hecho esta prueba todavía. · Personne n’a encore fait cette épreuve.</p>'; return; }
+
+  const medallas = ['🥇', '🥈', '🥉'];
+  $('tabla').innerHTML = `<table class="tabla">
+    <thead><tr><th>#</th><th>Apodo · Surnom</th><th class="num">Mejor · Meilleur</th><th class="num">Aciertos</th><th class="num">Intentos</th></tr></thead>
+    <tbody>${data.map((r, i) => `<tr class="${r.soy_yo ? 'yo' : ''}">
+      <td>${medallas[i] ? `<span class="medalla">${medallas[i]}</span>` : i + 1}</td>
+      <td>${esc(r.apodo)}</td>
+      <td class="num">${formatoValor(ej, r.mejor)}</td>
+      <td class="num">${r.acierto != null ? fmt(r.acierto) + ' %' : '—'}</td>
+      <td class="num">${r.intentos}</td></tr>`).join('')}</tbody></table>`;
+}
+
+$('ej').onchange = cargar;
+$('curso').onchange = cargar;
+cargar();
+</script>
+</body>
+</html>

@@ -17,6 +17,28 @@ Materiales de un taller de informática para chavales recién llegados, con clas
 | [`docs/`](docs/index.html) | Lo que publica GitHub Pages: el índice del programa |
 | [`docs/fichas/`](docs/fichas/) | Las fichas de cada sesión (guía del monitor, fichas para imprimir y juegos). Desde el navegador se imprimen con el botón "Imprimir" |
 
+## App del taller (`docs/app/`)
+
+Cada alumno entra con usuario y contraseña y tiene sus fichas con pruebas cronometradas: mecanografía (11 niveles, de F‑J‑espacio a mayúsculas y acentos, más un test de 1 minuto) y ratón (clic, doble clic, clic derecho y arrastrar). Las marcas se guardan y hay clasificación por curso. El monitor crea cursos y cuentas desde **Administración**.
+
+Se publica con GitHub Pages en https://leizmendi.github.io/taller-informatica/app/ y guarda los datos en Supabase.
+
+**Puesta en marcha (una vez):**
+
+1. En Supabase → SQL Editor, pega y ejecuta [`docs/app/supabase.sql`](docs/app/supabase.sql).
+2. Authentication → Users → Add user → Create new user: tu correo y contraseña, con "Auto Confirm User".
+3. En el SQL Editor, hazte monitor:
+   ```sql
+   update public.perfiles set rol = 'admin', apodo = 'Monitor'
+   where id = (select id from auth.users where email = 'TU@CORREO');
+   ```
+4. Authentication → Sign In / Providers: desactiva "Allow new users to sign up".
+5. Entra en la app con tu correo, ve a Administración, crea el curso y los alumnos e imprime sus tarjetas.
+
+**Añadir una ficha nueva:** se declara en [`docs/app/ejercicios.js`](docs/app/ejercicios.js), se crea su página y se guardan los resultados con `guardarIntento()`. La base de datos no cambia.
+
+La clave de `config.js` es pública por diseño; los datos los protegen las reglas de `supabase.sql`. Los alumnos se dan de alta con un apodo, nunca con su nombre real.
+
 ## Cómo crear la encuesta
 
 1. Entra en https://script.google.com y pulsa "Nuevo proyecto".

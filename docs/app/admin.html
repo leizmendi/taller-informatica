@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administración · Taller de informática</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="../fichas/fichas.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main class="page" style="max-width:1100px">
+  <nav id="cabecera"></nav>
+  <header>
+    <div class="eyebrow">Monitor</div>
+    <h1>Administración</h1>
+  </header>
+
+  <section class="card" style="display:grid; gap:12px">
+    <h2>Cursos</h2>
+    <div class="fila">
+      <label>Curso <select id="curso"></select></label>
+      <button class="ghost" id="btn-renombrar">Renombrar</button>
+      <a class="btn ghost" id="ver-clasif" href="clasificacion.html">🏆 Clasificación</a>
+    </div>
+    <form class="fila" id="f-curso">
+      <label>Nuevo curso <input id="nombre-curso" placeholder="Ej.: Otoño 2026" required></label>
+      <button>Crear curso</button>
+    </form>
+  </section>
+
+  <section class="card" style="display:grid; gap:12px">
+    <h2>Alumnos del curso</h2>
+    <form class="fila" id="f-alumno">
+      <label>Usuario <input id="a-usuario" placeholder="ej.: lince" pattern="[a-zA-Z0-9._\-]{3,30}" required autocapitalize="none"></label>
+      <label>Apodo <input id="a-apodo" placeholder="Lince"></label>
+      <label>Contraseña <input id="a-pass" required minlength="6"></label>
+      <button type="button" class="ghost peq" id="btn-generar" title="Otra contraseña">🎲</button>
+      <button>Crear alumno</button>
+    </form>
+    <p class="muted">Usuario sin acentos ni espacios. No pongas nombres reales: mejor un apodo.</p>
+    <p id="msg"></p>
+    <div class="tabla-wrap" id="alumnos"></div>
+  </section>
+
+  <section class="card oculto" id="imprimible" style="display:grid; gap:12px">
+    <div class="fila" style="justify-content:space-between">
+      <h2>Cuentas nuevas</h2>
+      <button onclick="print()">Imprimir</button>
+    </div>
+    <p class="muted">Las contraseñas solo se ven ahora. Imprímelas o apúntalas antes de salir de la página.</p>
+    <div class="tarjetas" id="tarjetas"></div>
+  </section>
+</main>
+<script type="module" src="admin.js"></script>
+</body>
+</html>

@@ -21,7 +21,10 @@ const SHIFT = { 'ª':'º', '!':'1', '"':'2', '·':'3', '$':'4', '%':'5', '&':'6'
 const ALTGR = { '@':'2', '#':'3', '€':'e', '\\':'º', '|':'1', '[':'`', ']':'+', '{':'´', '}':'ç' };
 const ACENTO = { 'á':'a', 'é':'e', 'í':'i', 'ó':'o', 'ú':'u' };
 const ACENTO_MAY = { 'Á':'a', 'É':'e', 'Í':'i', 'Ó':'o', 'Ú':'u' };
-const DIERESIS = { 'ü':'u', 'Ü':'u' };
+const DIERESIS = { 'ü':'u', 'Ü':'u', 'ë':'e', 'ï':'i' };
+// Francés: acento grave con ` y circunflejo con ⇧ + `
+const GRAVE = { 'à':'a', 'è':'e', 'ù':'u' };
+const CIRCUNFLEJO = { 'â':'a', 'ê':'e', 'î':'i', 'ô':'o', 'û':'u' };
 
 // Qué símbolo lleva cada tecla con ⇧ y con Alt Gr (para pintarlo en la tecla)
 const SIMBOLO_SHIFT = Object.fromEntries(Object.entries(SHIFT).filter(([s]) => s !== 'Ç').map(([s, k]) => [k, s]));
@@ -40,6 +43,8 @@ export function teclasPara(ch) {
   if (ACENTO[ch]) return ['´', ACENTO[ch]];
   if (ACENTO_MAY[ch]) return ['´', shiftPara(ACENTO_MAY[ch]), ACENTO_MAY[ch]];
   if (DIERESIS[ch]) return ['⇧', '´', DIERESIS[ch]];
+  if (GRAVE[ch]) return ['`', GRAVE[ch]];
+  if (CIRCUNFLEJO[ch]) return ['⇧', '`', CIRCUNFLEJO[ch]];
   if (SHIFT[ch]) return [shiftPara(SHIFT[ch]), SHIFT[ch]];
   if (ALTGR[ch]) return ['Alt Gr', ALTGR[ch]];
   if (low !== ch && DEDO_DE[low]) return [shiftPara(low), low];

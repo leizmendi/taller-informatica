@@ -1,6 +1,6 @@
 import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, sonar, celebrar, fmt } from './comun.js';
 import { NIVELES, letrasHasta, EJERCICIOS, formatoValor, nombreNivel } from './ejercicios.js';
-import { t, t1, tPlano } from './i18n.js';
+import { t, t1, tPlano, idiomaPrincipal } from './i18n.js';
 import { PALABRAS, FRASES, TEXTOS_TEST, PRACTICA } from './textos.js';
 import { crearTeclado, leyendaDedos } from './teclado.js';
 
@@ -87,7 +87,7 @@ function textoPractica(nivel, objetivo) {
 }
 
 function textoTest() {
-  return mezclar(TEXTOS_TEST).slice(0, 3).join(' ');
+  return mezclar(TEXTOS_TEST[idiomaPrincipal()] || TEXTOS_TEST.es).slice(0, 3).join(' ');
 }
 
 // ---------- Escritura ----------

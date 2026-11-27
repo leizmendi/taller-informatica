@@ -75,7 +75,7 @@ export default {
   'meca.niveles': `Niveaux`,
   'meca.botonTest': `Test 1 min`,
   'meca.verTeclado': `Voir le clavier`,
-  'meca.ayudaTest': `Le temps démarre à la première touche.`,
+  'meca.ayudaTest': `Le temps démarre à la première touche. Pour è, tape <b>\`</b> puis <b>e</b> ; pour ê, <b>⇧ + \`</b> puis <b>e</b>.`,
   'meca.ayudaFrases': `Majuscule : garde ⇧ enfoncée. Accent : tape ´ puis la voyelle.`,
   'meca.teclasNuevas': `Nouvelles touches`,
   'meca.velocidad': `Vitesse`,

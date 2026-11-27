@@ -155,3 +155,17 @@ table.tabla { border-collapse: collapse; width: 100%; font-variant-numeric: tabu
 .tabla td.num, .tabla th.num { white-space: nowrap; }
 .tabla select { font-size: 0.85rem; padding: 4px 8px; }
 a.btn { text-decoration: none; display: inline-block; }
+
+/* Archivos y carpetas: misiones en el Explorador de Windows */
+.mision { display: grid; gap: 16px; font-size: 1.1rem; }
+.mision h2 { font-size: 1.5rem; }
+.mision ol.pasos { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+.mision .nombre {
+  font-family: "Courier New", ui-monospace, monospace; font-weight: 700; font-size: 1.2em;
+  background: var(--soft); padding: 2px 10px; border-radius: 8px; white-space: nowrap;
+}
+.mision .arbol { margin: 0; padding: 12px 16px; background: var(--soft); border-radius: 12px; font-size: 1.15rem; line-height: 1.7; }
+.mision ul.revision { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.mision ul.revision li::before { content: "❌ "; }
+.mision ul.revision li.bien::before { content: "✅ "; }
+.mision .grande { font-size: 1.3rem; padding: 12px 28px; }

@@ -51,6 +51,13 @@ export const FICHAS = [
       { id: 'raton-arrastrar', titulo: 'Arrastrar', fr: 'Glisser', unidad: 's', menorMejor: true, clasifica: true },
     ],
   },
+  {
+    id: 'archivos', titulo: 'Archivos y carpetas', fr: 'Fichiers et dossiers', icono: '📁',
+    pagina: 'archivos.html',
+    ejercicios: [
+      { id: 'arch-carpeta', titulo: 'Crea tu carpeta', fr: 'Crée ton dossier', unidad: 's', menorMejor: true, clasifica: true },
+    ],
+  },
 ];
 
 export const EJERCICIOS = Object.fromEntries(

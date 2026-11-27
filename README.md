@@ -39,9 +39,11 @@ Se publica con GitHub Pages en https://leizmendi.github.io/taller-informatica/ap
 
 **Añadir una ficha nueva:** se declara en [`docs/app/ejercicios.js`](docs/app/ejercicios.js), se crea su página, se ponen sus textos en los archivos de idioma y se guardan los resultados con `guardarIntento()`. La base de datos no cambia.
 
-**Idiomas:** cada alumno elige un idioma principal y, si quiere, uno secundario, que se ve al lado en cursiva y en otro color. Lo cambia con el botón 🌐 de la cabecera o en la pantalla de entrada, y el monitor lo puede poner desde Administración. Los idiomas por defecto están en [`docs/app/config.js`](docs/app/config.js). Ahora mismo hay castellano, francés, euskera e inglés.
+**Idiomas:** cada alumno elige un idioma principal y, si quiere, uno secundario, que se ve al lado en cursiva y en otro color. Lo cambia con el botón 🌐 de la cabecera o en la pantalla de entrada, y el monitor lo puede poner desde Administración. Los idiomas por defecto están en [`docs/app/config.js`](docs/app/config.js). Ahora mismo hay castellano, francés, euskera, inglés, árabe, bambara y fula (pulaar).
 
-- **Añadir un idioma:** copia [`docs/app/idiomas/es.js`](docs/app/idiomas/es.js) con el código del idioma (por ejemplo, `ca.js`), traduce los textos y añade una línea en [`docs/app/idiomas/lista.js`](docs/app/idiomas/lista.js). Si falta algún texto, sale en castellano.
+- **Traducciones por revisar:** euskera, inglés, árabe y bambara están completos, pero sin revisar por hablantes (sin los textos de Administración, que salen en castellano). El fula solo tiene los textos cortos: lo demás sale en castellano y en el idioma secundario. El soninké (`snk.js`) está como plantilla sin traducir y no aparece en la app hasta que se traduzca. Cualquier corrección es bienvenida.
+
+- **Añadir un idioma:** copia [`docs/app/idiomas/es.js`](docs/app/idiomas/es.js) con el código del idioma (por ejemplo, `ca.js`), traduce los textos y añade una línea en [`docs/app/idiomas/lista.js`](docs/app/idiomas/lista.js). Si falta algún texto, sale en castellano. Si se escribe de derecha a izquierda, como el árabe, añádelo también a `RTL` en ese archivo.
 - **Base de datos:** para que la elección se guarde en el perfil de cada alumno, hay que haber ejecutado la versión actual de `supabase.sql` (añade las columnas `idioma` e `idioma2` y la función `cambiar_idiomas`). Sin eso la app funciona igual, pero el idioma se recuerda solo en cada ordenador.
 
 La clave de `config.js` es pública por diseño; los datos los protegen las reglas de `supabase.sql`. Los alumnos se dan de alta con un apodo, nunca con su nombre real.

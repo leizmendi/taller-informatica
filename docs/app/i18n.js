@@ -9,7 +9,7 @@
 //   tPlano('clave')       → solo el principal y sin HTML (title, confirm, prompt)
 // Si a un idioma le falta un texto, el principal sale en castellano y el
 // secundario no se muestra (para no repetir lo mismo dos veces).
-import { IDIOMAS } from './idiomas/lista.js';
+import { IDIOMAS, RTL } from './idiomas/lista.js';
 import { IDIOMA_PRINCIPAL, IDIOMA_SECUNDARIO } from './config.js';
 
 const CLAVE_LS = 'taller-idiomas';
@@ -44,6 +44,7 @@ export async function iniciarIdiomas({ principal: p, secundario: s }) {
   [ES, P, S] = await Promise.all([cargar('es'), principal === 'es' ? null : cargar(principal), secundario ? cargar(secundario) : null]);
   if (principal === 'es') P = ES;
   document.documentElement.lang = principal;
+  document.documentElement.dir = RTL.has(principal) ? 'rtl' : 'ltr';
 }
 
 export const idiomaPrincipal = () => principal;
@@ -67,7 +68,7 @@ export function t2(clave, datos) {
 
 export function t(clave, datos) {
   const a = t1(clave, datos), b = t2(clave, datos);
-  return b && b !== a ? `${a} <span class="sec" lang="${secundario}">${b}</span>` : a;
+  return b && b !== a ? `${a} <span class="sec" lang="${secundario}" dir="${RTL.has(secundario) ? 'rtl' : 'ltr'}">${b}</span>` : a;
 }
 
 export function tPlano(clave, datos) {

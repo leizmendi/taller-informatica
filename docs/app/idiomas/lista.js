@@ -9,9 +9,18 @@
 //      y se puede añadir la traducción entre paréntesis.
 //   3. Añade aquí una línea con el código y el nombre.
 // Si falta algún texto, la app lo enseña en castellano.
+// Los códigos son los de ISO 639 (dos letras o, si no hay, tres: snk).
+// Si el idioma se escribe de derecha a izquierda, añádelo también a RTL.
 export const IDIOMAS = {
   es: 'Castellano',
   fr: 'Français',
   eu: 'Euskara',
   en: 'English',
+  ar: 'العربية',
+  bm: 'Bamanankan',
+  ff: 'Pulaar',
+  // snk: 'Sooninkanxanne', // plantilla sin traducir (snk.js)
 };
+
+// Idiomas que se escriben de derecha a izquierda
+export const RTL = new Set(['ar']);

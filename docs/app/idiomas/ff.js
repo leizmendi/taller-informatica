@@ -1,0 +1,98 @@
+// Pulaar / Fulfulde (Fula).
+// BORRADOR PARCIAL: solo están traducidos los textos cortos (botones, títulos,
+// avisos breves, niveles y ratón). Lo que falta sale en castellano
+// y en el idioma secundario (por ejemplo, francés).
+// Hay que revisarlo con hablantes: hay variantes (Pulaar de Senegal y Mauritania,
+// Pular de Guinea, Fulfulde de Mali…). Las palabras de informática van en francés.
+export default {
+  'app.nombre': `Golle ordinateer`,
+  'titulo.inicio': `Golle ordinateer`,
+  'titulo.meca': `Winndugol e klawiye · Golle ordinateer`,
+  'titulo.raton': `Suris (souris) · Golle ordinateer`,
+  'titulo.archivos': `Fiise e dosiyeeji · Golle ordinateer`,
+  'titulo.clasif': `Klasmaa (classement) · Golle ordinateer`,
+
+  'cab.fichas': `Fiseeji`,
+  'cab.salir': `Yaltu`,
+  'cab.sonidoOn': `Udditu hito`,
+  'cab.sonidoOff': `Uddu hito`,
+
+  'idioma.titulo': `Ɗemngal`,
+  'idioma.principal': `Ɗemngal`,
+  'idioma.secundario': `Ɗemngal ɗiɗaɓal`,
+  'idioma.ninguno': `Hay gooto`,
+
+  'entrar.titulo': `Naat`,
+  'entrar.usuario': `Innde (identifiant)`,
+  'entrar.password': `Finnde (mot de passe)`,
+  'entrar.boton': `Naat`,
+  'entrar.error': `Innde walla finnde nde moƴƴaani`,
+
+  'inicio.hola': `Jam waali, {apodo} 👋`,
+  'inicio.misRecords': `Rekoorji am`,
+  'inicio.sinRecords': `Alaa rekoor tawo`,
+
+  'comun.empezar': `Fuɗɗo`,
+  'comun.comprobar': `Ƴeewto`,
+  'comun.otraVez': `Kadi`,
+  'comun.tiempo': `Waktu`,
+  'comun.fallos': `Juumde`,
+  'comun.guardando': `Ina danndee…`,
+  'comun.guardado': `Danndaama`,
+  'comun.noGuardado': `Danndaaki`,
+  'comun.cargando': `Ina loowee…`,
+  'comun.cumplida': `Golle ngalle gasii!`,
+  'comun.yaHecha': `<b>Gasii</b>`,
+  'comun.bien': `Ina moƴƴi!`,
+  'comun.aunNo': `Tawo:`,
+
+  'record.record': `Rekoor`,
+  'record.nuevo': `<b>Rekoor hesere!</b>`,
+  'record.antes': `adii`,
+  'record.sigue': `Rekoor maa: <b>{marca}</b>`,
+  'record.tuRecord': `Rekoor maa: <b>{marca}</b>`,
+
+  'ficha.n': `Fiise {n}`,
+  'ficha.meca': `Winndugol e klawiye`,
+  'ficha.raton': `Suris (souris)`,
+  'ficha.archivos': `Fiise e dosiyeeji`,
+  'ej.raton-clic': `Clic`,
+  'ej.raton-doble': `Double-clic`,
+  'ej.raton-derecho': `Clic ñaamo`,
+  'ej.raton-arrastrar': `Ɓoorgol (glisser)`,
+  'ej.arch-carpeta': `Sos dosiye maa`,
+  'ej.arch-archivos': `Fiise am`,
+  'ej.arch-ordena': `Yuɓɓin fiise ɗee`,
+
+  'meca.nivel': `Tolno {n}`,
+  'meca.niveles': `Tolnooji`,
+  'meca.teclasNuevas': `Butonji kesi`,
+  'meca.velocidad': `Yaawnde`,
+  'meca.fallos': `Juumde`,
+  'meca.tiempo': `Waktu gasii!`,
+  'meca.muyBien': `Ina moƴƴi no feewi!`,
+  'meca.casi': `Seeɗa heddii!`,
+  'meca.repetir': `Fuɗɗito`,
+  'nivel.1': `F, J e espace`,
+  'nivel.2': `D e K`,
+  'nivel.3': `S e L`,
+  'nivel.4': `A e Ñ`,
+  'nivel.6': `E e I`,
+  'nivel.7': `R e U`,
+  'nivel.9': `V, M, N, B, C`,
+  'nivel.12': `Limoore`,
+
+
+  'raton.hecho': `Gasii!`,
+
+  'clasif.titulo': `Klasmaa (classement)`,
+  'clasif.apodo': `Innde`,
+  'clasif.mejor': `Ɓurɗo`,
+
+  'm2.tipoTexto': `binndi`,
+  'm2.tipoImagen': `natal`,
+  'm2.tuTexto': `Binndi maa`,
+  'm2.tuDibujo': `Natal maa`,
+  'm3.archivo': `Fiise`,
+  'm3.hecho': `Kala huunde yuɓɓinaama!`,
+};

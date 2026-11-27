@@ -96,7 +96,7 @@ export function pintarCabecera(p) {
   const enInicio = /\/(index\.html)?$/.test(location.pathname);
   const codigos = [idiomaPrincipal(), idiomaSecundario()].filter(Boolean).map(c => c.toUpperCase()).join(' · ');
   el.innerHTML = `
-    ${enInicio ? '<span></span>' : `<a href="index.html">← ${t('cab.fichas')}</a>`}
+    ${enInicio ? '<span></span>' : `<a href="index.html">${document.documentElement.dir === 'rtl' ? '→' : '←'} ${t('cab.fichas')}</a>`}
     <span class="quien">${esc(p.apodo)}${p.cursos ? ` · <span class="muted">${esc(p.cursos.nombre)}</span>` : ''}</span>
     <span class="acciones">
       ${p.rol === 'admin' ? `<a href="admin.html">${t1('cab.admin')}</a>` : ''}

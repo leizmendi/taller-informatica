@@ -70,6 +70,7 @@ export function montar({ perfil, records, caja, marcadorEl }) {
 
     <h3>3 · ${t('m2.h3')}</h3>
     <p>${t('m2.dobleClic', { carpeta })}</p>
+    <ul class="checklist">${casilla(t('m2.extensiones'))}</ul>
     ${PREGUNTAS.map(cajaPregunta).join('')}
 
     <h3>4 · ${t('m2.h4')}</h3>

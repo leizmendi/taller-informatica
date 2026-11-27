@@ -56,6 +56,9 @@ export const FICHAS = [
     pagina: 'archivos.html',
     ejercicios: [
       { id: 'arch-carpeta', titulo: 'Crea tu carpeta', fr: 'Crée ton dossier', unidad: 's', menorMejor: true, clasifica: true },
+      // Sin reloj: solo se guarda que la ha terminado (valor 1)
+      { id: 'arch-archivos', titulo: 'Mis archivos', fr: 'Mes fichiers', unidad: 'hecho', menorMejor: false, clasifica: false },
+      { id: 'arch-ordena', titulo: 'Ordena los archivos', fr: 'Range les fichiers', unidad: 's', menorMejor: true, clasifica: true },
     ],
   },
 ];
@@ -65,8 +68,12 @@ export const EJERCICIOS = Object.fromEntries(
 
 export const CLASIFICABLES = Object.values(EJERCICIOS).filter(e => e.clasifica);
 
+// Columnas de la tabla de alumnos en Administración: récords y misiones terminadas
+export const EN_ADMIN = Object.values(EJERCICIOS).filter(e => e.clasifica || e.unidad === 'hecho');
+
 export function formatoValor(ej, valor) {
   if (valor == null) return '—';
+  if (ej.unidad === 'hecho') return '✓';
   return ej.unidad === 's'
     ? `${Number(valor).toFixed(1).replace('.', ',')} s`
     : `${Math.round(valor)} ppm`;

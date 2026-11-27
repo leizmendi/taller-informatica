@@ -57,10 +57,11 @@ En este bloque todos se ponen en el mismo punto de partida. Si la encuesta muest
 1. Metáfora del armario: carpetas reales con hojas dentro.
 2. Crear la carpeta "Taller – [apodo]" con subcarpetas Textos, Fotos y Web.
 3. Guardar el texto de la sesión 1 dentro de su carpeta.
-4. Juego "¿dónde está?": el monitor esconde un archivo y lo tienen que encontrar con el buscador.
-5. Instalar una app gratuita desde Microsoft Store (por ejemplo, VLC o un juego de mecanografía), abrirla desde el menú Inicio y desinstalarla en Configuración → Aplicaciones. Norma del aula: en el ordenador del taller solo se instala con el monitor delante.
-6. Cuentas del ordenador: ver en Configuración → Cuentas qué cuentas hay, cambiar de usuario y comprobar que los archivos de una cuenta no se ven desde otra. Bloquear la pantalla con Windows + L y cerrar sesión antes de irse.
-7. **Extra:** copiar un archivo a otra carpeta y explicar la diferencia entre copiar y mover.
+4. Mis archivos: un texto con el Bloc de notas (`yo.txt`) y un dibujo con Paint (`dibujo.png`) guardados en su carpeta; ver con qué programa se abre cada uno con doble clic (la extensión decide) y ordenarlos en Textos y Fotos. La app lo comprueba.
+5. Juego "¿dónde está?": el monitor esconde un archivo y lo tienen que encontrar con el buscador.
+6. Instalar una app gratuita desde Microsoft Store (por ejemplo, VLC o un juego de mecanografía), abrirla desde el menú Inicio y desinstalarla en Configuración → Aplicaciones. Norma del aula: en el ordenador del taller solo se instala con el monitor delante.
+7. Cuentas del ordenador: ver en Configuración → Cuentas qué cuentas hay, cambiar de usuario y comprobar que los archivos de una cuenta no se ven desde otra. Bloquear la pantalla con Windows + L y cerrar sesión antes de irse.
+8. **Extra:** copiar un archivo a otra carpeta y explicar la diferencia entre copiar y mover.
 
 ### Sesión 3 – Internet con cabeza
 
@@ -78,6 +79,7 @@ En este bloque todos se ponen en el mismo punto de partida. Si la encuesta muest
 3. Traductor: traducir una frase del francés y escuchar cómo se pronuncia en castellano.
 4. Buscar un vídeo que enseñe a hacer algo que les guste y guardar el enlace en su carpeta.
 5. **Extra:** añadir marcadores (favoritos) y abrir una ventana de incógnito.
+6. **Pendiente de preparar:** crear `hola.html` con el Bloc de notas (con `<meta charset="utf-8">`, un título y una frase), guardarlo en la carpeta Web y abrirlo con doble clic: se abre en el navegador. Ojo con que el Bloc de notas no lo guarde como `hola.html.txt`.
 
 ## Bloque 2 – Comunicarse y protegerse (sesiones 4–6)
 

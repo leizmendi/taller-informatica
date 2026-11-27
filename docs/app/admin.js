@@ -1,5 +1,5 @@
 import { sb, exigirSesion, esc } from './comun.js';
-import { CLASIFICABLES, formatoValor } from './ejercicios.js';
+import { EN_ADMIN, formatoValor } from './ejercicios.js';
 
 const $ = id => document.getElementById(id);
 const yo = await exigirSesion({ admin: true });
@@ -62,13 +62,13 @@ async function cargarAlumnos() {
   const { data: alumnos, error } = await q;
   if (error) return mensaje(error.message, true);
 
-  // Mejores marcas de las pruebas que clasifican
+  // Mejores marcas de las pruebas que clasifican y misiones terminadas
   const ids = alumnos.map(a => a.id);
   const mejores = {};
   if (ids.length) {
     const { data: intentos } = await sb.from('intentos').select('alumno_id, ejercicio, valor').in('alumno_id', ids);
     for (const i of intentos || []) {
-      const ej = CLASIFICABLES.find(e => e.id === i.ejercicio); if (!ej) continue;
+      const ej = EN_ADMIN.find(e => e.id === i.ejercicio); if (!ej) continue;
       const k = `${i.alumno_id}|${i.ejercicio}`;
       if (mejores[k] == null || (ej.menorMejor ? i.valor < mejores[k] : i.valor > mejores[k])) mejores[k] = i.valor;
     }
@@ -78,11 +78,11 @@ async function cargarAlumnos() {
   const opcionesCurso = cursos.map(c => `<option value="${c.id}">${esc(c.nombre)}</option>`).join('') + `<option value="">— Sin curso —</option>`;
 
   $('alumnos').innerHTML = `<table class="tabla">
-    <thead><tr><th>Usuario</th><th>Apodo</th>${CLASIFICABLES.map(e => `<th class="num">${esc(e.titulo)}</th>`).join('')}<th>Curso</th><th></th></tr></thead>
+    <thead><tr><th>Usuario</th><th>Apodo</th>${EN_ADMIN.map(e => `<th class="num">${esc(e.titulo)}</th>`).join('')}<th>Curso</th><th></th></tr></thead>
     <tbody>${alumnos.map(a => `<tr data-id="${a.id}">
       <td><code>${esc(a.usuario)}</code>${a.rol === 'admin' ? ' <span class="muted">(monitor)</span>' : ''}</td>
       <td>${esc(a.apodo)}</td>
-      ${CLASIFICABLES.map(e => `<td class="num">${formatoValor(e, mejores[`${a.id}|${e.id}`])}</td>`).join('')}
+      ${EN_ADMIN.map(e => `<td class="num">${formatoValor(e, mejores[`${a.id}|${e.id}`])}</td>`).join('')}
       <td><select class="mover">${opcionesCurso}</select></td>
       <td style="white-space:nowrap">
         <button class="ghost peq" data-acc="apodo">Apodo</button>

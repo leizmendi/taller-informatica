@@ -169,3 +169,34 @@ a.btn { text-decoration: none; display: inline-block; }
 .mision ul.revision li::before { content: "❌ "; }
 .mision ul.revision li.bien::before { content: "✅ "; }
 .mision .grande { font-size: 1.3rem; padding: 12px 28px; }
+.mision h3 { font-size: 1.2rem; margin-top: 8px; }
+.mision ul.checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.mision ul.checklist label { display: flex; gap: 10px; align-items: baseline; font-weight: 400; font-size: 1.05rem; cursor: pointer; }
+.mision ul.checklist input { width: 1.2em; height: 1.2em; flex: none; accent-color: var(--ok); }
+.mision ul.checklist label:has(input:checked) { color: var(--muted); }
+.pregunta { display: grid; gap: 8px; padding: 12px 16px; border: 2px solid var(--line); border-radius: 12px; }
+.pregunta p { margin: 0; }
+.pregunta .opciones { display: flex; flex-wrap: wrap; gap: 8px; }
+.pregunta button.acierto { background: var(--ok); border-color: var(--ok); }
+.pregunta button:disabled:not(.acierto) { text-decoration: line-through; }
+.premio { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+.premio figure { margin: 0; display: grid; gap: 6px; }
+.premio figcaption { font-weight: 700; }
+.premio pre { margin: 0; white-space: pre-wrap; font: inherit; font-size: 1.15rem; background: var(--soft); padding: 12px 16px; border-radius: 12px; max-width: 32em; }
+.premio img { max-width: min(100%, 480px); max-height: 360px; border: 2px solid var(--line); border-radius: 12px; background: #fff; }
+
+/* Ordena los archivos */
+.leyenda { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); }
+.leyenda b { color: var(--ink); }
+.arena.ordena { height: max(420px, 58vh); }
+.ordena .carpetas { position: absolute; left: 16px; right: 16px; bottom: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ordena .carpeta { height: 150px; border-radius: 18px; border: 4px dashed var(--key-edge); background: var(--bg); display: grid; place-content: center; justify-items: center; gap: 4px; }
+.ordena .carpeta svg { width: 64px; height: 64px; color: var(--c); }
+.ordena .carpeta strong { font-family: var(--display); font-size: 1.5rem; line-height: 1; }
+.ordena .carpeta.encima { border-style: solid; border-color: var(--c); background: var(--soft); }
+.ordena .carpeta.mal { border-color: #d64545; }
+.ordena .archivo { position: absolute; display: grid; justify-items: center; gap: 4px; cursor: grab; touch-action: none; padding: 8px; border-radius: 12px; }
+.ordena .archivo.cogido { cursor: grabbing; transform: scale(1.1); z-index: 5; background: var(--soft); }
+.ordena .archivo .ico { font-size: 64px; line-height: 1; }
+.ordena .archivo .nm { font-weight: 700; font-size: 1.15rem; background: var(--card); padding: 0 8px; border-radius: 6px; }
+.ordena .pista-flotante { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); background: var(--ink); color: var(--card); padding: 8px 18px; border-radius: 999px; font-weight: 700; z-index: 6; text-align: center; }

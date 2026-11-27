@@ -1,35 +1,16 @@
 // Misión 2: crear un texto con el Bloc de notas y un dibujo con Paint, ver con qué
 // programa se abre cada uno y ordenarlos en Textos y Fotos. Sin reloj: lo que cuenta
 // es fijarse. Al final la app comprueba la carpeta y enseña el texto y el dibujo.
+// Textos: claves m2.*, prog.*, arch.* y comun.* de idiomas/*.js
 import { guardarIntento, sonar, celebrar, esc } from './comun.js';
+import { t, t1 } from './i18n.js';
 import { SUBCARPETAS, nombreCarpeta, norm, puedeLeerCarpetas, avisoNavegador, contenido, leerMiCarpeta } from './archivos-comun.js';
 
 const EJ = 'arch-archivos';
-const TITULO = '<h2>Misión 2: mis archivos · Mes fichiers</h2>';
 
 const ARCHIVOS = [
-  { base: 'yo', exts: ['txt'], carpeta: 'Textos', nombre: 'yo.txt', tipo: 'texto · texte', dondeSuele: 'Documentos' },
-  { base: 'dibujo', exts: ['png', 'jpg', 'jpeg', 'bmp', 'gif'], carpeta: 'Fotos', nombre: 'dibujo.png', tipo: 'imagen · image', dondeSuele: 'Imágenes' },
-];
-
-const PROGRAMAS = [
-  ['bloc', '📝 Bloc de notas · Bloc-notes'],
-  ['paint', '🎨 Paint'],
-  ['fotos', '🖼️ Fotos · Photos'],
-  ['nav', '🌐 Navegador · Navigateur'],
-];
-const PREGUNTAS = [
-  { id: 'p1', texto: 'Doble clic en <b>yo.txt</b>. ¿Con qué programa se ha abierto? · Avec quel programme s’ouvre-t-il ?',
-    opciones: PROGRAMAS, bien: ['bloc'], pista: 'Mira el nombre que sale arriba en la ventana. · Regarde le nom en haut de la fenêtre.' },
-  { id: 'p2', texto: 'Doble clic en <b>dibujo.png</b>. ¿Con qué programa se ha abierto? · Avec quel programme s’ouvre-t-il ?',
-    opciones: PROGRAMAS, bien: ['fotos', 'paint'], pista: 'Mira el nombre que sale arriba en la ventana. · Regarde le nom en haut de la fenêtre.' },
-  { id: 'p3', texto: '¿Por qué cada archivo se abre con un programa distinto? · Pourquoi un programme différent ?',
-    opciones: [
-      ['nombre', 'Por el nombre (yo, dibujo) · Par le nom'],
-      ['ext', 'Por lo que va detrás del punto (.txt, .png) · Par ce qui suit le point'],
-      ['carpeta', 'Por la carpeta donde está · Par le dossier'],
-    ],
-    bien: ['ext'], pista: 'Fíjate en el final del nombre: <b>.txt</b> y <b>.png</b>. · Regarde la fin du nom.' },
+  { base: 'yo', exts: ['txt'], carpeta: 'Textos', nombre: 'yo.txt', tipo: 'm2.tipoTexto', dondeSuele: 'arch.documentos' },
+  { base: 'dibujo', exts: ['png', 'jpg', 'jpeg', 'bmp', 'gif'], carpeta: 'Fotos', nombre: 'dibujo.png', tipo: 'm2.tipoImagen', dondeSuele: 'arch.imagenes' },
 ];
 
 // "Dibujo.PNG" → { base: "dibujo", ext: "png" }
@@ -40,57 +21,66 @@ function partes(nombre) {
 
 export function montar({ perfil, records, caja, marcadorEl }) {
   const NOMBRE = nombreCarpeta(perfil);
+  const carpeta = esc(NOMBRE);
+  const TITULO = `<h2>${t('m2.titulo')}</h2>`;
   const q = sel => caja.querySelector(sel);
   let vivo = true;
   const respondidas = new Set();
   let fallosPreguntas = 0;
   const urls = [];
 
-  marcadorEl.innerHTML = records[EJ] != null ? '<span>✅ <b>Ya la has hecho</b> · Déjà faite</span>' : '';
-  if (!puedeLeerCarpetas()) { caja.innerHTML = TITULO + avisoNavegador; return () => {}; }
+  const PROGRAMAS = [['bloc', '📝 ' + t('prog.bloc')], ['paint', '🎨 Paint'], ['fotos', '🖼️ ' + t('prog.fotos')], ['nav', '🌐 ' + t('prog.navegador')]];
+  const PREGUNTAS = [
+    { id: 'p1', texto: t('m2.p1'), opciones: PROGRAMAS, bien: ['bloc'], pista: t('m2.pistaVentana') },
+    { id: 'p2', texto: t('m2.p2'), opciones: PROGRAMAS, bien: ['fotos', 'paint'], pista: t('m2.pistaVentana') },
+    { id: 'p3', texto: t('m2.p3'),
+      opciones: [['nombre', t('m2.p3nombre')], ['ext', t('m2.p3ext')], ['carpeta', t('m2.p3carpeta')]],
+      bien: ['ext'], pista: t('m2.p3pista') },
+  ];
 
+  const hecha = `<span>✅ ${t('comun.yaHecha')}</span>`;
+  marcadorEl.innerHTML = records[EJ] != null ? hecha : '';
+  if (!puedeLeerCarpetas()) { caja.innerHTML = TITULO + avisoNavegador(); return () => {}; }
+
+  const casilla = html => `<li><label><input type="checkbox"> ${html}</label></li>`;
   const cajaPregunta = p => `<div class="pregunta" data-id="${p.id}">
       <p>${p.texto}</p>
-      <div class="opciones">${p.opciones.map(([v, t]) => `<button class="ghost" data-v="${v}">${t}</button>`).join('')}</div>
+      <div class="opciones">${p.opciones.map(([v, x]) => `<button class="ghost" data-v="${v}">${x}</button>`).join('')}</div>
       <p class="pista"></p>
     </div>`;
 
   caja.innerHTML = `${TITULO}
-    <p>Sin prisa: aquí no hay reloj. Hazlo en Windows y marca cada paso. · Pas de chrono : fais-le dans Windows.</p>
+    <p>${t('m2.intro')}</p>
 
-    <h3>1 · Un texto con el Bloc de notas · Un texte avec le Bloc-notes</h3>
+    <h3>1 · ${t('m2.h1')}</h3>
     <ul class="checklist">
-      <li><label><input type="checkbox"> Pulsa <b>⊞</b>, escribe <b>bloc</b> y pulsa <b>Intro</b>. · Appuie sur ⊞, écris « bloc », Entrée.</label></li>
-      <li><label><input type="checkbox"> Escribe: <i>Me llamo … Tengo … años. Me gusta …</i> · Écris : Je m’appelle… J’ai… ans. J’aime…</label></li>
-      <li><label><input type="checkbox"> <b>Archivo → Guardar como</b>. Busca <b>Documentos → ${esc(NOMBRE)}</b> y entra con doble clic. No entres en Textos: lo ordenarás después.
-        <span class="muted">· Fichier → Enregistrer sous. Va dans ton dossier (pas dans Textos).</span></label></li>
-      <li><label><input type="checkbox"> Nombre: <span class="nombre">yo</span> → <b>Guardar</b>. Cierra el Bloc de notas. · Nom : yo → Enregistrer.</label></li>
+      ${casilla(t('m2.bloc1'))}
+      ${casilla(t('m2.bloc2'))}
+      ${casilla(t('m2.bloc3', { carpeta }))}
+      ${casilla(t('m2.bloc4'))}
     </ul>
 
-    <h3>2 · Un dibujo con Paint · Un dessin avec Paint</h3>
+    <h3>2 · ${t('m2.h2')}</h3>
     <ul class="checklist">
-      <li><label><input type="checkbox"> Pulsa <b>⊞</b>, escribe <b>paint</b> y pulsa <b>Intro</b>. · Appuie sur ⊞, écris « paint », Entrée.</label></li>
-      <li><label><input type="checkbox"> Dibuja lo que quieras: tu nombre, una casa, un balón… Para pintar, mantén el clic y mueve.
-        <span class="muted">Con el pad: aprieta hasta que haga clic y, sin soltar, mueve el dedo. · Garde le clic enfoncé et bouge.</span></label></li>
-      <li><label><input type="checkbox"> <b>Archivo → Guardar como</b>. ¡Ojo! Paint abre la carpeta <b>Imágenes</b>: cámbiala a <b>Documentos → ${esc(NOMBRE)}</b>.
-        <span class="muted">· Attention : Paint ouvre « Images ». Va dans ton dossier.</span></label></li>
-      <li><label><input type="checkbox"> Nombre: <span class="nombre">dibujo</span> → <b>Guardar</b>. Cierra Paint. · Nom : dibujo → Enregistrer.</label></li>
+      ${casilla(t('m2.paint1'))}
+      ${casilla(`${t('m2.paint2')} <span class="muted">${t1('m2.pad')}</span>`)}
+      ${casilla(t('m2.paint3', { carpeta }))}
+      ${casilla(t('m2.paint4'))}
     </ul>
 
-    <h3>3 · Doble clic · Double-clic</h3>
-    <p>Abre tu carpeta en el Explorador (<b>⊞ + E</b> → Documentos → ${esc(NOMBRE)}) y haz doble clic en cada archivo.
-      <span class="muted">· Ouvre ton dossier et fais double-clic sur chaque fichier.</span></p>
+    <h3>3 · ${t('m2.h3')}</h3>
+    <p>${t('m2.dobleClic', { carpeta })}</p>
     ${PREGUNTAS.map(cajaPregunta).join('')}
 
-    <h3>4 · Ordena · Range</h3>
+    <h3>4 · ${t('m2.h4')}</h3>
     <ul class="checklist">
-      <li><label><input type="checkbox"> <b>yo.txt</b> a <b>Textos</b>: un clic en el archivo, <b>Ctrl + X</b>; doble clic en Textos, <b>Ctrl + V</b>. · Ctrl + X, puis Ctrl + V dans Textos.</label></li>
-      <li><label><input type="checkbox"> <b>dibujo.png</b> a <b>Fotos</b>, igual. También puedes arrastrarlo encima de la carpeta. · Pareil dans Fotos.</label></li>
+      ${casilla(t('m2.ordena1'))}
+      ${casilla(t('m2.ordena2'))}
     </ul>
 
-    <h3>5 · Comprobar · Vérifier</h3>
-    <p>Pulsa <b>Comprobar</b> y haz un clic en tu carpeta <span class="nombre">${esc(NOMBRE)}</span> → <b>Seleccionar carpeta</b>.</p>
-    <div class="fila"><button id="btn-comprobar" class="grande">🔍 Comprobar · Vérifier</button></div>
+    <h3>5 · ${t('comun.comprobar')}</h3>
+    <p>${t('arch.comoComprobar', { carpeta: `<span class="nombre">${carpeta}</span>` })}</p>
+    <div class="fila"><button id="btn-comprobar" class="grande">🔍 ${t('comun.comprobar')}</button></div>
     <div id="revision"></div>`;
 
   for (const div of caja.querySelectorAll('.pregunta')) {
@@ -101,14 +91,12 @@ export function montar({ perfil, records, caja, marcadorEl }) {
         respondidas.add(p.id);
         b.classList.remove('ghost'); b.classList.add('acierto');
         div.querySelectorAll('button').forEach(x => { x.disabled = x !== b; });
-        div.querySelector('.pista').innerHTML = p.id === 'p3'
-          ? '✅ ¡Eso es! La <b>extensión</b> (.txt, .png) le dice a Windows con qué programa abrirlo. · L’extension choisit le programme.'
-          : '✅ ¡Bien! · Bien !';
+        div.querySelector('.pista').innerHTML = '✅ ' + t(p.id === 'p3' ? 'm2.p3bien' : 'comun.bien');
         sonar('ok');
       } else {
         fallosPreguntas++;
         b.disabled = true;
-        div.querySelector('.pista').innerHTML = '🤔 No. ' + p.pista;
+        div.querySelector('.pista').innerHTML = '🤔 ' + p.pista;
         sonar('fallo');
       }
     };
@@ -138,27 +126,24 @@ export function montar({ perfil, records, caja, marcadorEl }) {
 
     if (faltanCarpetas.length) {
       todoBien = false;
-      lineas.push(`<li>Faltan las carpetas <b>${faltanCarpetas.join(', ')}</b>. Haz antes la misión 1. · Fais d’abord la mission 1.</li>`);
+      lineas.push(`<li>${t('m2.faltanCarpetas', { lista: faltanCarpetas.join(', ') })}</li>`);
     }
 
     for (const a of ARCHIVOS) {
       const iguales = entradas.filter(e => { const p = partes(e.h.name); return p.base === a.base && a.exts.includes(p.ext); });
       if (iguales.length === 1 && iguales[0].donde === a.carpeta) {
-        lineas.push(`<li class="bien"><b>${esc(iguales[0].h.name)}</b> está en ${a.carpeta}</li>`);
+        lineas.push(`<li class="bien">${t1('m2.estaEn', { nombre: esc(iguales[0].h.name), c: a.carpeta })}</li>`);
         encontrados.push({ a, h: iguales[0].h });
         continue;
       }
       todoBien = false;
       if (iguales.length > 1) {
-        const sitios = iguales.map(e => e.donde || esc(NOMBRE));
-        lineas.push(`<li><b>${a.nombre}</b> está en dos sitios (${sitios.join(' y ')}): lo has <b>copiado</b> en vez de moverlo. Deja solo el de ${a.carpeta} y borra el otro.
-          <span class="muted">· Il est à deux endroits : tu l’as copié au lieu de le déplacer.</span></li>`);
+        const sitios = iguales.map(e => e.donde || carpeta).join(' / ');
+        lineas.push(`<li>${t('m2.dosSitios', { nombre: a.nombre, sitios, c: a.carpeta })}</li>`);
       } else if (iguales.length === 1 && !iguales[0].donde) {
-        lineas.push(`<li><b>${esc(iguales[0].h.name)}</b> está suelto en tu carpeta. Muévelo a <b>${a.carpeta}</b>: Ctrl + X, entra en ${a.carpeta}, Ctrl + V.
-          <span class="muted">· Déplace-le dans ${a.carpeta}.</span></li>`);
+        lineas.push(`<li>${t('m2.suelto', { nombre: esc(iguales[0].h.name), c: a.carpeta })}</li>`);
       } else if (iguales.length === 1) {
-        lineas.push(`<li><b>${esc(iguales[0].h.name)}</b> está en <b>${iguales[0].donde}</b>, pero es un ${a.tipo}: va en <b>${a.carpeta}</b>.
-          <span class="muted">· Il doit aller dans ${a.carpeta}.</span></li>`);
+        lineas.push(`<li>${t('m2.malSitio', { nombre: esc(iguales[0].h.name), donde: iguales[0].donde, tipo: t1(a.tipo), c: a.carpeta })}</li>`);
       } else {
         // No está: ¿tiene otro nombre?
         const parecido = entradas.find(e => {
@@ -166,27 +151,24 @@ export function montar({ perfil, records, caja, marcadorEl }) {
           return (p.base.startsWith(a.base) || p.base.startsWith('sintitulo')) && (a.exts.includes(p.ext) || p.base.startsWith(a.base));
         });
         if (parecido && partes(parecido.h.name).base.startsWith('sintitulo')) {
-          lineas.push(`<li>Hay un archivo <b>${esc(parecido.h.name)}</b>: se ha guardado sin nombre. Cámbiale el nombre a <b>${a.base}</b> (clic derecho → Cambiar nombre).
-            <span class="muted">· Renomme-le « ${a.base} ».</span></li>`);
+          lineas.push(`<li>${t('m2.sinTitulo', { nombre: esc(parecido.h.name), base: a.base })}</li>`);
         } else if (parecido) {
-          lineas.push(`<li>Hay un archivo <b>${esc(parecido.h.name)}</b>, pero tiene que llamarse <b>${a.nombre}</b>. Mira bien el final del nombre y cámbialo (clic derecho → Cambiar nombre).
-            <span class="muted">· Le nom doit être ${a.nombre}.</span></li>`);
+          lineas.push(`<li>${t('m2.otroNombre', { nombre: esc(parecido.h.name), bueno: a.nombre })}</li>`);
         } else {
-          lineas.push(`<li>No encuentro <b>${a.nombre}</b> en tu carpeta. Seguramente se ha guardado en <b>${a.dondeSuele}</b>. Búscalo allí y muévelo a tu carpeta, o ábrelo y usa <b>Guardar como</b> mirando bien dónde.
-            <span class="muted">· Je ne le trouve pas. Il est peut-être dans ${a.dondeSuele}.</span></li>`);
+          lineas.push(`<li>${t('m2.noEsta', { nombre: a.nombre, donde: t1(a.dondeSuele) })}</li>`);
         }
       }
     }
 
     if (!todoBien) {
       sonar('fallo');
-      return mostrar(`<p>Aún no está todo: · Pas encore :</p><ul class="revision">${lineas.join('')}</ul>
-        <p class="muted">Arréglalo y pulsa <b>Comprobar</b> otra vez. · Corrige et clique encore sur Vérifier.</p>`);
+      return mostrar(`<p>${t('comun.aunNo')}</p><ul class="revision">${lineas.join('')}</ul>
+        <p class="muted">${t('comun.arreglalo')}</p>`);
     }
     if (respondidas.size < PREGUNTAS.length) {
       sonar('fallo');
       return mostrar(`<ul class="revision">${lineas.join('')}</ul>
-        <p>Los archivos están bien. Te faltan las preguntas del <b>paso 3</b>. · Il te manque les questions de l’étape 3.</p>`);
+        <p>${t('m2.faltanPreguntas')}</p>`);
     }
     terminar(lineas, encontrados);
   }
@@ -203,20 +185,20 @@ export function montar({ perfil, records, caja, marcadorEl }) {
     }
     if (!vivo) return;
     sonar('ok'); celebrar();
-    caja.innerHTML = `<h2>¡Misión cumplida! · Mission accomplie !</h2>
+    caja.innerHTML = `<h2>${t('comun.cumplida')}</h2>
       <ul class="revision">${lineas.join('')}</ul>
       <div class="premio">
-        ${texto ? `<figure><figcaption>📝 Tu texto · Ton texte</figcaption><pre>${esc(texto)}</pre></figure>` : ''}
-        ${imagen ? `<figure><figcaption>🎨 Tu dibujo · Ton dessin</figcaption><img src="${imagen}" alt="Tu dibujo"></figure>` : ''}
+        ${texto ? `<figure><figcaption>📝 ${t('m2.tuTexto')}</figcaption><pre>${esc(texto)}</pre></figure>` : ''}
+        ${imagen ? `<figure><figcaption>🎨 ${t('m2.tuDibujo')}</figcaption><img src="${imagen}" alt=""></figure>` : ''}
       </div>
-      <p class="muted" id="guardado">Guardando…</p>`;
+      <p class="muted" id="guardado">${t('comun.guardando')}</p>`;
     const ok = await guardarIntento({
       ejercicio: EJ, valor: 1, errores: fallosPreguntas,
       acierto: Math.round(PREGUNTAS.length / (PREGUNTAS.length + fallosPreguntas) * 1000) / 10,
     });
     if (!vivo || !q('#guardado')) return;
-    q('#guardado').textContent = ok ? '✓ Guardado · Enregistré' : 'No se ha podido guardar';
-    if (ok) { records[EJ] = 1; marcadorEl.innerHTML = '<span>✅ <b>Ya la has hecho</b> · Déjà faite</span>'; }
+    q('#guardado').innerHTML = ok ? '✓ ' + t('comun.guardado') : t('comun.noGuardado');
+    if (ok) { records[EJ] = 1; marcadorEl.innerHTML = hecha; }
   }
 
   return () => { vivo = false; urls.forEach(u => URL.revokeObjectURL(u)); };

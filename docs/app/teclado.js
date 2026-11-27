@@ -1,3 +1,4 @@
+import { t } from './i18n.js';
 // Teclado español en pantalla, con colores por dedo.
 // Dedos: mi/ai/ci/ii = meñique/anular/corazón/índice izquierdo;
 //        id/cd/ad/md = índice/corazón/anular/meñique derecho; pu = pulgar.
@@ -92,10 +93,6 @@ export function crearTeclado(contenedor) {
   };
 }
 
-export const LEYENDA_DEDOS = `
-  <span style="--b:#f6d6e0">Meñique · Auriculaire</span>
-  <span style="--b:#fde5c4">Anular · Annulaire</span>
-  <span style="--b:#d6f0d2">Corazón · Majeur</span>
-  <span style="--b:#cfe3fb">Índice izq. · Index g.</span>
-  <span style="--b:#e2d7f7">Índice der. · Index d.</span>
-  <span style="--b:#e4e7ef">Pulgar · Pouce</span>`;
+// Leyenda de colores por dedo (los textos, en idiomas/*.js)
+const DEDOS = [['#f6d6e0', 'menique'], ['#fde5c4', 'anular'], ['#d6f0d2', 'corazon'], ['#cfe3fb', 'indiceIzq'], ['#e2d7f7', 'indiceDer'], ['#e4e7ef', 'pulgar']];
+export const leyendaDedos = () => DEDOS.map(([color, k]) => `<span style="--b:${color}">${t(`dedo.${k}`)}</span>`).join('');

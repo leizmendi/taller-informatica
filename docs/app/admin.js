@@ -1,5 +1,6 @@
 import { sb, exigirSesion, esc } from './comun.js';
-import { EN_ADMIN, formatoValor } from './ejercicios.js';
+import { EN_ADMIN, formatoValor, nombreEj1 } from './ejercicios.js';
+import { t, t1, tPlano, IDIOMAS, NINGUNO } from './i18n.js';
 
 const $ = id => document.getElementById(id);
 const yo = await exigirSesion({ admin: true });
@@ -28,7 +29,7 @@ async function cargarCursos(elegir) {
   if (error) return mensaje(error.message, true);
   cursos = data;
   $('curso').innerHTML = cursos.map(c => `<option value="${c.id}">${esc(c.nombre)}</option>`).join('')
-    + `<option value="${SIN_CURSO}">— Sin curso —</option>`;
+    + `<option value="${SIN_CURSO}">— ${t1('admin.sinCurso')} —</option>`;
   if (elegir) $('curso').value = elegir;
   await cargarAlumnos();
 }
@@ -44,7 +45,7 @@ $('f-curso').onsubmit = async e => {
 $('btn-renombrar').onclick = async () => {
   const id = $('curso').value; if (id === SIN_CURSO) return;
   const actual = cursos.find(c => c.id === id);
-  const nombre = prompt('Nuevo nombre del curso', actual?.nombre);
+  const nombre = prompt(tPlano('admin.pNombreCurso'), actual?.nombre);
   if (!nombre) return;
   const { error } = await sb.from('cursos').update({ nombre }).eq('id', id);
   if (error) return mensaje(error.message, true);
@@ -57,9 +58,14 @@ $('curso').onchange = cargarAlumnos;
 async function cargarAlumnos() {
   const id = $('curso').value;
   $('ver-clasif').href = id && id !== SIN_CURSO ? `clasificacion.html?curso=${id}` : 'clasificacion.html';
-  let q = sb.from('perfiles').select('id, usuario, apodo, rol, curso_id').order('apodo');
-  q = id === SIN_CURSO || !id ? q.is('curso_id', null) : q.eq('curso_id', id);
-  const { data: alumnos, error } = await q;
+  // Con las columnas de idioma si ya existen en Supabase (ver supabase.sql)
+  const pedir = campos => {
+    let q = sb.from('perfiles').select(campos).order('apodo');
+    return id === SIN_CURSO || !id ? q.is('curso_id', null) : q.eq('curso_id', id);
+  };
+  let { data: alumnos, error } = await pedir('id, usuario, apodo, rol, curso_id, idioma, idioma2');
+  const conIdiomas = !error;
+  if (error) ({ data: alumnos, error } = await pedir('id, usuario, apodo, rol, curso_id'));
   if (error) return mensaje(error.message, true);
 
   // Mejores marcas de las pruebas que clasifican y misiones terminadas
@@ -74,21 +80,27 @@ async function cargarAlumnos() {
     }
   }
 
-  if (!alumnos.length) { $('alumnos').innerHTML = '<p class="muted">No hay alumnos en este curso.</p>'; return; }
-  const opcionesCurso = cursos.map(c => `<option value="${c.id}">${esc(c.nombre)}</option>`).join('') + `<option value="">— Sin curso —</option>`;
+  if (!alumnos.length) { $('alumnos').innerHTML = `<p class="muted">${t1('admin.noAlumnos')}</p>`; return; }
+  const opcionesCurso = cursos.map(c => `<option value="${c.id}">${esc(c.nombre)}</option>`).join('') + `<option value="">— ${t1('admin.sinCurso')} —</option>`;
+  // Idiomas de cada alumno. Vacío = los de config.js; en el secundario, "-" = ninguno.
+  const opcionesIdioma = (extra, elegido) => `<option value="">${t1('admin.porDefecto')}</option>`
+    + (extra ? `<option value="${extra}"${elegido === extra ? ' selected' : ''}>${t1('idioma.ninguno')}</option>` : '')
+    + Object.entries(IDIOMAS).map(([c, n]) => `<option value="${c}"${elegido === c ? ' selected' : ''}>${n}</option>`).join('');
 
   $('alumnos').innerHTML = `<table class="tabla">
-    <thead><tr><th>Usuario</th><th>Apodo</th>${EN_ADMIN.map(e => `<th class="num">${esc(e.titulo)}</th>`).join('')}<th>Curso</th><th></th></tr></thead>
+    <thead><tr><th>Usuario</th><th>${t1('clasif.apodo')}</th>${EN_ADMIN.map(e => `<th class="num">${nombreEj1(e)}</th>`).join('')}<th>${t1('clasif.curso')}</th>${conIdiomas ? `<th>${t1('admin.idiomas')}</th>` : ''}<th></th></tr></thead>
     <tbody>${alumnos.map(a => `<tr data-id="${a.id}">
-      <td><code>${esc(a.usuario)}</code>${a.rol === 'admin' ? ' <span class="muted">(monitor)</span>' : ''}</td>
+      <td><code>${esc(a.usuario)}</code>${a.rol === 'admin' ? ` <span class="muted">(${t1('admin.monitorMin')})</span>` : ''}</td>
       <td>${esc(a.apodo)}</td>
       ${EN_ADMIN.map(e => `<td class="num">${formatoValor(e, mejores[`${a.id}|${e.id}`])}</td>`).join('')}
       <td><select class="mover">${opcionesCurso}</select></td>
+      ${conIdiomas ? `<td style="white-space:nowrap"><select class="idioma" title="${tPlano('idioma.principal')}">${opcionesIdioma('', a.idioma)}</select>
+        <select class="idioma" title="${tPlano('idioma.secundario')}">${opcionesIdioma(NINGUNO, a.idioma2)}</select></td>` : ''}
       <td style="white-space:nowrap">
-        <button class="ghost peq" data-acc="apodo">Apodo</button>
-        <button class="ghost peq" data-acc="pass">Contraseña</button>
-        ${a.id !== yo.id ? `<button class="ghost peq" data-acc="rol">${a.rol === 'admin' ? 'Quitar monitor' : 'Hacer monitor'}</button>` : ''}
-        ${a.id !== yo.id ? '<button class="peligro peq" data-acc="borrar">Borrar</button>' : ''}
+        <button class="ghost peq" data-acc="apodo">${t1('clasif.apodo')}</button>
+        <button class="ghost peq" data-acc="pass">${t1('entrar.password')}</button>
+        ${a.id !== yo.id ? `<button class="ghost peq" data-acc="rol">${t1(a.rol === 'admin' ? 'admin.quitarMonitor' : 'admin.hacerMonitor')}</button>` : ''}
+        ${a.id !== yo.id ? `<button class="peligro peq" data-acc="borrar">${t1('admin.borrar')}</button>` : ''}
       </td></tr>`).join('')}</tbody></table>`;
 
   for (const tr of $('alumnos').querySelectorAll('tr[data-id]')) {
@@ -98,11 +110,18 @@ async function cargarAlumnos() {
 }
 
 $('alumnos').addEventListener('change', async e => {
+  if (e.target.classList.contains('idioma')) {
+    const tr = e.target.closest('tr');
+    const [s1, s2] = tr.querySelectorAll('select.idioma');
+    const { error } = await sb.rpc('cambiar_idiomas', { p_idioma: s1.value || null, p_idioma2: s2.value || null, p_alumno: tr.dataset.id });
+    if (error) return mensaje(error.message, true);
+    return mensaje(tPlano('admin.idiomasCambiados', { usuario: tr.querySelector('code').textContent }));
+  }
   if (!e.target.classList.contains('mover')) return;
   const id = e.target.closest('tr').dataset.id;
   const { error } = await sb.from('perfiles').update({ curso_id: e.target.value || null }).eq('id', id);
   if (error) return mensaje(error.message, true);
-  mensaje('Alumno cambiado de curso');
+  mensaje(tPlano('admin.cambiadoCurso'));
   cargarAlumnos();
 });
 
@@ -112,38 +131,38 @@ $('alumnos').addEventListener('click', async e => {
   const usuario = tr.querySelector('code').textContent;
 
   if (b.dataset.acc === 'apodo') {
-    const apodo = prompt('Nuevo apodo', tr.children[1].textContent);
+    const apodo = prompt(tPlano('admin.pApodo'), tr.children[1].textContent);
     if (!apodo) return;
     const { error } = await sb.from('perfiles').update({ apodo: apodo.trim() }).eq('id', id);
     if (error) return mensaje(error.message, true);
     cargarAlumnos();
   }
   if (b.dataset.acc === 'pass') {
-    const pass = prompt(`Nueva contraseña para ${usuario}`, generar());
+    const pass = prompt(tPlano('admin.pPass', { usuario }), generar());
     if (!pass) return;
     const { error } = await sb.rpc('admin_cambiar_password', { p_alumno: id, p_password: pass });
     if (error) return mensaje(error.message, true);
     añadirTarjeta(usuario, pass);
-    mensaje(`Contraseña cambiada para ${usuario}`);
+    mensaje(tPlano('admin.passCambiada', { usuario }));
   }
   if (b.dataset.acc === 'rol') {
     const a = await sb.from('perfiles').select('rol').eq('id', id).single();
     if (a.error) return mensaje(a.error.message, true);
     const nuevo = a.data.rol === 'admin' ? 'alumno' : 'admin';
     const pregunta = nuevo === 'admin'
-      ? `¿Hacer monitor a ${usuario}? Podrá ver y gestionar todos los cursos y cuentas.`
-      : `¿Quitar a ${usuario} el papel de monitor? Pasará a ser alumno.`;
+      ? tPlano('admin.pHacerMonitor', { usuario })
+      : tPlano('admin.pQuitarMonitor', { usuario });
     if (!confirm(pregunta)) return;
     const { error } = await sb.rpc('admin_cambiar_rol', { p_alumno: id, p_rol: nuevo });
     if (error) return mensaje(error.message, true);
-    mensaje(nuevo === 'admin' ? `${usuario} ya es monitor` : `${usuario} vuelve a ser alumno`);
+    mensaje(tPlano(nuevo === 'admin' ? 'admin.yaMonitor' : 'admin.yaAlumno', { usuario }));
     cargarAlumnos();
   }
   if (b.dataset.acc === 'borrar') {
-    if (!confirm(`¿Borrar a ${usuario} y todos sus resultados? No se puede deshacer.`)) return;
+    if (!confirm(tPlano('admin.pBorrar', { usuario }))) return;
     const { error } = await sb.rpc('admin_borrar_alumno', { p_alumno: id });
     if (error) return mensaje(error.message, true);
-    mensaje(`${usuario} borrado`);
+    mensaje(tPlano('admin.borrado', { usuario }));
     cargarAlumnos();
   }
 });
@@ -159,7 +178,7 @@ $('f-alumno').onsubmit = async e => {
   });
   if (error) return mensaje(error.message, true);
   añadirTarjeta(usuario, pass);
-  mensaje(`Alumno ${usuario} creado`);
+  mensaje(tPlano('admin.creado', { usuario }));
   $('a-usuario').value = ''; $('a-apodo').value = ''; $('a-pass').value = generar();
   $('a-usuario').focus();
   cargarAlumnos();
@@ -168,9 +187,9 @@ $('f-alumno').onsubmit = async e => {
 function añadirTarjeta(usuario, pass) {
   $('imprimible').classList.remove('oculto');
   $('tarjetas').insertAdjacentHTML('beforeend', `<div class="tarjeta">
-    <div class="muted">Taller de informática</div>
-    <div>Usuario · Identifiant: <b>${esc(usuario)}</b></div>
-    <div>Contraseña · Mot de passe: <b>${esc(pass)}</b></div>
+    <div class="muted">${t1('app.nombre')}</div>
+    <div>${t('entrar.usuario')}: <b>${esc(usuario)}</b></div>
+    <div>${t('entrar.password')}: <b>${esc(pass)}</b></div>
     <div class="muted" style="font-size:.75rem; word-break:break-all">${esc(URL_APP)}</div>
   </div>`);
 }

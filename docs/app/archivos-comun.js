@@ -1,6 +1,7 @@
 // Código compartido por las misiones de "Archivos y carpetas" que leen la carpeta
 // real del alumno (File System Access API: solo Edge y Chrome).
 import { esc } from './comun.js';
+import { t } from './i18n.js';
 
 export const SUBCARPETAS = ['Textos', 'Fotos', 'Web'];
 export const nombreCarpeta = perfil => `Taller - ${perfil.apodo}`;
@@ -10,8 +11,7 @@ export const nombreCarpeta = perfil => `Taller - ${perfil.apodo}`;
 export const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[\s\-–—_.]+/g, '');
 
 export const puedeLeerCarpetas = () => 'showDirectoryPicker' in window;
-export const avisoNavegador = `<p class="error">Este navegador no puede comprobar carpetas. Abre la app en <b>Edge</b> o <b>Chrome</b>.<br>
-  Ce navigateur ne peut pas vérifier les dossiers. Ouvre l’app dans Edge ou Chrome.</p>`;
+export const avisoNavegador = () => `<p class="error">${t('arch.navegador')}</p>`;
 
 // Lista lo que hay dentro de una carpeta. Si la carpeta ya no existe
 // (la han borrado o le han cambiado el nombre), lanza NotFoundError.
@@ -63,10 +63,9 @@ export async function localizar(perfil) {
   } catch (e) {
     elegida = null;
     if (e.name === 'NotFoundError') {
-      return { error: `<p>Ya no encuentro la carpeta que elegiste (¿le has cambiado el nombre?). Pulsa <b>Comprobar</b> y elígela otra vez.<br>
-        <span class="muted">Je ne trouve plus le dossier. Clique sur Vérifier et choisis-le encore.</span></p>`, sinFallo: true };
+      return { error: `<p>${t('arch.yaNo')}</p>`, sinFallo: true };
     }
-    return { error: `<p class="error">No se ha podido leer la carpeta. Pide ayuda al monitor.</p>`, sinFallo: true };
+    return { error: `<p class="error">${t('arch.noLeer')}</p>`, sinFallo: true };
   }
   if (raiz) return { raiz, dentro };
 
@@ -75,17 +74,12 @@ export async function localizar(perfil) {
   const nombre = casi ? casi.name : elegida.name;
   elegida = null; // la próxima vez vuelve a preguntar
   if (SUBCARPETAS.some(c => norm(c) === norm(nombre))) {
-    return { error: `<p>Has elegido <b>${esc(nombre)}</b>, que va dentro. Elige la carpeta de fuera: <span class="nombre">${esc(NOMBRE)}</span>.<br>
-      <span class="muted">Tu as choisi un dossier de l’intérieur. Choisis celui de dehors.</span></p>` };
+    return { error: `<p>${t('arch.elegisteDentro', { nombre: esc(nombre), carpeta: esc(NOMBRE) })}</p>` };
   }
   if (norm(nombre).startsWith('taller') || /^nueva carpeta/i.test(nombre)) {
-    return { error: `<p>Tu carpeta se llama <b>${esc(nombre)}</b>, pero tiene que llamarse <span class="nombre">${esc(NOMBRE)}</span>.
-      Cámbiale el nombre: <b>clic derecho → Cambiar nombre</b>.<br>
-      <span class="muted">Le nom n’est pas bon. Clic droit → Renommer.</span></p>` };
+    return { error: `<p>${t('arch.nombreMal', { nombre: esc(nombre), carpeta: esc(NOMBRE) })}</p>` };
   }
-  return { error: `<p>Has elegido <b>${esc(nombre)}</b> y ahí no está <span class="nombre">${esc(NOMBRE)}</span>.
-    Pulsa <b>Comprobar</b> otra vez y haz un clic en tu carpeta (está en Documentos).<br>
-    <span class="muted">Ce n’est pas ton dossier. Il est dans Documents.</span></p>` };
+  return { error: `<p>${t('arch.noEsTuya', { nombre: esc(nombre), carpeta: esc(NOMBRE) })}</p>` };
 }
 
 // Elige (si hace falta) y localiza su carpeta. Devuelve null si ha cerrado la ventana.
@@ -93,7 +87,7 @@ export async function leerMiCarpeta(perfil) {
   try {
     if (!await pedirCarpeta()) return null;
   } catch {
-    return { error: `<p class="error">No se ha podido abrir la carpeta. Prueba otra vez o pide ayuda al monitor.</p>`, sinFallo: true };
+    return { error: `<p class="error">${t('arch.noAbrir')}</p>`, sinFallo: true };
   }
   return localizar(perfil);
 }

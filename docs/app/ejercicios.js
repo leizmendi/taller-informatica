@@ -1,27 +1,27 @@
 // Catálogo de fichas y ejercicios. Para añadir una ficha nueva:
-// se añade aquí y se crea su página. La base de datos no cambia:
+// se añade aquí, se crea su página y se ponen sus textos en idiomas/*.js
+// (claves ficha.<id> y ej.<id>). La base de datos no cambia:
 // cada intento se guarda con el id del ejercicio.
+import { t, t1 } from './i18n.js';
 
-// Niveles de mecanografía (teclado español). "teclas" son las letras
+// Niveles de mecanografía (teclado español). "nuevas" son las teclas
 // que se practican en ese nivel; el nivel usa también las de antes.
+// Su título y su ayuda están en idiomas/*.js (nivel.<n> y nivel.<n>.ayuda).
 export const NIVELES = [
-  { n: 1,  nuevas: 'fj',      titulo: 'F, J y espacio' },
-  { n: 2,  nuevas: 'dk',      titulo: 'D y K' },
-  { n: 3,  nuevas: 'sl',      titulo: 'S y L' },
-  { n: 4,  nuevas: 'añ',     titulo: 'A y Ñ' },
-  { n: 5,  nuevas: 'gh',      titulo: 'G y H · fila central' },
-  { n: 6,  nuevas: 'ei',      titulo: 'E e I' },
-  { n: 7,  nuevas: 'ru',      titulo: 'R y U' },
-  { n: 8,  nuevas: 'toqwpy',  titulo: 'Fila de arriba' },
-  { n: 9,  nuevas: 'vmnbc',   titulo: 'V, M, N, B, C' },
-  { n: 10, nuevas: 'xz,.',    titulo: 'Fila de abajo' },
-  { n: 11, nuevas: '',        titulo: 'Mayúsculas y acentos', frases: true },
-  { n: 12, nuevas: '1234567890', titulo: 'Números', practica: 'numeros',
-    ayuda: 'Fila de los números: cada dedo sube desde su tecla. Les chiffres : chaque doigt monte depuis sa touche.' },
-  { n: 13, nuevas: '!"$%&/()=?:;_', titulo: 'Símbolos con ⇧', practica: 'shift',
-    ayuda: 'El símbolo de arriba de la tecla: mantén ⇧ con la otra mano. Le symbole du haut : garde ⇧ enfoncée avec l’autre main.' },
-  { n: 14, nuevas: '@#€[]{}\\|', titulo: 'Símbolos con Alt Gr', practica: 'altgr',
-    ayuda: 'El símbolo de abajo a la derecha: mantén Alt Gr (a la derecha del espacio) y pulsa la tecla. Le symbole en bas à droite : garde Alt Gr enfoncée.' },
+  { n: 1,  nuevas: 'fj' },
+  { n: 2,  nuevas: 'dk' },
+  { n: 3,  nuevas: 'sl' },
+  { n: 4,  nuevas: 'añ' },
+  { n: 5,  nuevas: 'gh' },
+  { n: 6,  nuevas: 'ei' },
+  { n: 7,  nuevas: 'ru' },
+  { n: 8,  nuevas: 'toqwpy' },
+  { n: 9,  nuevas: 'vmnbc' },
+  { n: 10, nuevas: 'xz,.' },
+  { n: 11, nuevas: '', frases: true },
+  { n: 12, nuevas: '1234567890', practica: 'numeros', ayuda: true },
+  { n: 13, nuevas: '!"$%&/()=?:;_', practica: 'shift', ayuda: true },
+  { n: 14, nuevas: '@#€[]{}\\|', practica: 'altgr', ayuda: true },
 ];
 
 export function letrasHasta(n) {
@@ -30,35 +30,36 @@ export function letrasHasta(n) {
 
 export const FICHAS = [
   {
-    id: 'meca', titulo: 'Mecanografía', fr: 'Dactylographie', icono: '⌨️',
+    id: 'meca', icono: '⌨️',
     pagina: 'mecanografia.html',
     ejercicios: [
       ...NIVELES.map(l => ({
-        id: `meca-${l.n}`, titulo: `Nivel ${l.n} · ${l.titulo}`,
+        id: `meca-${l.n}`, nivel: l.n,
         unidad: 'ppm', menorMejor: false, clasifica: false,
       })),
-      { id: 'meca-test', titulo: 'Test de 1 minuto', fr: 'Test d’1 minute',
-        unidad: 'ppm', menorMejor: false, clasifica: true },
+      { id: 'meca-test', unidad: 'ppm', menorMejor: false, clasifica: true },
     ],
   },
   {
-    id: 'raton', titulo: 'Ratón', fr: 'Souris', icono: '🖱️',
+    id: 'raton', icono: '🖱️',
     pagina: 'raton.html',
     ejercicios: [
-      { id: 'raton-clic', titulo: 'Clic', fr: 'Clic', unidad: 's', menorMejor: true, clasifica: true },
-      { id: 'raton-doble', titulo: 'Doble clic', fr: 'Double-clic', unidad: 's', menorMejor: true, clasifica: true },
-      { id: 'raton-derecho', titulo: 'Clic derecho', fr: 'Clic droit', unidad: 's', menorMejor: true, clasifica: true },
-      { id: 'raton-arrastrar', titulo: 'Arrastrar', fr: 'Glisser', unidad: 's', menorMejor: true, clasifica: true },
+      { id: 'raton-clic', unidad: 's', menorMejor: true, clasifica: true },
+      { id: 'raton-doble', unidad: 's', menorMejor: true, clasifica: true },
+      { id: 'raton-derecho', unidad: 's', menorMejor: true, clasifica: true },
+      { id: 'raton-arrastrar', unidad: 's', menorMejor: true, clasifica: true },
     ],
   },
   {
-    id: 'archivos', titulo: 'Archivos y carpetas', fr: 'Fichiers et dossiers', icono: '📁',
+    id: 'archivos', icono: '📁',
     pagina: 'archivos.html',
     ejercicios: [
-      { id: 'arch-carpeta', titulo: 'Crea tu carpeta', fr: 'Crée ton dossier', unidad: 's', menorMejor: true, clasifica: true },
+      { id: 'arch-carpeta', unidad: 's', menorMejor: true, clasifica: true },
       // Sin reloj: solo se guarda que la ha terminado (valor 1)
-      { id: 'arch-archivos', titulo: 'Mis archivos', fr: 'Mes fichiers', unidad: 'hecho', menorMejor: false, clasifica: false },
-      { id: 'arch-ordena', titulo: 'Ordena los archivos', fr: 'Range les fichiers', unidad: 's', menorMejor: true, clasifica: true },
+      { id: 'arch-archivos', unidad: 'hecho', menorMejor: false, clasifica: false },
+      { id: 'arch-ordena', unidad: 's', menorMejor: true, clasifica: true },
+      // Sesión 3, sin reloj
+      { id: 'arch-web', unidad: 'hecho', menorMejor: false, clasifica: false },
     ],
   },
 ];
@@ -70,6 +71,12 @@ export const CLASIFICABLES = Object.values(EJERCICIOS).filter(e => e.clasifica);
 
 // Columnas de la tabla de alumnos en Administración: récords y misiones terminadas
 export const EN_ADMIN = Object.values(EJERCICIOS).filter(e => e.clasifica || e.unidad === 'hecho');
+
+// Nombres en el idioma elegido
+export const nombreFicha = f => t(`ficha.${f.id}`);
+export const nombreNivel = n => `${t1('meca.nivel', { n })} · ${t(`nivel.${n}`)}`;
+export const nombreEj = e => e.nivel ? nombreNivel(e.nivel) : t(`ej.${e.id}`);
+export const nombreEj1 = e => e.nivel ? `${t1('meca.nivel', { n: e.nivel })} · ${t1(`nivel.${e.nivel}`)}` : t1(`ej.${e.id}`);
 
 export function formatoValor(ej, valor) {
   if (valor == null) return '—';

@@ -1,17 +1,18 @@
 import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, sonar, celebrar, fmt } from './comun.js';
-import { EJERCICIOS, formatoValor } from './ejercicios.js';
+import { EJERCICIOS, formatoValor, nombreEj } from './ejercicios.js';
+import { t, t1 } from './i18n.js';
 
 const $ = id => document.getElementById(id);
 await exigirSesion();
 const records = calcularRecords(await misMejores());
 const textoRecord = () => records[modo] != null
-  ? `<span>🏆 Récord <b>${formatoValor(EJERCICIOS[modo], records[modo])}</b></span>` : '';
+  ? `<span>🏆 ${t1('record.record')} <b>${formatoValor(EJERCICIOS[modo], records[modo])}</b></span>` : '';
 
 const MODOS = {
-  'raton-clic':      { rondas: 10, clase: '',    ayuda: 'Haz clic en cada diana lo más rápido que puedas. · Clique sur chaque cible.' },
-  'raton-doble':     { rondas: 10, clase: 'dos', ayuda: 'Doble clic en cada diana azul. · Double-clic sur chaque cible bleue.' },
-  'raton-derecho':   { rondas: 10, clase: 'der', ayuda: 'Clic con el botón DERECHO en cada diana verde. · Clic droit sur chaque cible verte.' },
-  'raton-arrastrar': { rondas: 5,  ayuda: 'Arrastra la bola naranja hasta la caja. · Glisse la balle dans la boîte.' },
+  'raton-clic':      { rondas: 10, clase: '' },
+  'raton-doble':     { rondas: 10, clase: 'dos' },
+  'raton-derecho':   { rondas: 10, clase: 'der' },
+  'raton-arrastrar': { rondas: 5 },
 };
 
 const arena = $('arena');
@@ -20,7 +21,7 @@ let juego = null;
 
 function pintarModos() {
   $('modos').innerHTML = Object.keys(MODOS).map(id =>
-    `<button data-id="${id}" class="${id === modo ? 'elegido' : 'ghost'}">${EJERCICIOS[id].titulo} · <span class="fr">${EJERCICIOS[id].fr}</span></button>`).join('');
+    `<button data-id="${id}" class="${id === modo ? 'elegido' : 'ghost'}">${nombreEj(EJERCICIOS[id])}</button>`).join('');
 }
 $('modos').onclick = e => {
   const b = e.target.closest('button'); if (!b) return;
@@ -30,11 +31,11 @@ $('modos').onclick = e => {
 function preparar() {
   juego = null;
   pintarModos();
-  $('ayuda').textContent = MODOS[modo].ayuda;
+  $('ayuda').innerHTML = t(`raton.ayuda.${modo}`);
   $('marcador').innerHTML = textoRecord();
   arena.innerHTML = `<div class="centro"><div style="display:grid; gap:12px; justify-items:center">
-      <p style="font-size:1.2rem">${MODOS[modo].ayuda}</p>
-      <button id="btn-empezar" style="font-size:1.3rem; padding:12px 28px">▶ Empezar · Commencer</button>
+      <p style="font-size:1.2rem">${t(`raton.ayuda.${modo}`)}</p>
+      <button id="btn-empezar" style="font-size:1.3rem; padding:12px 28px">▶ ${t('comun.empezar')}</button>
     </div></div>`;
   $('btn-empezar').onclick = empezar;
 }
@@ -54,8 +55,8 @@ function marcador() {
   if (!juego) return;
   const s = (performance.now() - juego.inicio) / 1000;
   $('marcador').innerHTML = `<span>⏱️ <b>${fmt(s, 1)}</b> s</span>
-    <span>Ronda · Manche <b>${juego.ronda}/${MODOS[modo].rondas}</b></span>
-    <span>Fallos · Ratés <b>${juego.fallos}</b></span>
+    <span>${t('raton.ronda')} <b>${juego.ronda}/${MODOS[modo].rondas}</b></span>
+    <span>${t('comun.fallos')} <b>${juego.fallos}</b></span>
     ${textoRecord()}`;
 }
 
@@ -121,13 +122,13 @@ async function terminar() {
   const fallos = juego.fallos;
   juego = null;
   arena.innerHTML = `<div class="centro"><div style="display:grid; gap:12px; justify-items:center">
-      <h2>¡Hecho! · Fini !</h2>
-      <p class="marcador"><span>Tiempo <b>${fmt(s, 1)}</b> s</span><span>Fallos <b>${fallos}</b></span></p>
+      <h2>${t('raton.hecho')}</h2>
+      <p class="marcador"><span>${t1('comun.tiempo')} <b>${fmt(s, 1)}</b> s</span><span>${t1('comun.fallos')} <b>${fallos}</b></span></p>
       <p id="record"></p>
-      <p class="muted" id="guardado">Guardando…</p>
+      <p class="muted" id="guardado">${t('comun.guardando')}</p>
       <div class="fila">
-        <button id="btn-otra">Otra vez · Encore</button>
-        <a class="btn ghost" href="clasificacion.html?ej=${modo}">🏆 Clasificación</a>
+        <button id="btn-otra">${t('comun.otraVez')}</button>
+        <a class="btn ghost" href="clasificacion.html?ej=${modo}">🏆 ${t1('clasif.titulo')}</a>
       </div></div></div>`;
   $('btn-otra').onclick = empezar;
   const ejercicio = modo, valor = Math.round(s * 10) / 10;
@@ -138,11 +139,11 @@ async function terminar() {
     ejercicio, valor, segundos: Math.round(s * 10) / 10, errores: fallos,
     acierto: Math.round(MODOS[modo].rondas / (MODOS[modo].rondas + fallos) * 1000) / 10,
   });
-  if (!ok) { if ($('guardado')) $('guardado').textContent = 'No se ha podido guardar'; return; }
+  if (!ok) { if ($('guardado')) $('guardado').innerHTML = t('comun.noGuardado'); return; }
   const ej = EJERCICIOS[ejercicio], previo = records[ejercicio];
   // Si ya ha pulsado "Otra vez", la pantalla de resultado ya no está
   if ($('record')) {
-    $('guardado').textContent = '✓ Guardado · Enregistré';
+    $('guardado').innerHTML = '✓ ' + t('comun.guardado');
     $('record').innerHTML = mensajeRecord(ej, valor, previo);
   }
   if (mejora(ej, valor, previo)) { records[ejercicio] = valor; marcador(); }

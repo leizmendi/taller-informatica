@@ -1,7 +1,8 @@
 import { exigirSesion, guardarIntento, misMejores, calcularRecords, mejora, mensajeRecord, sonar, celebrar, fmt } from './comun.js';
-import { NIVELES, letrasHasta, EJERCICIOS, formatoValor } from './ejercicios.js';
+import { NIVELES, letrasHasta, EJERCICIOS, formatoValor, nombreNivel } from './ejercicios.js';
+import { t, t1, tPlano } from './i18n.js';
 import { PALABRAS, FRASES, TEXTOS_TEST, PRACTICA } from './textos.js';
-import { crearTeclado, LEYENDA_DEDOS } from './teclado.js';
+import { crearTeclado, leyendaDedos } from './teclado.js';
 
 const $ = id => document.getElementById(id);
 const SUPERADO = 90;          // % de aciertos para dar un nivel por superado
@@ -10,7 +11,7 @@ const DURACION_TEST = 60;     // segundos
 await exigirSesion();
 
 const teclado = crearTeclado($('teclado'));
-$('dedos').innerHTML = LEYENDA_DEDOS;
+$('dedos').innerHTML = leyendaDedos();
 const captura = $('captura');
 
 let modo = null;      // { tipo: 'nivel', n } | { tipo: 'test' }
@@ -104,15 +105,15 @@ function empezar(nuevoModo) {
 
   if (modo.tipo === 'test') {
     teclado.usadas([]);
-    $('titulo-ej').textContent = 'Test de 1 minuto · Test d’1 minute';
-    $('ayuda-ej').textContent = 'El tiempo empieza con la primera tecla. Le temps démarre à la première touche.';
+    $('titulo-ej').innerHTML = t('ej.meca-test');
+    $('ayuda-ej').innerHTML = t('meca.ayudaTest');
   } else {
     const nivel = NIVELES.find(l => l.n === modo.n);
     teclado.usadas(nivel.frases ? [] : letrasHasta(modo.n));
-    $('titulo-ej').textContent = `Nivel ${nivel.n} · ${nivel.titulo}`;
-    $('ayuda-ej').textContent = nivel.ayuda ?? (nivel.frases
-      ? 'Mayúscula: mantén ⇧ con la otra mano. Acento: pulsa ´ y después la vocal.'
-      : nivel.nuevas ? `Teclas nuevas: ${nivel.nuevas.toUpperCase().split('').join(' ')}` : '');
+    $('titulo-ej').innerHTML = nombreNivel(nivel.n);
+    $('ayuda-ej').innerHTML = nivel.ayuda ? t(`nivel.${nivel.n}.ayuda`) : nivel.frases
+      ? t('meca.ayudaFrases')
+      : nivel.nuevas ? `${t('meca.teclasNuevas')}: ${nivel.nuevas.toUpperCase().split('').join(' ')}` : '';
   }
   pintarMarcador();
   pintarPosicion();
@@ -155,10 +156,10 @@ function pintarMarcador() {
   const quedan = modo.tipo === 'test' ? Math.max(0, DURACION_TEST - segundos()) : null;
   $('marcador').innerHTML = `
     ${quedan != null ? `<span>⏱️ <b>${Math.ceil(quedan)}</b> s</span>` : `<span>⏱️ <b>${fmt(segundos())}</b> s</span>`}
-    <span>Velocidad · Vitesse <b>${sesion.inicio ? fmt(ppm) : 0}</b> ppm</span>
-    <span>Aciertos · Réussite <b>${fmt(acierto)}</b> %</span>
-    <span>Fallos · Erreurs <b>${sesion.errores}</b></span>
-    ${records[idEjercicio()] != null ? `<span>🏆 Récord <b>${formatoValor(EJERCICIOS[idEjercicio()], records[idEjercicio()])}</b></span>` : ''}`;
+    <span>${t('meca.velocidad')} <b>${sesion.inicio ? fmt(ppm) : 0}</b> ppm</span>
+    <span>${t('meca.aciertos')} <b>${fmt(acierto)}</b> %</span>
+    <span>${t('meca.fallos')} <b>${sesion.errores}</b></span>
+    ${records[idEjercicio()] != null ? `<span>🏆 ${t1('record.record')} <b>${formatoValor(EJERCICIOS[idEjercicio()], records[idEjercicio()])}</b></span>` : ''}`;
 }
 
 function teclaRecibida(ch) {
@@ -202,25 +203,25 @@ async function terminar() {
   const superado = acierto >= SUPERADO;
   const ejercicio = idEjercicio();
   const peores = Object.entries(sesion.falladas).sort((a, b) => b[1] - a[1]).slice(0, 3)
-    .map(([c]) => c === ' ' ? 'espacio' : c.toUpperCase());
+    .map(([c]) => c === ' ' ? t1('meca.espacio') : c.toUpperCase());
 
   const r = $('resultado');
   r.classList.remove('oculto');
   r.innerHTML = `
-    <h2>${modo.tipo === 'test' ? '¡Tiempo! · Temps écoulé !' : superado ? '¡Muy bien! · Très bien !' : '¡Casi! · Presque !'}</h2>
+    <h2>${t(modo.tipo === 'test' ? 'meca.tiempo' : superado ? 'meca.muyBien' : 'meca.casi')}</h2>
     <p class="marcador">
-      <span>Velocidad <b>${fmt(ppm)}</b> ppm</span>
-      <span>Aciertos <b>${fmt(acierto)}</b> %</span>
-      <span>Tiempo <b>${fmt(s, 1)}</b> s</span>
+      <span>${t1('meca.velocidad')} <b>${fmt(ppm)}</b> ppm</span>
+      <span>${t1('meca.aciertos')} <b>${fmt(acierto)}</b> %</span>
+      <span>${t1('comun.tiempo')} <b>${fmt(s, 1)}</b> s</span>
     </p>
-    ${modo.tipo === 'nivel' ? `<p>${superado ? '✓ Nivel superado · Niveau réussi' : `Para superar el nivel necesitas un ${SUPERADO} % de aciertos. Il faut ${SUPERADO} % de réussite.`}</p>` : ''}
-    ${peores.length ? `<p class="muted">Repasa · Révise : ${peores.join(', ')}</p>` : ''}
+    ${modo.tipo === 'nivel' ? `<p>${superado ? '✓ ' + t('meca.superado') : t('meca.necesitas', { n: SUPERADO })}</p>` : ''}
+    ${peores.length ? `<p class="muted">${t('meca.repasa')}: ${peores.join(', ')}</p>` : ''}
     <p id="record"></p>
-    <p class="muted" id="guardado">Guardando… · Enregistrement…</p>
+    <p class="muted" id="guardado">${t('comun.guardando')}</p>
     <div class="fila">
-      <button id="btn-repetir">Repetir · Recommencer</button>
-      ${modo.tipo === 'nivel' && modo.n < NIVELES.length ? `<button id="btn-siguiente" class="ghost">Nivel ${modo.n + 1} →</button>` : ''}
-      ${modo.tipo === 'test' ? '<a class="btn ghost" href="clasificacion.html?ej=meca-test">🏆 Clasificación</a>' : ''}
+      <button id="btn-repetir">${t('meca.repetir')}</button>
+      ${modo.tipo === 'nivel' && modo.n < NIVELES.length ? `<button id="btn-siguiente" class="ghost">${t1('meca.nivel', { n: modo.n + 1 })} →</button>` : ''}
+      ${modo.tipo === 'test' ? `<a class="btn ghost" href="clasificacion.html?ej=meca-test">🏆 ${t1('clasif.titulo')}</a>` : ''}
     </div>`;
   $('btn-repetir').onclick = () => empezar(modo);
   const sig = $('btn-siguiente');
@@ -239,14 +240,14 @@ async function terminar() {
     segundos: Math.round(s * 10) / 10, errores: sesion.errores,
     detalle: { caracteres: sesion.pos, superado, falladas: sesion.falladas },
   });
-  $('guardado').textContent = ok ? '✓ Guardado · Enregistré' : 'No se ha podido guardar · Erreur d’enregistrement';
+  $('guardado').innerHTML = ok ? '✓ ' + t('comun.guardado') : t('comun.noGuardado');
   const ej = EJERCICIOS[ejercicio], previo = records[ejercicio];
   if (ok && cuenta) {
     $('record').innerHTML = mensajeRecord(ej, valor, previo);
     if (mejora(ej, valor, previo)) { records[ejercicio] = valor; pintarMarcador(); }
   } else if (previo != null) {
     // Nivel no superado: no cuenta, solo se recuerda el récord
-    $('record').innerHTML = `Tu récord · Ton record : <b>${formatoValor(ej, previo)}</b>`;
+    $('record').innerHTML = t('record.tuRecord', { marca: formatoValor(ej, previo) });
   }
   if (ok && superado && modo.tipo === 'nivel') { hechos.add(modo.n); marcarNiveles(); }
 }
@@ -278,8 +279,8 @@ function marcarNiveles() {
   }
 }
 
-$('niveles').innerHTML = NIVELES.map(l => `<button class="ghost" data-n="${l.n}" title="${l.titulo}">${l.n}</button>`).join('')
-  + '<button data-test>Test 1 min</button>';
+$('niveles').innerHTML = NIVELES.map(l => `<button class="ghost" data-n="${l.n}" title="${tPlano(`nivel.${l.n}`)}">${l.n}</button>`).join('')
+  + `<button data-test>${t1('meca.botonTest')}</button>`;
 $('niveles').onclick = e => {
   const b = e.target.closest('button'); if (!b) return;
   if (sesion && !sesion.fin) clearInterval(sesion.timer);

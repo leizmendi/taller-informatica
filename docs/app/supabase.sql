@@ -246,3 +246,23 @@ grant execute on function public.admin_crear_alumno(text, text, text, uuid) to a
 grant execute on function public.admin_cambiar_password(uuid, text) to authenticated;
 grant execute on function public.admin_borrar_alumno(uuid) to authenticated;
 grant execute on function public.admin_cambiar_rol(uuid, text) to authenticated;
+
+-- ---------- Idiomas ----------
+-- Idioma principal y secundario de cada cuenta (códigos de idiomas/lista.js).
+-- null = los de config.js; en el secundario, '-' = ninguno.
+alter table public.perfiles add column if not exists idioma text;
+alter table public.perfiles add column if not exists idioma2 text;
+
+-- Cada uno cambia los suyos; el monitor, los de cualquiera (p_alumno).
+create or replace function public.cambiar_idiomas(p_idioma text, p_idioma2 text, p_alumno uuid default null)
+returns void
+language plpgsql security definer set search_path = public as $$
+declare
+  v_id uuid := coalesce(p_alumno, auth.uid());
+begin
+  if auth.uid() is null then raise exception 'Sin sesión'; end if;
+  if v_id <> auth.uid() and not es_admin() then raise exception 'Solo el monitor'; end if;
+  if p_idioma is not null and p_idioma !~ '^[a-z]{2,3}$' then raise exception 'Idioma no válido'; end if;
+  if p_idioma2 is not null and p_idioma2 !~ '^([a-z]{2,3}|-)$' then raise exception 'Idioma no válido'; end if;
+  update perfiles set idioma = p_idioma, idioma2 = p_idioma2 where id = v_id;
+end $$;

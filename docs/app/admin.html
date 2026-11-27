@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Administración · Taller de informática</title>
+<title data-t1="titulo.admin">Administración</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="../fichas/fichas.css">
 <link rel="stylesheet" href="app.css">
@@ -12,43 +12,43 @@
 <main class="page" style="max-width:1100px">
   <nav id="cabecera"></nav>
   <header>
-    <div class="eyebrow">Monitor</div>
-    <h1>Administración</h1>
+    <div class="eyebrow" data-t1="admin.monitor"></div>
+    <h1 data-t1="cab.admin"></h1>
   </header>
 
   <section class="card" style="display:grid; gap:12px">
-    <h2>Cursos</h2>
+    <h2 data-t1="admin.cursos"></h2>
     <div class="fila">
-      <label>Curso <select id="curso"></select></label>
-      <button class="ghost" id="btn-renombrar">Renombrar</button>
-      <a class="btn ghost" id="ver-clasif" href="clasificacion.html">🏆 Clasificación</a>
+      <label><span data-t1="clasif.curso"></span> <select id="curso"></select></label>
+      <button class="ghost" id="btn-renombrar" data-t1="admin.renombrar"></button>
+      <a class="btn ghost" id="ver-clasif" href="clasificacion.html">🏆 <span data-t1="clasif.titulo"></span></a>
     </div>
     <form class="fila" id="f-curso">
-      <label>Nuevo curso <input id="nombre-curso" placeholder="Ej.: Otoño 2026" required></label>
-      <button>Crear curso</button>
+      <label><span data-t1="admin.nuevoCurso"></span> <input id="nombre-curso" data-t-placeholder="admin.ejCurso" required></label>
+      <button data-t1="admin.crearCurso"></button>
     </form>
   </section>
 
   <section class="card" style="display:grid; gap:12px">
-    <h2>Alumnos del curso</h2>
+    <h2 data-t1="admin.alumnos"></h2>
     <form class="fila" id="f-alumno">
-      <label>Usuario <input id="a-usuario" placeholder="ej.: lince" pattern="[a-zA-Z0-9._\-]{3,30}" required autocapitalize="none"></label>
-      <label>Apodo <input id="a-apodo" placeholder="Lince"></label>
-      <label>Contraseña <input id="a-pass" required minlength="6"></label>
-      <button type="button" class="ghost peq" id="btn-generar" title="Otra contraseña">🎲</button>
-      <button>Crear alumno</button>
+      <label><span data-t1="entrar.usuario"></span> <input id="a-usuario" data-t-placeholder="admin.ejUsuario" pattern="[a-zA-Z0-9._\-]{3,30}" required autocapitalize="none"></label>
+      <label><span data-t1="clasif.apodo"></span> <input id="a-apodo" data-t-placeholder="admin.ejApodo"></label>
+      <label><span data-t1="entrar.password"></span> <input id="a-pass" required minlength="6"></label>
+      <button type="button" class="ghost peq" id="btn-generar" data-t-title="admin.otraPass">🎲</button>
+      <button data-t1="admin.crearAlumno"></button>
     </form>
-    <p class="muted">Usuario sin acentos ni espacios. No pongas nombres reales: mejor un apodo.</p>
+    <p class="muted" data-t1="admin.notaUsuario"></p>
     <p id="msg"></p>
     <div class="tabla-wrap" id="alumnos"></div>
   </section>
 
   <section class="card oculto" id="imprimible" style="display:grid; gap:12px">
     <div class="fila" style="justify-content:space-between">
-      <h2>Cuentas nuevas</h2>
-      <button onclick="print()">Imprimir</button>
+      <h2 data-t1="admin.cuentasNuevas"></h2>
+      <button onclick="print()" data-t1="admin.imprimir"></button>
     </div>
-    <p class="muted">Las contraseñas solo se ven ahora. Imprímelas o apúntalas antes de salir de la página.</p>
+    <p class="muted" data-t1="admin.notaPass"></p>
     <div class="tarjetas" id="tarjetas"></div>
   </section>
 </main>

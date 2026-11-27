@@ -1,7 +1,9 @@
 // Prueba 3: "Ordena los archivos" (la de fichas/carpetas.html) con reloj y récord.
 // Se arrastra cada archivo a su carpeta según la extensión.
+// Textos: claves m3.* y comun.* de idiomas/*.js
 import { guardarIntento, mejora, mensajeRecord, sonar, celebrar, fmt } from './comun.js';
 import { EJERCICIOS, formatoValor } from './ejercicios.js';
+import { t, t1 } from './i18n.js';
 
 const EJ = 'arch-ordena';
 const ARCHIVOS = [
@@ -16,11 +18,6 @@ const ARCHIVOS = [
   { n: 'mi-web.html', i: '🌐', f: 'Web' },
 ];
 const CARPETAS = ['Textos', 'Fotos', 'Web'];
-const PISTAS = {
-  Textos: 'Termina en .txt o .docx: es un texto · C’est un texte',
-  Fotos: 'Termina en .jpg o .png: es una foto · C’est une photo',
-  Web: 'Termina en .html o .css: es de la web · C’est pour le web',
-};
 const ICONO_CARPETA = '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M5 13h14l4 5h20v22H5z"/></svg>';
 
 const barajar = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -32,19 +29,19 @@ export function montar({ records, caja, marcadorEl }) {
   let timerPista;
 
   const textoRecord = () => records[EJ] != null
-    ? `<span>🏆 Récord <b>${formatoValor(EJERCICIOS[EJ], records[EJ])}</b></span>` : '';
+    ? `<span>🏆 ${t1('record.record')} <b>${formatoValor(EJERCICIOS[EJ], records[EJ])}</b></span>` : '';
 
   function marcador() {
     if (!juego) { marcadorEl.innerHTML = textoRecord(); return; }
     const s = (performance.now() - juego.inicio) / 1000;
     marcadorEl.innerHTML = `<span>⏱️ <b>${fmt(s, 1)}</b> s</span>
-      <span>Archivo · Fichier <b>${juego.idx}/${ARCHIVOS.length}</b></span>
-      <span>Fallos · Ratés <b>${juego.errores}</b></span>
+      <span>${t('m3.archivo')} <b>${juego.idx}/${ARCHIVOS.length}</b></span>
+      <span>${t('comun.fallos')} <b>${juego.errores}</b></span>
       ${textoRecord()}`;
   }
 
-  caja.innerHTML = `<h2>Prueba 3: ordena los archivos · Range les fichiers</h2>
-    <p>Arrastra cada archivo a su carpeta. Fíjate en lo que va detrás del punto. · Glisse chaque fichier dans son dossier.</p>
+  caja.innerHTML = `<h2>${t('m3.titulo')}</h2>
+    <p>${t('m3.intro')}</p>
     <div class="leyenda"><span><b>.txt .docx</b> = Textos</span><span><b>.jpg .png</b> = Fotos</span><span><b>.html .css</b> = Web</span></div>
     <div class="arena ordena" id="escena"></div>`;
   const escena = q('#escena');
@@ -52,7 +49,7 @@ export function montar({ records, caja, marcadorEl }) {
   function inicio() {
     juego = null;
     marcador();
-    escena.innerHTML = `<div class="centro"><button id="btn-empezar" class="grande">▶ Empezar · Commencer</button></div>`;
+    escena.innerHTML = `<div class="centro"><button id="btn-empezar" class="grande">▶ ${t('comun.empezar')}</button></div>`;
     q('#btn-empezar').onclick = empezar;
   }
 
@@ -61,11 +58,11 @@ export function montar({ records, caja, marcadorEl }) {
     ronda();
   }
 
-  function pista(texto) {
+  function pista(html) {
     escena.querySelector('.pista-flotante')?.remove();
     const h = document.createElement('div');
     h.className = 'pista-flotante';
-    h.textContent = texto;
+    h.innerHTML = html;
     escena.appendChild(h);
     clearTimeout(timerPista);
     timerPista = setTimeout(() => h.remove(), 2500);
@@ -125,7 +122,7 @@ export function montar({ records, caja, marcadorEl }) {
         juego.errores++;
         marcador();
         z.classList.add('mal'); setTimeout(() => z.classList.remove('mal'), 600);
-        pista(PISTAS[dato.f]);
+        pista(t(`m3.pista.${dato.f}`));
         el.style.left = casa.x + 'px'; el.style.top = casa.y + 'px';
       }
     });
@@ -138,13 +135,13 @@ export function montar({ records, caja, marcadorEl }) {
     juego = null;
     marcador();
     escena.innerHTML = `<div class="centro"><div style="display:grid; gap:12px; justify-items:center">
-        <h2>¡Todo ordenado! · Tout est rangé !</h2>
-        <p class="marcador"><span>Tiempo <b>${fmt(s, 1)}</b> s</span><span>Fallos <b>${errores}</b></span></p>
+        <h2>${t('m3.hecho')}</h2>
+        <p class="marcador"><span>${t1('comun.tiempo')} <b>${fmt(s, 1)}</b> s</span><span>${t1('comun.fallos')} <b>${errores}</b></span></p>
         <p id="record"></p>
-        <p class="muted" id="guardado">Guardando…</p>
+        <p class="muted" id="guardado">${t('comun.guardando')}</p>
         <div class="fila">
-          <button id="btn-otra">Otra vez · Encore</button>
-          <a class="btn ghost" href="clasificacion.html?ej=${EJ}">🏆 Clasificación</a>
+          <button id="btn-otra">${t('comun.otraVez')}</button>
+          <a class="btn ghost" href="clasificacion.html?ej=${EJ}">🏆 ${t1('clasif.titulo')}</a>
         </div></div></div>`;
     q('#btn-otra').onclick = empezar;
     const ej = EJERCICIOS[EJ], valor = Math.round(s * 10) / 10, previo = records[EJ];
@@ -154,8 +151,8 @@ export function montar({ records, caja, marcadorEl }) {
       acierto: Math.round(ARCHIVOS.length / (ARCHIVOS.length + errores) * 1000) / 10,
     });
     if (!vivo || !q('#guardado')) return;
-    if (!ok) { q('#guardado').textContent = 'No se ha podido guardar'; return; }
-    q('#guardado').textContent = '✓ Guardado · Enregistré';
+    if (!ok) { q('#guardado').innerHTML = t('comun.noGuardado'); return; }
+    q('#guardado').innerHTML = '✓ ' + t('comun.guardado');
     q('#record').innerHTML = mensajeRecord(ej, valor, previo);
     if (mejora(ej, valor, previo)) { records[EJ] = valor; marcador(); }
   }

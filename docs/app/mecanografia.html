@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mecanografía · Taller de informática</title>
+<title data-t1="titulo.meca">Mecanografía</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="../fichas/fichas.css">
 <link rel="stylesheet" href="app.css">
@@ -12,11 +12,11 @@
 <main class="page" style="max-width:1100px">
   <nav id="cabecera"></nav>
   <header>
-    <div class="eyebrow">Ficha 1 · Fiche 1</div>
-    <h1>Mecanografía <span class="fr">Dactylographie</span></h1>
+    <div class="eyebrow" data-t="ficha.n" data-t-n="1"></div>
+    <h1 data-t="ficha.meca"></h1>
   </header>
 
-  <div class="niveles" id="niveles" aria-label="Niveles"></div>
+  <div class="niveles" id="niveles" data-t-title="meca.niveles"></div>
 
   <section id="zona" class="oculto" style="display:grid; gap:14px">
     <div>
@@ -25,14 +25,14 @@
     </div>
     <div class="marcador" id="marcador"></div>
     <div class="texto" id="texto" tabindex="-1"></div>
-    <textarea id="captura" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Escribe aquí"></textarea>
+    <textarea id="captura" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="⌨"></textarea>
   </section>
 
   <section id="resultado" class="card oculto" style="display:grid; gap:12px"></section>
 
   <section style="display:grid; gap:8px">
     <label style="display:flex; gap:8px; align-items:center; font-weight:400">
-      <input type="checkbox" id="ver-teclado" checked> Ver teclado · Voir le clavier
+      <input type="checkbox" id="ver-teclado" checked> <span data-t="meca.verTeclado"></span>
     </label>
     <div id="bloque-teclado" style="display:grid; gap:8px">
       <div id="teclado"></div>

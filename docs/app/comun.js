@@ -2,8 +2,13 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 import { SUPABASE_URL, SUPABASE_KEY, DOMINIO_ALUMNOS } from './config.js';
 import { EJERCICIOS, formatoValor } from './ejercicios.js';
+import { iniciarIdiomas, idiomasGuardados, recordarIdiomas, traducirPagina, selectoresIdioma, idiomaPrincipal, idiomaSecundario, t, t1, tPlano, NINGUNO } from './i18n.js';
 
 export const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Los idiomas se cargan antes que nada: así cualquier página puede usar t() desde el principio.
+await iniciarIdiomas(idiomasGuardados());
+traducirPagina();
 
 // ---------- Sesión ----------
 
@@ -14,7 +19,7 @@ export function emailDe(usuario) {
 
 export async function entrar(usuario, password) {
   const { error } = await sb.auth.signInWithPassword({ email: emailDe(usuario), password });
-  if (error) throw new Error('Usuario o contraseña incorrectos · Identifiant ou mot de passe incorrect');
+  if (error) throw new Error(t('entrar.error'));
 }
 
 export async function salir() {
@@ -27,11 +32,15 @@ export async function miPerfil() {
   if (perfilCache) return perfilCache;
   const { data: { session } } = await sb.auth.getSession();
   if (!session) return null;
-  const { data, error } = await sb.from('perfiles')
-    .select('id, usuario, apodo, rol, curso_id, cursos(nombre)')
-    .eq('id', session.user.id).single();
+  const campos = 'id, usuario, apodo, rol, curso_id, cursos(nombre)';
+  let { data, error } = await sb.from('perfiles')
+    .select(campos + ', idioma, idioma2').eq('id', session.user.id).single();
+  // Si aún no se han creado las columnas de idioma en Supabase, sin ellas
+  if (error) ({ data, error } = await sb.from('perfiles').select(campos).eq('id', session.user.id).single());
   if (error) return null;
   perfilCache = data;
+  // Si hay que recargar para cambiar de idioma, no se sigue pintando nada
+  if (sincronizarIdiomas(data)) await new Promise(() => {});
   return data;
 }
 
@@ -46,21 +55,65 @@ export async function exigirSesion({ admin = false } = {}) {
   return p;
 }
 
+// ---------- Idiomas ----------
+
+// Si el perfil tiene idiomas guardados y no son los de este ordenador, manda el perfil.
+// Se recarga la página para que todo salga ya en el idioma bueno.
+function sincronizarIdiomas(p) {
+  if (!p.idioma) return false;
+  const s = p.idioma2 || idiomasGuardados().secundario;
+  if (p.idioma !== idiomaPrincipal() || (s === NINGUNO ? null : s) !== idiomaSecundario()) {
+    const ya = sessionStorage.getItem('taller-idiomas-recarga');
+    recordarIdiomas(p.idioma, s);
+    if (!ya) { sessionStorage.setItem('taller-idiomas-recarga', '1'); location.reload(); return true; }
+  }
+  sessionStorage.removeItem('taller-idiomas-recarga');
+  return false;
+}
+
+// Guarda los idiomas en este ordenador y, si hay sesión, en el perfil. Después recarga.
+export async function cambiarIdiomas(principal, secundario) {
+  recordarIdiomas(principal, secundario);
+  const p = await miPerfil();
+  if (p && 'idioma' in p) {
+    const { error } = await sb.rpc('cambiar_idiomas', { p_idioma: principal, p_idioma2: secundario || NINGUNO });
+    if (error) console.error(error);
+  }
+  location.reload();
+}
+
+// Pinta los selectores de idioma dentro de "caja" y los conecta
+export function montarSelectoresIdioma(caja) {
+  caja.innerHTML = selectoresIdioma();
+  const cambio = () => cambiarIdiomas(caja.querySelector('#sel-idioma').value, caja.querySelector('#sel-idioma2').value);
+  caja.querySelector('#sel-idioma').onchange = cambio;
+  caja.querySelector('#sel-idioma2').onchange = cambio;
+}
+
 export function pintarCabecera(p) {
   const el = document.getElementById('cabecera');
   if (!el) return;
   const enInicio = /\/(index\.html)?$/.test(location.pathname);
+  const codigos = [idiomaPrincipal(), idiomaSecundario()].filter(Boolean).map(c => c.toUpperCase()).join(' · ');
   el.innerHTML = `
-    ${enInicio ? '<span></span>' : '<a href="index.html">← Fichas · Fiches</a>'}
-    <span class="quien">${esc(p.apodo)}${p.cursos ? ` · <span class="fr">${esc(p.cursos.nombre)}</span>` : ''}</span>
+    ${enInicio ? '<span></span>' : `<a href="index.html">← ${t('cab.fichas')}</a>`}
+    <span class="quien">${esc(p.apodo)}${p.cursos ? ` · <span class="muted">${esc(p.cursos.nombre)}</span>` : ''}</span>
     <span class="acciones">
-      ${p.rol === 'admin' ? '<a href="admin.html">Administración</a>' : ''}
+      ${p.rol === 'admin' ? `<a href="admin.html">${t1('cab.admin')}</a>` : ''}
+      <button class="ghost" id="btn-idioma" title="${tPlano('idioma.titulo')}" aria-expanded="false">🌐 ${codigos}</button>
       <button class="ghost" id="btn-sonido"></button>
-      <button class="ghost" id="btn-salir">Salir · Sortir</button>
-    </span>`;
+      <button class="ghost" id="btn-salir">${t('cab.salir')}</button>
+    </span>
+    <div class="panel-idiomas oculto" id="panel-idiomas"></div>`;
   el.querySelector('#btn-salir').onclick = salir;
+  const panel = el.querySelector('#panel-idiomas');
+  el.querySelector('#btn-idioma').onclick = e => {
+    const abierto = panel.classList.toggle('oculto') === false;
+    e.currentTarget.setAttribute('aria-expanded', abierto);
+    if (abierto) montarSelectoresIdioma(panel);
+  };
   const bs = el.querySelector('#btn-sonido');
-  const pintar = () => { bs.textContent = silencio() ? '🔇' : '🔊'; bs.title = silencio() ? 'Activar sonido · Activer le son' : 'Quitar sonido · Couper le son'; };
+  const pintar = () => { bs.textContent = silencio() ? '🔇' : '🔊'; bs.title = tPlano(silencio() ? 'cab.sonidoOn' : 'cab.sonidoOff'); };
   bs.onclick = () => { localStorage.setItem('taller-silencio', silencio() ? '0' : '1'); pintar(); if (!silencio()) sonar('ok'); };
   pintar();
 }
@@ -101,10 +154,10 @@ export function calcularRecords(intentos, aceptar = () => true) {
 
 // Mensaje al terminar una prueba, comparando con el récord anterior.
 export function mensajeRecord(ej, valor, previo) {
-  if (previo == null) return '🏅 ¡Primera marca! Ya tienes récord · Premier record !';
+  if (previo == null) return '🏅 ' + t('record.primero');
   if (mejora(ej, valor, previo))
-    return `<span class="record-nuevo">🏆 <b>¡Nuevo récord personal!</b> · Nouveau record !</span> <span class="muted">(antes · avant ${formatoValor(ej, previo)})</span>`;
-  return `Tu récord sigue siendo · Ton record : <b>${formatoValor(ej, previo)}</b>`;
+    return `<span class="record-nuevo">🏆 ${t('record.nuevo')}</span> <span class="muted">(${t1('record.antes')} ${formatoValor(ej, previo)})</span>`;
+  return t('record.sigue', { marca: formatoValor(ej, previo) });
 }
 
 // ---------- Sonidos y celebración ----------

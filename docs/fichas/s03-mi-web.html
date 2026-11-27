@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Una web por dentro</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="fichas.css">
+<style>
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  .steps > li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 14px; align-items: center;
+    background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 12px 16px;
+  }
+  .steps > li::before {
+    content: counter(s);
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--c); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+  }
+  .steps .es { display: block; font-weight: 700; font-size: 1.12rem; }
+  .steps .fr { display: block; }
+  .tick { width: 1.4em; height: 1.4em; border: 2px solid var(--key-edge); border-radius: 5px; }
+  .ui {
+    display: inline-flex; flex-direction: column; margin-top: 6px;
+    background: var(--card); border: 1px solid var(--key-edge); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    font-size: 0.95rem; min-width: 12em; overflow: hidden;
+  }
+  .ui span { padding: 4px 12px; }
+  .ui .on { background: var(--soft); color: var(--c); font-weight: 700; }
+  .name {
+    display: inline-block; margin-top: 6px; padding: 4px 10px; border: 2px solid var(--c); border-radius: 6px;
+    font-weight: 700; background: var(--card);
+  }
+  h2 { margin-top: 6px; }
+  .code { display: block; margin-top: 8px; padding: 10px 14px; background: var(--soft); border-radius: 10px; font-family: "Courier New", monospace; font-size: 1.15rem; font-weight: 700; white-space: pre; }
+  .keys { display: block; margin-top: 6px; color: var(--muted); font-size: 0.95rem; }
+  @media print { .steps > li { padding: 6px 12px; } .steps { gap: 6px; } body { font-size: 13pt; } }
+  @media (max-width: 560px) { .steps > li { grid-template-columns: 2.6rem minmax(0, 1fr); } .tick { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <a href="./#bloque1">← Fichas</a>
+    <button type="button" onclick="window.print()">Imprimir</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sesión 3 · Ficha</div>
+    <h1>Una web por dentro<span class="fr">Une page web vue de l’intérieur</span></h1>
+  </header>
+  <p>Una página web es un archivo de texto que el navegador sabe dibujar. <span class="fr">Une page web est un fichier texte que le navigateur dessine.</span></p>
+
+  <h2>Escribe y guarda<span class="fr"> · Écris et enregistre</span></h2>
+  <ol class="steps">
+    <li>
+      <div>
+        <span class="es">Abre el Bloc de notas y copia esto exactamente, con tu nombre y lo que te gusta:</span>
+        <span class="fr">Ouvre le Bloc-notes et copie exactement :</span>
+        <span class="code">&lt;meta charset="utf-8"&gt;
+&lt;h1&gt;Hola, soy ________&lt;/h1&gt;
+&lt;p&gt;Me gusta ________.&lt;/p&gt;</span>
+        <span class="keys"><b>&lt;</b> a la izquierda de la Z · <b>&gt;</b> ⇧ + esa tecla · <b>/</b> ⇧ + 7 · <b>=</b> ⇧ + 0 · <b>"</b> ⇧ + 2</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Archivo → Guardar como. Busca Documentos → Taller → <strong>Web</strong>.</span>
+        <span class="fr">Fichier → Enregistrer sous. Va dans Documents → Taller → Web.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">En <strong>Tipo</strong>, elige <strong>Todos los archivos (*.*)</strong>. Escribe el nombre y pulsa Guardar:</span>
+        <span class="fr">Type : « Tous les fichiers ». Écris le nom et clique sur Enregistrer :</span>
+        <span class="name">hola.html</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+
+  <h2>Ábrela y cámbiala<span class="fr"> · Ouvre-la et modifie-la</span></h2>
+  <ol class="steps" style="counter-reset: s 3">
+    <li>
+      <div>
+        <span class="es">Doble clic en <em>hola.html</em>. ¿Con qué programa se abre? ______________</span>
+        <span class="fr">Double-clic sur hola.html. Avec quel programme ?</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Clic derecho en <em>hola.html</em> → Abrir con → Bloc de notas. ¿Qué ves ahora? ______________</span>
+        <span class="fr">Clic droit → Ouvrir avec → Bloc-notes. Qu’est-ce que tu vois ?</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">En el Bloc de notas, añade al final esta línea y pulsa Archivo → Guardar:</span>
+        <span class="fr">Ajoute cette ligne à la fin et enregistre :</span>
+        <span class="code">&lt;p&gt;Mi comida favorita es ________.&lt;/p&gt;</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+    <li>
+      <div>
+        <span class="es">Vuelve al navegador y pulsa <kbd>F5</kbd>. ¿Sale la frase nueva? Después, en la app: Misión 4 → Comprobar.</span>
+        <span class="fr">Dans le navigateur, appuie sur F5. Puis, dans l’app : Mission 4 → Vérifier.</span>
+      </div>
+      <span class="tick" aria-hidden="true"></span>
+    </li>
+  </ol>
+</div>
+</body>
+</html>

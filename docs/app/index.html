@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Taller de informática · Mi cuenta</title>
+<title data-t1="titulo.inicio">Taller de informática</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="../fichas/fichas.css">
 <link rel="stylesheet" href="app.css">
@@ -14,16 +14,17 @@
   <!-- Sin sesión -->
   <section id="v-login" class="oculto">
     <form class="login card" id="f-login">
-      <div class="eyebrow">Taller de informática</div>
-      <h1>Entrar <span class="fr">Se connecter</span></h1>
-      <label>Usuario <span class="fr">Identifiant</span>
+      <div class="eyebrow" data-t1="app.nombre"></div>
+      <h1 data-t="entrar.titulo"></h1>
+      <label><span data-t="entrar.usuario"></span>
         <input id="usuario" autocomplete="username" autocapitalize="none" spellcheck="false" required>
       </label>
-      <label>Contraseña <span class="fr">Mot de passe</span>
+      <label><span data-t="entrar.password"></span>
         <input id="password" type="password" autocomplete="current-password" required>
       </label>
-      <button type="submit">Entrar · Entrer</button>
+      <button type="submit" data-t="entrar.boton"></button>
       <p id="login-error" class="error"></p>
+      <div class="fila idiomas-login" id="idiomas-login"></div>
     </form>
   </section>
 
@@ -31,44 +32,50 @@
   <section id="v-fichas" class="oculto" style="display:grid; gap:20px">
     <nav id="cabecera"></nav>
     <div>
-      <div class="eyebrow">Taller de informática</div>
-      <h1>Hola, <span id="apodo"></span> 👋 <span class="fr">Mes fiches</span></h1>
+      <div class="eyebrow" data-t1="app.nombre"></div>
+      <h1 id="saludo"></h1>
     </div>
     <div class="fichas" id="lista-fichas"></div>
   </section>
 
 </main>
 <script type="module">
-import { sb, entrar, miPerfil, pintarCabecera, misMejores, calcularRecords, esc } from './comun.js';
-import { FICHAS, EJERCICIOS, formatoValor } from './ejercicios.js';
+import { entrar, miPerfil, pintarCabecera, misMejores, calcularRecords, montarSelectoresIdioma, esc } from './comun.js';
+import { FICHAS, formatoValor, nombreFicha, nombreEj1 } from './ejercicios.js';
+import { t, t1 } from './i18n.js';
 
 const $ = id => document.getElementById(id);
 
 async function mostrar() {
   const p = await miPerfil();
-  if (!p) { $('v-login').classList.remove('oculto'); $('usuario').focus(); return; }
+  if (!p) {
+    $('v-login').classList.remove('oculto');
+    montarSelectoresIdioma($('idiomas-login'));
+    $('usuario').focus();
+    return;
+  }
 
   $('v-fichas').classList.remove('oculto');
   pintarCabecera(p);
-  $('apodo').textContent = p.apodo;
+  $('saludo').innerHTML = t('inicio.hola', { apodo: esc(p.apodo) });
 
   const mejores = calcularRecords(await misMejores());
 
   const tarjetas = FICHAS.map((f, k) => {
     const marcas = f.ejercicios.filter(e => e.clasifica && mejores[e.id] != null)
-      .map(e => `${esc(e.titulo)}: <b>${formatoValor(e, mejores[e.id])}</b>`);
+      .map(e => `${nombreEj1(e)}: <b>${formatoValor(e, mejores[e.id])}</b>`);
     return `<a class="ficha" href="${f.pagina}">
       <span class="icono">${f.icono}</span>
-      <span class="eyebrow">Ficha ${k + 1}</span>
-      <h2>${esc(f.titulo)} <span class="fr">${esc(f.fr)}</span></h2>
-      <span class="marca">${marcas.length ? 'Mis récords · ' + marcas.join(' · ') : 'Aún sin récords · Pas encore de record'}</span>
+      <span class="eyebrow">${t('ficha.n', { n: k + 1 })}</span>
+      <h2>${nombreFicha(f)}</h2>
+      <span class="marca">${marcas.length ? t1('inicio.misRecords') + ': ' + marcas.join(' · ') : t('inicio.sinRecords')}</span>
     </a>`;
   });
   tarjetas.push(`<a class="ficha" href="clasificacion.html">
       <span class="icono">🏆</span>
-      <span class="eyebrow">Curso · Cours</span>
-      <h2>Clasificación <span class="fr">Classement</span></h2>
-      <span class="marca">Las mejores marcas del grupo</span>
+      <span class="eyebrow">${t('clasif.curso')}</span>
+      <h2>${t('clasif.titulo')}</h2>
+      <span class="marca">${t('inicio.clasifDesc')}</span>
     </a>`);
   $('lista-fichas').innerHTML = tarjetas.join('');
 }
@@ -81,7 +88,7 @@ $('f-login').onsubmit = async e => {
     await entrar($('usuario').value, $('password').value);
     location.reload();
   } catch (err) {
-    $('login-error').textContent = err.message;
+    $('login-error').innerHTML = err.message;
     btn.disabled = false;
   }
 };

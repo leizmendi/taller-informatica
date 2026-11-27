@@ -1,53 +1,53 @@
 // Misión 1: crear "Taller - apodo" en Documentos con Textos, Fotos y Web. Cronometrada.
 // Se hace en el Explorador de Windows; la app cronometra y comprueba la carpeta.
+// Textos: claves m1.*, arch.* y comun.* de idiomas/*.js
 import { guardarIntento, mejora, mensajeRecord, sonar, celebrar, esc, fmt } from './comun.js';
 import { EJERCICIOS, formatoValor } from './ejercicios.js';
+import { t, t1 } from './i18n.js';
 import { SUBCARPETAS, nombreCarpeta, norm, puedeLeerCarpetas, avisoNavegador, contenido, hayArchivos, olvidarCarpeta, leerMiCarpeta } from './archivos-comun.js';
 
 const EJ = 'arch-carpeta';
-const TITULO = '<h2>Misión 1: crea tu carpeta · Crée ton dossier</h2>';
 
 export function montar({ perfil, records, caja, marcadorEl }) {
   const NOMBRE = nombreCarpeta(perfil);
+  const carpeta = `<span class="nombre">${esc(NOMBRE)}</span>`;
+  const TITULO = `<h2>${t('m1.titulo')}</h2>`;
   const q = sel => caja.querySelector(sel);
   let vivo = true;          // false cuando se cambia a otra misión
   let juego = null;         // { inicio, timer, errores }
   let ultimaCarpeta = null; // carpeta con la que se superó la misión (para repetir)
 
   const textoRecord = () => records[EJ] != null
-    ? `<span>🏆 Récord <b>${formatoValor(EJERCICIOS[EJ], records[EJ])}</b></span>` : '';
+    ? `<span>🏆 ${t1('record.record')} <b>${formatoValor(EJERCICIOS[EJ], records[EJ])}</b></span>` : '';
 
   function marcador() {
     if (!juego) { marcadorEl.innerHTML = textoRecord(); return; }
     const s = (performance.now() - juego.inicio) / 1000;
     marcadorEl.innerHTML = `<span>⏱️ <b>${fmt(s, 0)}</b> s</span>
-      <span>Intentos fallidos · Essais ratés <b>${juego.errores}</b></span>
+      <span>${t('comun.intentosFallidos')} <b>${juego.errores}</b></span>
       ${textoRecord()}`;
   }
 
-  const arbol = `<p class="arbol">📂 Documentos · Documents<br>
+  const arbol = `<p class="arbol">📂 ${t('arch.documentos')}<br>
     &nbsp;&nbsp;└ 📁 <b>${esc(NOMBRE)}</b><br>
     ${SUBCARPETAS.map((c, i) => `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i < SUBCARPETAS.length - 1 ? '├' : '└'} 📁 ${c}`).join('<br>')}</p>`;
 
   const pasos = `<ol class="pasos">
-    <li>Abre el Explorador con <b>⊞ + E</b> y haz clic en <b>Documentos</b>, a la izquierda. · Ouvre l’Explorateur (⊞ + E) et clique sur Documents.</li>
-    <li><b>Clic derecho</b> en un sitio vacío de Documentos → <b>Nuevo</b> → <b>Carpeta</b>.
-      <span class="muted">Con el pad: toca con dos dedos a la vez. · Avec le pavé : touche avec deux doigts.</span></li>
-    <li>Escribe <span class="nombre">${esc(NOMBRE)}</span> y pulsa <b>Intro ↵</b>. · Écris le nom et appuie sur Entrée.</li>
-    <li><b>Doble clic</b> para entrar y crea dentro tres carpetas: <b>Textos</b>, <b>Fotos</b> y <b>Web</b>. · Dedans, crée trois dossiers.</li>
-    <li>Vuelve aquí y pulsa <b>Comprobar</b>. Se abre una ventana en Documentos: haz <b>un clic</b> en tu carpeta <span class="nombre">${esc(NOMBRE)}</span> (sin entrar en ella), pulsa <b>Seleccionar carpeta</b> y después <b>Ver archivos</b>.
-      <span class="muted">· Reviens ici et clique sur Vérifier. Un clic sur ton dossier, puis « Sélectionner le dossier ».</span></li>
+    <li>${t('m1.paso1')}</li>
+    <li>${t('m1.paso2')} <span class="muted">${t1('m1.pad')}</span></li>
+    <li>${t('m1.paso3', { carpeta })}</li>
+    <li>${t('m1.paso4')}</li>
+    <li>${t('m1.paso5', { carpeta })}</li>
   </ol>`;
 
   function inicio() {
     juego = null;
     marcador();
-    if (!puedeLeerCarpetas()) { caja.innerHTML = TITULO + avisoNavegador; return; }
+    if (!puedeLeerCarpetas()) { caja.innerHTML = TITULO + avisoNavegador(); return; }
     caja.innerHTML = `${TITULO}
-      <p>Tienes que hacerlo en el <b>Explorador de Windows</b>, no aquí. Al final tiene que quedar así:<br>
-      <span class="muted">Tu le fais dans Windows, pas ici. À la fin, ça doit être comme ça :</span></p>
+      <p>${t('m1.intro')}</p>
       ${arbol}
-      <div><button id="btn-empezar" class="grande">▶ Empezar · Commencer</button></div>`;
+      <div><button id="btn-empezar" class="grande">▶ ${t('comun.empezar')}</button></div>`;
     q('#btn-empezar').onclick = empezar;
   }
 
@@ -58,7 +58,7 @@ export function montar({ perfil, records, caja, marcadorEl }) {
     caja.innerHTML = `${TITULO}
       ${pasos}
       ${arbol}
-      <div class="fila"><button id="btn-comprobar" class="grande">🔍 Comprobar · Vérifier</button></div>
+      <div class="fila"><button id="btn-comprobar" class="grande">🔍 ${t('comun.comprobar')}</button></div>
       <div id="revision"></div>`;
     q('#btn-comprobar').onclick = comprobar;
   }
@@ -91,25 +91,22 @@ export function montar({ perfil, records, caja, marcadorEl }) {
       for (const h of carpetas) {
         try { if ((await contenido(h)).some(n => n.kind === 'directory' && norm(n.name) === norm(c))) donde = h.name; } catch { }
       }
-      if (donde) lineas.push(`<li><b>${c}</b> está dentro de <b>${esc(donde)}</b>. Tiene que estar al lado, no dentro: arrástrala a <b>${esc(raiz.name)}</b>.
-        <span class="muted">· ${c} est dans ${esc(donde)} : glisse-le dehors.</span></li>`);
+      if (donde) lineas.push(`<li>${t('m1.dentroDe', { c, donde: esc(donde), raiz: esc(raiz.name) })}</li>`);
       else if (dentro.some(h => h.kind === 'file' && norm(h.name).startsWith(norm(c))))
-        lineas.push(`<li><b>${c}</b> es un archivo, no una carpeta. Bórralo y crea una carpeta (Nuevo → Carpeta).
-          <span class="muted">· C’est un fichier, pas un dossier.</span></li>`);
-      else lineas.push(`<li>Falta la carpeta <b>${c}</b>. · Il manque le dossier ${c}.</li>`);
+        lineas.push(`<li>${t('m1.esArchivo', { c })}</li>`);
+      else lineas.push(`<li>${t('m1.falta', { c })}</li>`);
     }
     for (const h of carpetas) {
       if (/^nueva carpeta/i.test(h.name)) {
         todoBien = false;
-        lineas.push(`<li>Hay una carpeta <b>${esc(h.name)}</b>: cámbiale el nombre (clic derecho → Cambiar nombre).
-          <span class="muted">· Renomme le dossier « ${esc(h.name)} ».</span></li>`);
+        lineas.push(`<li>${t('m1.nuevaCarpeta', { nombre: esc(h.name) })}</li>`);
       }
     }
 
     if (!todoBien) {
-      return fallo(`<p>He encontrado tu carpeta <b>${esc(raiz.name)}</b>, pero aún no está lista: · Ton dossier n’est pas encore prêt :</p>
+      return fallo(`<p>${t('m1.noLista', { nombre: esc(raiz.name) })}</p>
         <ul class="revision">${lineas.join('')}</ul>
-        <p class="muted">Arréglalo y pulsa <b>Comprobar</b> otra vez. · Corrige et clique encore sur Vérifier.</p>`);
+        <p class="muted">${t('comun.arreglalo')}</p>`);
     }
     ultimaCarpeta = raiz;
     terminar(lineas);
@@ -121,14 +118,14 @@ export function montar({ perfil, records, caja, marcadorEl }) {
     const errores = juego.errores;
     juego = null;
     marcador();
-    caja.innerHTML = `<h2>¡Misión cumplida! · Mission accomplie !</h2>
+    caja.innerHTML = `<h2>${t('comun.cumplida')}</h2>
       <ul class="revision">${lineas.join('')}</ul>
-      <p class="marcador"><span>Tiempo <b>${fmt(s, 1)}</b> s</span><span>Intentos fallidos <b>${errores}</b></span></p>
+      <p class="marcador"><span>${t1('comun.tiempo')} <b>${fmt(s, 1)}</b> s</span><span>${t1('comun.intentosFallidos')} <b>${errores}</b></span></p>
       <p id="record"></p>
-      <p class="muted" id="guardado">Guardando…</p>
+      <p class="muted" id="guardado">${t('comun.guardando')}</p>
       <div class="fila">
-        <button id="btn-otra">Otra vez · Encore</button>
-        <a class="btn ghost" href="clasificacion.html?ej=${EJ}">🏆 Clasificación</a>
+        <button id="btn-otra">${t('comun.otraVez')}</button>
+        <a class="btn ghost" href="clasificacion.html?ej=${EJ}">🏆 ${t1('clasif.titulo')}</a>
       </div>
       <div id="revision"></div>`;
     q('#btn-otra').onclick = otraVez;
@@ -140,8 +137,8 @@ export function montar({ perfil, records, caja, marcadorEl }) {
       acierto: Math.round(1000 / (1 + errores)) / 10,
     });
     if (!vivo || !q('#guardado')) return;
-    if (!ok) { q('#guardado').textContent = 'No se ha podido guardar'; return; }
-    q('#guardado').textContent = '✓ Guardado · Enregistré';
+    if (!ok) { q('#guardado').innerHTML = t('comun.noGuardado'); return; }
+    q('#guardado').innerHTML = '✓ ' + t('comun.guardado');
     q('#record').innerHTML = mensajeRecord(ej, valor, previo);
     if (mejora(ej, valor, previo)) { records[EJ] = valor; marcador(); }
   }
@@ -151,16 +148,12 @@ export function montar({ perfil, records, caja, marcadorEl }) {
   async function otraVez() {
     if (!ultimaCarpeta) return empezar();
     try {
-      if (await hayArchivos(ultimaCarpeta)) {
-        return mostrar(`<p>Tu carpeta ya tiene archivos tuyos dentro, así que <b>no la borres</b>. Tu tiempo ya está guardado.<br>
-          <span class="muted">Ton dossier a déjà tes fichiers : ne l’efface pas.</span></p>`);
-      }
+      if (await hayArchivos(ultimaCarpeta)) return mostrar(`<p>${t('m1.noBorres')}</p>`);
     } catch (e) {
       ultimaCarpeta = null; // NotFoundError: ya la ha borrado
       return empezar();
     }
-    mostrar(`<p>Para repetir, primero <b>borra tu carpeta</b>: clic derecho sobre ella → <b>Eliminar</b> (va a la papelera). Después pulsa <b>Otra vez</b>.<br>
-      <span class="muted">Pour recommencer, efface d’abord ton dossier (clic droit → Supprimer), puis clique sur Encore.</span></p>`);
+    mostrar(`<p>${t('m1.borraAntes')}</p>`);
   }
 
   inicio();

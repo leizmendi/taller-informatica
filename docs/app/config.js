@@ -5,3 +5,8 @@ export const SUPABASE_KEY = 'sb_publishable_ZXDj7QIJeCfAt-fW-lEHdA_WE5NyjvE';
 
 // Los alumnos escriben solo su usuario; por dentro es usuario@DOMINIO.
 export const DOMINIO_ALUMNOS = 'taller.local';
+
+// Idiomas por defecto (cada alumno puede cambiarlos). Códigos de idiomas/lista.js;
+// el secundario puede ser '-' (ninguno).
+export const IDIOMA_PRINCIPAL = 'es';
+export const IDIOMA_SECUNDARIO = 'fr';

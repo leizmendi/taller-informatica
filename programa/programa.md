@@ -79,7 +79,7 @@ En este bloque todos se ponen en el mismo punto de partida. Si la encuesta muest
 3. Traductor: traducir una frase del francés y escuchar cómo se pronuncia en castellano.
 4. Buscar un vídeo que enseñe a hacer algo que les guste y guardar el enlace en su carpeta.
 5. **Extra:** añadir marcadores (favoritos) y abrir una ventana de incógnito.
-6. **Pendiente de preparar:** crear `hola.html` con el Bloc de notas (con `<meta charset="utf-8">`, un título y una frase), guardarlo en la carpeta Web y abrirlo con doble clic: se abre en el navegador. Ojo con que el Bloc de notas no lo guarde como `hola.html.txt`.
+6. Una web por dentro (adelanto de las sesiones 11 y 12): escribir `hola.html` con el Bloc de notas, guardarlo en Web y abrirlo con doble clic (se abre en el navegador); verlo por dentro con "Abrir con → Bloc de notas", cambiarlo y recargar con F5. La app lo comprueba (misión 4).
 
 ## Bloque 2 – Comunicarse y protegerse (sesiones 4–6)
 
